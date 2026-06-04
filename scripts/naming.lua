@@ -1763,25 +1763,25 @@ namelib.MARKOV_DB =
       "Europa", "Asia", "Africa", "America", "Australis", "Antarctica", "Atlantica",
       "Occidens", "Orientalis", "Septentrio", "Meridies", "Mediterranea", "Transalpina",
       "Caucasia", "Sarmatia", "Scythia", "Hesperia", "Hyperborea", "Aethiopia",
-      
+
       -- Oceans & Seas
       "Atlanticus", "Pacificus", "Indicus", "Australis",
       "Borealis", "Arcticus", "Antarcticus",
       "Mediterraneum", "Aegaeum", "Adriaticum", "Tyrrhenum",
       "Ionium", "Balticum", "Caspium", "Rubrum", "Nigra",
       "Japonicum", "Philippinum", "Caribicum", "Nordicum",
-      
+
       -- Rivers & Lakes
       "Nilus", "Danubius", "Rhenus", "Tiberis", "Sequanus", "Amazonia Fluvius",
       "Mississippus", "Gangis", "Indus", "Volga", "Lacus Superior", "Lacus Victoria",
       "Lacus Baikal", "Lacus Titicaca", "Lacus Ontario", "Lacus Geneva",
-      
+
       -- Solar System Entities
       "Sol", "Luna", "Terra", "Mars", "Venus", "Mercurius", "Iuppiter", "Saturnus",
       "Uranus", "Neptunus", "Pluto", "Ceres", "Vesta", "Pallas", "Eris",
       "Titan", "Europa Luna", "Ganymedes", "Callisto", "Io", "Enceladus",
       "Rhea", "Dione", "Tethys", "Hyperion", "Phoebe", "Charon",
-      
+
       -- Synthetic Variants (Markov tempering)
       "Boreoatlanticus", "Indoatlanticus", "Transpacificus",
       "Austrinigrum", "Boreotyrrhenum", "Hyperionis",
@@ -1789,14 +1789,14 @@ namelib.MARKOV_DB =
       "Novalis", "Ultima", "Incognita", "Australis Obscura",
       "Lunaris", "Solaria", "Saturnalia", "Joviana",
       "Martiana", "Venerea", "Mercurialis",
-      
+
       -- Mythic/Poetic Expansions
       "Primordialis", "Caelestis", "Infernum",
       "Aeternum", "Stellatum", "Ignis", "Ventorum",
       "Tenebrarum", "Lucis", "Somniorum", "Novum",
       "Arcadia", "Eldoria", "Valeria",
       "Aurelia", "Obscuria", "Borealis Magna",
-      
+
       -- Extra synthetic fillers
       "Boreopacificus", "Austrinovus", "Transindicus",
       "Boreophilippinum", "Austricaribicum", "Hyperboreum",
@@ -1804,7 +1804,7 @@ namelib.MARKOV_DB =
       "Plutonia", "Eridania", "Cimmeria", "Tharsis",
       "Boreomagna", "Austrinova", "Transmarina",
       "Ultima Thule", "Arcana", "Mystica",
-      
+
       -- More expansions for density
       "Boreoatlanticus Magnus", "Australis Magnus",
       "Mediterraneum Novum", "Caspium Antiquum", "Rubrum Novum",
@@ -1812,12 +1812,12 @@ namelib.MARKOV_DB =
       "Nova Borealis", "Nova Australis", "Nova Orientalis",
       "Solaris Magna", "Lunaris Magna", "Joviana Magna",
       "Saturnalia Magna", "Venerea Magna", "Mercurialis Magna",
-      
+
       -- Synthetic planetary seas
       "Titanis", "Europae", "Ganymedis", "Callisti",
       "Ioensis", "Enceladi", "Rheae", "Dionis",
       "Tethyos", "Hyperionis", "Phoebis", "Charoni",
-      
+
       -- Closing fillers
       "Ultimus", "Novissimus", "Eternus",
       "Ultimum", "Novissimum", "Eternum",
@@ -1877,7 +1877,7 @@ function namelib.generate_unique_noun(mode)
 
   -- auto-fix short junk words
   local function auto_fix_words(name)
-    
+
     local function is_unpronounceable(word)
       local len = #word
       if len <= 1 then return false end
@@ -1892,7 +1892,7 @@ function namelib.generate_unique_noun(mode)
       -- no vowels OR extremely consonant-heavy
       return (vowels == 0) or (vowels / len < 0.25)
     end
-    
+
     local words = {}
     for w in name:lower():gmatch("%S+") do
       table.insert(words, w)
@@ -2236,8 +2236,10 @@ end
 
 
 function namelib.choose_one(DEF, max_len)
-  if PARAM.name_generator_mode and PARAM.name_generator_mode == "whole_only" then
-    return rand.key_by_probs(DEF.lexicon.s)
+  if PARAM.float_name_generator_mode and rand.odds(PARAM.float_name_generator_mode) then
+    if DEF.lexicon.s then
+      return rand.key_by_probs(DEF.lexicon.s)
+    end
   end
 
   local name, parts
@@ -2292,12 +2294,6 @@ end
 function namelib.generate(theme_name, count, max_len)
   local DEF = namelib.merge_theme(theme_name)
 
-  if theme_name ~= "BOSS"
-  and theme_name ~= "SUB_TITLE"
-  and PARAM.name_generator_mode and PARAM.name_generator_mode == "pattern_only" then
-    DEF.patterns["%s"] = 0
-  end
-
   local list = {}
 
   for i = 1, count do
@@ -2312,6 +2308,7 @@ function namelib.generate(theme_name, count, max_len)
 
   return list
 end
+
 
 function Naming_init(name_table)
   namelib.cache = {}

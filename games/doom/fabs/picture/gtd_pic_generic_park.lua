@@ -4,7 +4,7 @@ PREFABS.Pic_park_generic_1 =
   map = "MAP01",
 
   prob = 100 * 20,
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 

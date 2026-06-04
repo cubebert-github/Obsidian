@@ -216,29 +216,37 @@ function Quest_create_initial_quest(LEVEL)
       return room
     end
 
+    local max_room_size = table.best_t_by_key(LEVEL.rooms, "svolume").svolume
+
     -- score all rooms
     for _,R in pairs(LEVEL.rooms) do
       if R.is_start then
         R.is_start = false
       end
 
+      local cur_score = 0
       -- closer to a volume of indicated ideal_value means a better score
-      local ideal_value = rand.pick({24,32})
-      local cur_score = (1 - math.abs(ideal_value - R.svolume)) / 2
+      local ideal_value = rand.pick({32,48})
+      -- approach 0 for bad scores, otherwise approach 100 near ideal value
+
+      local v = R.svolume
+      -- controls how wide the curve is
+      -- sigma = (min - max) * curve_smoothness
+      local sigma = (0 - max_room_size) * 0.25
+      local diff = v - ideal_value
+      cur_score = math.exp(-(diff * diff) / (2 * sigma * sigma))
 
       -- should have at least one closet
       if R.closets and #R.closets >= 1 then
-        cur_score = cur_score + 10
+        cur_score = cur_score * 1.25
       end
 
       -- absolutely no rooms without more than 1 connection
       if #R.conns > 1 or (R.symmetry and #R.conns == 1) then
-        cur_score = cur_score / (#R.conns * 25)
-      elseif #R.conns == 1 then
-        cur_score = cur_score * 2
+        cur_score = cur_score * (1 / #R.conns)
       end
 
-      R.start_score = cur_score
+      R.start_score = math.round_to(cur_score,2)
 
       if cur_score > best_score then
         best_score = cur_score
@@ -290,6 +298,7 @@ function Quest_create_initial_quest(LEVEL)
     if secret_mode then
       -- no start ever at all
       if R.is_start then return -1 end
+      if R.is_exit then return -1 end
 
       -- leaf rooms only
       if R:total_conns() > 1 then return -1 end
@@ -3583,6 +3592,152 @@ end
 
 
 
+function Quest_trim_prefabs(LEVEL)
+  -- this is a copy of the style factor from prefabs
+  -- we'll use it to pretrim e.g. no need for stairs
+  -- if the map has no steepness, etc.
+  local function style_factor(def)
+    if not def.style then return 1 end
+
+    local style_tab = def.style
+
+    if type(style_tab) ~= "table" then
+      style_tab = { def.style }
+      def.style = style_tab
+    end
+
+    local factor = 1.0
+
+    for _,name in pairs(style_tab) do
+      if STYLE[name] == nil then
+        error("Unknown style name in prefab def: " .. tostring(name))
+      end
+
+      factor = factor * style_sel(name, 0, 0.28, 1.0, 3.5)
+    end
+
+    return factor
+  end
+
+  -- collect used wall groups, and we will trim the list further
+  local used_groups = {}
+  for _,T in pairs(LEVEL.preferred_wall_groups) do
+    for group,prob in pairs(T) do
+      used_groups[group] = 1
+    end
+  end
+
+  if LEVEL.outdoor_wall_group then
+    used_groups[LEVEL.outdoor_wall_group] = 1
+  end
+
+  -- not necessarily unused, but if the level has parks, this'll be
+  -- required
+  used_groups["natural_walls"] = 1
+  used_groups["marine_closet"] = 1
+
+  -- just because we have outdoors style does not mean
+  -- we actually have outdoor rooms
+  LEVEL.has_outdoors = nil
+
+  -- mark some initial stuff for removal
+  PARAM.fab_stats = {}
+  for bucket_name,buckets in pairs(LEVEL.PREFABS_BUCKET) do
+    PARAM.fab_stats[bucket_name] = 0
+    for name,def in pairs(buckets) do
+      if LEVEL.has_outdoor == true and def.env == "outdoor" or def.env == "park"
+      or def.neighbor == "outdoor" or def.neighbor == "park" then
+        def.dontcopy = true
+      end
+
+      if style_factor(def) == 0 then
+        def.dontcopy = true
+      end
+    end
+  end
+
+  -- create a fresh new table with only the still potentially usable prefabs
+  local rev_tab = {}
+  local pre_count = 0
+  for bucket_name,buckets in pairs(LEVEL.PREFABS_BUCKET) do
+    for name,def in pairs(buckets) do
+    pre_count = pre_count + 1
+
+      if not def.dontcopy then
+
+        -- if fab has no groupings of any kind OK
+        if not def.group then
+          if rev_tab[def.where .. "_" .. def.kind] then
+            rev_tab[def.where .. "_" .. def.kind][def.name] = def
+          else
+            rev_tab[def.where .. "_" .. def.kind] = {}
+            rev_tab[def.where .. "_" .. def.kind][def.name] = def
+          end
+
+        end
+
+        -- standard fabs reliant on wall_groups that are used in the level OK
+        if def.kind == "wall"
+        or def.kind == "decor"
+        or def.kind == "picture"
+        or def.kind == "item"
+        or def.kind == "joiner" then
+          if def.group and used_groups[def.group] then
+            if rev_tab[def.where .. "_" .. def.kind] then
+              rev_tab[def.where .. "_" .. def.kind][def.name] = def
+            else
+              rev_tab[def.where .. "_" .. def.kind] = {}
+              rev_tab[def.where .. "_" .. def.kind][def.name] = def
+            end
+
+          end
+        else
+          if rev_tab[def.where .. "_" .. def.kind] then
+            rev_tab[def.where .. "_" .. def.kind][def.name] = def
+          else
+            rev_tab[def.where .. "_" .. def.kind] = {}
+            rev_tab[def.where .. "_" .. def.kind][def.name] = def
+          end
+        end
+
+      end
+
+    end
+  end
+
+  if LEVEL.PREFABS_BUCKET["seeds_sec_quest"] then
+    rev_tab["seeds_sec_quest"] = {}
+
+    for _,def in pairs(LEVEL.PREFABS_BUCKET["seeds_sec_quest"]) do
+      rev_tab["seeds_sec_quest"][def.name] = def
+    end
+  end
+
+  LEVEL.PREFABS_BUCKET = table.copy(rev_tab)
+
+  local post_count = 0
+  local bucket_count = 0
+  for _,group in pairs(LEVEL.PREFABS_BUCKET) do
+    bucket_count = bucket_count + 1
+    for name,def in pairs(group) do
+      post_count = post_count + 1
+    end
+  end
+
+  gui.printf("Prefabs split into " .. bucket_count .. " buckets.\n")
+  gui.printf("Prefabs bucket trimmed: " .. pre_count .. " -> " .. post_count .. "\n")
+
+  for bucket_name,buckets in pairs(LEVEL.PREFABS_BUCKET) do
+    for _,def in pairs(buckets) do
+      PARAM.fab_stats[bucket_name] = PARAM.fab_stats[bucket_name] + 1
+    end
+  end
+
+  gui.debugf(table.tostr(PARAM.fab_stats,2) .. "\n")
+end
+
+
+
 function Quest_make_quests(LEVEL)
 
   gui.printf("\n--==| Make Quests |==--\n\n")
@@ -3608,6 +3763,8 @@ function Quest_make_quests(LEVEL)
   Quest_big_secrets(LEVEL)
 
   Quest_room_themes(LEVEL)
+
+  Quest_trim_prefabs(LEVEL)
 
   Quest_add_weapons(LEVEL)
 

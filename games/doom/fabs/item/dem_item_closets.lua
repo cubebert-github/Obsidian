@@ -747,10 +747,8 @@ PREFABS.Item_dem_shrine_closetN =
   template = "Item_dem_shrine_closetC",
 
   map = "MAP19",
-  env = "nature",
+  env = "!building",
   group = "natural_walls",
-
-
 }
 
 
@@ -767,7 +765,7 @@ PREFABS.Item_dem_cabin_closet =
 
   prob   = 100,
 
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -835,7 +833,7 @@ PREFABS.Item_dem_campsiteN_closet =
 {
   template  = "Item_dem_campsiteC_closet",
   map    = "MAP22",
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 }
@@ -908,7 +906,7 @@ PREFABS.Item_dem_bunker_closetN =
   template = "Item_dem_bunker_closetP",
 
   map = "MAP26",
-  env = "nature",
+  env = "!building",
   group = "natural_walls",
 }
 

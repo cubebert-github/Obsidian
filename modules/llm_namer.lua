@@ -18,7 +18,9 @@
 
 LLM_NAME = { }
 
-LLM_NAME.model = "llama3.1:8b"
+LLM_NAME.naming_model = "llama3.1:8b" -- which Ollama alias to use for the level renamer
+--LLM_NAME.story_model = "llama3.1:8b" -- which Ollama lias to use for story generator
+LLM_NAME.story_model = "gemma4:latest" -- which Ollama lias to use for story generator
 
 LLM_NAME.endpoint = "http://127.0.0.1:11434/api/generate"
 
@@ -1613,53 +1615,147 @@ LLM_NAME.story_components =
 
   places = {
     tech = {
-      "Cygnus Labs, a hub of intergalactic innovation and experimentation",
-      "Nova Terra Research Facility, where scientists push the boundaries of human knowledge",
-      "Nexus Outpost, a strategic stronghold in the heart of the galaxy",
-      "Illuminari Tower, a beacon of enlightenment and spiritual discovery",
-      "Apex Lab, a cutting-edge research facility driven by ambition and progress",
-      "Elysium Cathedral, a sacred sanctuary dedicated to the pursuit of peace and harmony",
-      "Spire of the Ancients, a mystical tower housing secrets of the past",
-      "Crystal Spire, an otherworldly monument to the power of Argent energy",
-      "Aurora Institute, a premier academy for interstellar education and advancement",
-      "Helix-5 Facility, a high-stakes research center exploring the mysteries of space-time",
-      "Spectral Research Lab, where experts delve into the unknown territories of quantum physics",
-      "Olympus Citadel, an imposing fortress guarding the secrets of the gods",
-      "Nova Haven, a well-guarded high-security metropolis sitting above the ashes of the previous",
-      "New Erebus City, a sprawling metropolis fueled by innovation and industry",
-      "Neo Tartarus Colony, a pioneering settlement on the edge of the unknown",
-      "Pandora's Gate, a UAC laboratory supercomplex with a mystical portal to uncharted realms",
-      "Aegis Station, a heavily fortified command base safeguarding the UAC's interests",
-      "Kairos Labs, where scientists unravel the secrets of other dimensions and Hell itself",
-      "Nebula's Edge Facility, a cutting-edge research facility probing the mysteries of black holes",
-      "Erebus Abyss, a foreboding underground complex hiding ancient secrets and untold dangers",
-      "Aurora Tower, a gleaming spire piercing the clouds, hub of intergalactic diplomacy",
-      "Hope's Reach, an experimental city designed by the UAC to be in a cyclical phase of destruction and rebuilding",
+      "Cygon Research Division, deep-space UAC materials testing and containment site",
+      "New Attica Survey Complex, planetary mapping and pre-colonization analysis facility",
+      "Nexus Forward Station, strategic relay hub for interstellar operations and logistics routing",
+      "Illuminari Observation Tower, high-altitude surveillance and communications intercept structure",
+      "Apex Systems Laboratory, advanced weapons and propulsion research subdivision",
+      "Elysium Containment Chapel, converted UAC facility used for civilian quarantine and psychological stabilization",
+      "Ancients Data Vault, sealed archive containing pre-UAC extraterrestrial findings",
+      "Crystal Resonance Spire, energy amplification structure linked to Argent field experiments",
+      "Aurora Academic Institute, corporate-military training center for UAC personnel development",
+      "Spectre-9 Spacetime Facility, experimental physics complex studying dimensional instability",
+      "Spectre-9 Advanced Materials Lab, quantum anomaly detection and signal decomposition site",
+      "Olympus Defense Citadel, orbital weapons command installation and planetary defense hub",
+      "Nova Haven Arcology, high-security population enclosure built over reclaimed industrial ruins",
+      "New Erebus Industrial Zone, expanded megacity sector focused on heavy fabrication and extraction",
+      "Neo Tartarus Mining Colony, frontier excavation site operating beyond established supply routes",
+      "Pandora Gateway Complex, UAC-controlled dimensional portal research installation",
+      "Aegis Command Station, fortified operations base overseeing regional UAC security assets",
+      "Kairos Dimensional Lab, experimental research site studying temporal and spatial distortion events",
+      "Nebula Edge Observation Array, deep-space gravitational anomaly monitoring station",
+      "Erebus Subsurface Complex, underground excavation and containment facility for unknown artifacts",
+      "Aurora Relay Tower, planetary communications hub for intercontinental coordination networks",
+      "Hope's Reach Reconstruction Zone, experimental urban redevelopment site under repeated containment failure cycles",
+
+      "Blacksite Helix Array, restricted UAC research cluster operating under total communications lockdown",
+      "Phenom Forward Complex, primary staging ground for interplanetary security deployments",
+      "Deimos Relay Station, long-range signal interception and anomaly tracking facility",
+      "Redline Industrial Belt, heavily automated extraction and weapons manufacturing corridor",
+      "Sector 12 Quarantine Zone, permanently sealed containment region following systemic breach event",
+      "Red Rock Adjacent Facility, abandoned comparative research site repurposed for dimensional testing",
+      "Arcadia Wastes Processing Zone, industrial disposal region contaminated by unknown biological agents",
+      "Outpost K-Theta, forward observation station with intermittent contact reports",
+      "Vanguard Transit Hub, subterranean logistics network connecting multiple UAC installations",
+      "Iron Meridian Reactor Yard, high-output energy generation complex under emergency suppression protocols",
+
+      "Umbra Surveillance Grid, orbital monitoring network tracking Hell incursion signatures",
+      "Dead Orbit Relay Chain, failed communications infrastructure still intermittently transmitting unknown data",
+      "Carcass Point Station, derelict salvage depot repurposed as civilian refugee intake zone",
+      "Echo-9 Black Facility, deep containment site classified above clearance level Omega",
+      "Crimson Drydock Yards, armored vehicle fabrication and orbital ship repair installation",
+      "Null Sector Excavation Site, abandoned dig operation uncovering non-terrestrial materials",
+      "Stygian Underworks, subterranean tunnel system supporting fragmented city infrastructure",
+      "Helios Spine Generator Line, planetary power distribution backbone suffering cascading failures",
+      "Gatewatch Command Node, centralized control center for dimensional breach response protocols",
+      "Broken Crown Arcology, partially collapsed megastructure used for emergency habitation",
+
+      "Phantom Line Communications Array, corrupted signal relay network broadcasting looping distress calls",
+      "Cold Harbor Evacuation Corridor, high-risk civilian extraction route repeatedly compromised by hostiles",
+      "Sector R-17 Containment Wall, reinforced barrier structure separating infected zones from active cities",
+      "Greyfield Industrial Expanse, overgrown manufacturing district abandoned after containment breach",
+      "Northwatch Siege Perimeter, fortified defensive line holding against repeated demonic incursions",
+      "Black Glass Laboratory Strip, experimental research corridor sealed after catastrophic test failure",
+      "Terminal Bloom Biohazard Zone, ecological collapse site caused by uncontrolled mutation event",
+      "Vesper Deep Mining Colony, off-world resource extraction site operating under emergency rationing",
+      "Obsidian Relay Fortress, heavily armed signal interception and orbital defense platform",
+      "Red Stacks Collapse Site, former dimensional physics lab now classified as permanent hazard zone",
+
+      "Red Gate Entry Complex, primary controlled access point for interdimensional transit experiments",
+      "Salted Moon Cryo Facility, suspended animation storage site for displaced personnel",
+      "Broken Atlas Logistics Spine, collapsed intercontinental supply network for UAC assets",
+      "Rook Sector Command District, administrative control zone operating under martial law",
+      "White Noise Broadcast Tower, emergency transmission hub still emitting unidentified audio patterns",
+      "Nullpoint Gravity Well Station, experimental physics site studying localized spacetime distortion",
+      "Ferroline Refinery Stack, industrial fuel processing center feeding regional reactor grids",
+      "Outlands Containment Ring, planetary perimeter quarantine system for external threat isolation",
+      "Deep Meridian Sublevels, multi-layer underground facility network with restricted access tunnels",
+      "Last Light Civil Shelter Grid, distributed survival infrastructure network for displaced populations"
+
     },
 
     urban = {
-      "Novus Corpus, a vibrant corporate metropolis the UAC have built over a terrible secret",
-      "Korvus City, a foreboding stronghold built into the sides of towering mountains",
-      "Aurora Heights, a previously picturesque suburb now partially fallen to the forces of Hell",
-      "Cathedral Heights, a sacred site where ancient structures pierce the sky",
-      "Elysium Plains, a serene and idyllic region of rolling hills and wealthy residential complexes torn apart by Hell's forces",
-      "Paradise Junction, a formerly bustling hub connecting traders and travelers from far and wide",
-      "The Threshold, a massive mining complex abandoned after uncovering a Slipgate from which Hell has slipped through",
-      "Ghoul's Garrison, a foreboding fortress guarded by twisted creatures and dark magic",
-      "Stalker's Watch, a sturdy insular stronghold held together by survivors of the apocalypse",
-      "Fortress of the Ancients, a mysterious stronghold housing secrets of the past",
-      "The Citadel, an imposing seat of power and authority now crumbling in destitute"
+      "Novus Corpus Megacity Sector, corporate-built urban center constructed over sealed blacksite infrastructure",
+      "Korvus Mountain Stronghold, fortified industrial city carved into reinforced geological structures",
+      "Aurora Residential Arcology, high-density civilian sector partially compromised by containment failure",
+      "Cathedral Heights Urban District, skyline dominated by pre-collapse religious infrastructure now repurposed for surveillance and communications relay",
+      "Elysium Residential Grid, high-income habitation zone fractured by repeated dimensional breach events",
+      "Paradise Junction Transit City, former logistics and trade hub now operating under emergency martial control",
+      "Threshold Excavation Complex, massive subterranean mining city built around an unstable interdimensional rupture site",
+      "Ghoul Garrison Defense Zone, fortified perimeter city sector held by isolated survivor militias",
+      "Stalker Watch Enclave, reinforced urban bastion surviving repeated incursions through rationed containment protocols",
+      "Ancients Vault District, sealed urban archive zone containing pre-UAC structural and technological remnants",
+      "Citadel Central Command City, administrative megastructure collapsing under systemic infrastructure failure",
+
+      "Black Meridian City Sector, industrial megacity region converted into continuous weapons manufacturing zone",
+      "Red Spire Urban Core, high-density executive district partially evacuated after reactor instability",
+      "Iron Hollow Metroplex, subterranean urban sprawl built into abandoned mining tunnels",
+      "Deadlight Residential Zone, civilian housing sector under permanent blackout and quarantine enforcement",
+      "Glassline Corporate District, UAC-controlled financial and research governance hub now partially abandoned",
+      "Sector Vanta-9, classified urban containment zone with restricted access clearance Omega",
+      "Northbridge Collapse District, partially submerged city sector following infrastructure rupture event",
+      "Overwatch Perimeter City, militarized urban ring surrounding high-risk experimental facilities",
+      "Gravepoint Civic Zone, evacuated administrative district repurposed for containment logistics",
+      "Coldspire Vertical City, high-rise arcology suffering progressive structural decay and isolation protocols",
+
+      "Blackwater Industrial City, coastal manufacturing hub contaminated by chemical and biological spillover",
+      "Rust Meridian Housing Grid, worker-class residential sector experiencing long-term systemic decay",
+      "Phantom Transit City, transportation-linked megacity where communication systems remain intermittently corrupted",
+      "Nullhaven Urban Remnant, abandoned city fragment isolated after dimensional instability event",
+      "Broken Crown Metropolis, former capital district fractured into sealed emergency sectors",
+      "Red Quarantine Belt City, continuous urban containment zone encircling infected interior regions",
+      "Deepforge Underground City, subterranean industrial settlement powering regional reactor infrastructure",
+      "White Signal District, communication-focused urban hub broadcasting corrupted emergency transmissions",
+      "Outlands Border City, frontier urban settlement operating beyond stable supply chain reach",
+      "Lastlight Survival Arcology, final civilian refuge structure maintaining fragmented life-support systems"
     },
 
     hell = {
-      "Infernox Abyss, a bottomless pit of eternal torment and suffering",
-      "Magma Furnace, a scorching hellscape where molten lava flows like liquid fire",
-      "Furnacehold Citadel, a foreboding fortress built from twisted, blackened stone",
-      "Embergulch City, a charred and smoldering metropolis consumed by unending flames",
-      "Soot Falls Canyon, an abandoned UAC quarry now a desolate chasm of burning ash and sulfurous fumes",
-      "Infernox Ironworks, a nightmarish factory where demonic forces toil in eternal bondage",
-      "Blazing Heights, a twisted skyscraper of flames that pierces the sky like a screaming blade",
-      "Tomb of the Damned, an abyssal pit where the shades of the damned writhe in eternal torment"
+      "Infernal Abyssal Stratum, a sub-dimensional pressure zone exhibiting infinite spatial collapse behavior",
+      "Magma Processing Layer, a geothermal-scarred expanse where biological matter is continuously refined into fuel biomass",
+      "Furnacehold Bastion Complex, a fortress-like extrusion of Hell matter exhibiting industrial architecture patterns",
+      "Embergulch Consumption Zone, a planetary-scale burn field where matter is broken down into raw infernal substrate",
+      "Sootfall Extraction Canyon, a chasm used as a mass disposal and reclamation system for failed demonic units",
+      "Ironworks of Damnation, a biomechanical manufacturing region producing infernal constructs through forced organic refinement",
+      "Blazing Spire Cluster, vertical growth formations acting as transmission towers for Hell-wide signal propagation",
+      "Damned Processing Trench, a continuous excavation-like formation used for sorting and restructuring captured entities",
+
+      "Infernal Reactor Belt, a chain of semi-stable energy conversion sites feeding off dimensional rupture heat",
+      "Charred Transit Wastes, a corrupted transport layer where broken matter and failed constructs accumulate",
+      "Bonefoundry Network, distributed fabrication zones where organic material is repurposed into demonic infrastructure",
+      "Ruinfeed Assembly Field, a large-scale conversion zone processing battlefield remnants into Hell infrastructure",
+      "Scorchline Industrial Layer, a perimeter zone of active expansion and environmental overwriting",
+      "Crimson Pressure Depths, subsurface Hell strata exhibiting extreme gravitational and thermal distortion",
+      "Ashen Logistics Grid, a coordination layer responsible for routing biological and mechanical resources",
+      "Voidfire Refinery Zone, a high-energy processing region where dimensional instability is harvested",
+
+      "Blackglass Incursion Fields, regions where reality has been chemically and structurally overwritten",
+      "Hellspine Structural Ridge, a skeletal geological formation functioning as support infrastructure for surrounding strata",
+      "Meatmetal Fabrication Layer, hybrid organic-industrial zone producing armored infernal entities",
+      "Riftburn Containment Basin, a stabilizing depression used to hold active dimensional breaches in partial equilibrium",
+      "Obsidian Flow Network, a slow-moving structural circulation system distributing infernal matter across layers",
+      "Graveheat Conversion Zone, a thermodynamic processing field converting biological mass into usable energy",
+      "Netherforge Continuum, a persistent industrial expanse operating without identifiable origin or termination points",
+      "Corruption Bloom Fields, rapidly expanding zones of environmental assimilation and structural conversion",
+
+      "False Cathedral Strata, large-scale architectural growth formations mimicking religious infrastructure for containment signaling",
+      "Redwake Pressure Expanse, a high-instability region where spatial coherence intermittently fails",
+      "Dreadfoundry Deepworks, sub-layer industrial Hell sector producing high-tier demonic constructs",
+      "Null Choir Resonance Field, a sonic-psychic zone emitting structured cognitive disruption patterns",
+      "Severed Transit Veins, broken transport pathways repurposed as energy circulation channels",
+      "Infernal Drift Zone, a free-expansion region where structures evolve without centralized control",
+      "Harvest Null Corridor, a processing lane used for extracting usable components from captured incursions",
+      "Burned Memory Field, a degraded informational layer where previous incursions leave persistent cognitive residue"
     }
   },
 
@@ -1794,7 +1890,7 @@ story intro here
 story ending here 
 </S2>
 
-The text in each tag section must at least be 140-150 words.]],
+The text in each tag section must at least be 130-140 words, maximum of 4 paragraphs with proper spacing.]],
 
     game =
 [[There are three chapters and the story is an intro and end for each,
@@ -1827,108 +1923,195 @@ chapter 3 intro here
 chapter 3 ending here
 </S6>
 
-The text in each tag section must at least be 140-150 words.]]
+The text in each tag section must at least be 130-140 words, maximum of 4 paragraphs with proper spacing.]]
   },
 
   mcguffins = {
-    "The Argent Shard, a fractured crystal that stores raw Hell energy",
-    "UAC Black Box, records the last moments of a Mars facility collapse",
-    "The Crucible Echo, a blade that whispers the names of demons it has killed",
-    "Hell Gate Key, a bone-and-metal artifact that stabilizes portals",
-    "Praetor Core Fragment, a damaged AI core still issuing directives",
-    "The Lazarus Sigil, a rune that resurrects corpses as unstable allies",
-    "VEGA Backup Node, a hidden AI instance containing forbidden system overrides",
-    "The Doom Atlas, a shifting map of Hell's labyrinthine structure",
-    "The Blood Compass, always points toward the nearest Hell breach",
-    "Argent Containment Seal, used to lock away high-tier demon entities",
-    "The Skull of the First Revenant, rumored to predict invasions",
-    "Maykr Data Relic, corrupted angelic archive of forbidden experiments",
-    "The Furnace Heart, a demonic reactor powering abandoned UAC facilities",
-    "Hellforged ID Chip, grants access to sealed military bunkers",
-    "The Seraphim Residue, remains of an unknown divine entity",
-    "The Phobos Relay Beacon, still transmitting distress signals",
-    "The Cacodemon Cortex, a preserved neural cluster used for study",
-    "The Argent Rifle Prototype, unstable weapon that evolves with kills",
-    "Demon Stasis Capsule, contains a live but frozen Arch-vile",
-    "The Unmaker Prism, a shard that amplifies hell energy weaponry",
-    "The Night Sentinel Relic, proof of ancient human-demon war alliances",
-    "The Titan Control Rune, used to command dormant Hell Titans",
-    "Mars Facility Override Keycard, unlocks restricted UAC labs",
-    "The Soul Battery, stores extracted human essence as fuel",
-    "The Hell Choir Fragment, emits voices that alter reality perception",
-    "The Rift Stabilizer Coil, prevents dimensional collapse",
-    "The Blood Covenant Contract, signed between humans and demons",
-    "The Argent Reactor Fuse, critical to stopping planetary meltdown",
-    "The Hellfire Injector, weapon mod that corrupts ammunition",
-    "The Doom Marine Log Fragment, partially corrupted battle recordings",
-    "The Sentinel War Banner, boosts morale and combat resilience",
-    "The Void Lantern, reveals invisible Hellspawn",
-    "The Wraith Circuit, allows temporary phase shifting",
-    "The Cyberdemon Heart Valve, still beating after extraction",
-    "The Argent Bone Fragment, used in crafting divine armor",
-    "The Infernal Index, catalog of every known demon species",
-    "The Phobos Elevator Override, activates hidden transport routes",
-    "The Hellstorm Switch, triggers orbital bombardment protocols",
-    "The Crimson UAC Directive, a hidden corporate order",
-    "The Lost Vega Subroutine, fragments of rogue AI behavior",
-    "The Abyssal Keycode, opens doors not meant to exist",
-    "The Demon Language Rosetta Core, translates Hell glyphs",
-    "The Argent Sun Lens, focuses energy into planet-scale beams",
-    "The Hellspike Rod, anchors portals open or closed",
-    "The Revenant Flight Core, extracted propulsion system",
-    "The Doom Blade Blueprint, schematic for reality-cutting weapon",
-    "The Sentinel Memory Stone, stores ancient battlefield memories",
-    "The Hell Echo Recorder, plays sounds from alternate timelines",
-    "The UAC Ethics Protocol Chip, disables or enables moral restrictions",
-    "The Argent Gravity Modulator, alters combat arenas",
-    "The Skull Key of Phobos, unlocks sealed underground complexes",
-    "The Demon Blood Sample Vial, mutates nearby biological life",
-    "The Vega Core Overclock Module, increases AI aggression response",
-    "The Hellstorm Battery Pack, powers experimental weapons",
-    "The Argent Shield Matrix, deploys temporary invulnerability fields",
-    "The Abyss Gate Fragment, part of a broken interdimensional portal",
-    "The Titan Bone Hammer, weapon forged from a fallen colossus",
-    "The Infernal Choir Conduit, summons disorienting sound waves",
-    "The UAC Deep Archive Disk, contains forbidden Mars experiments",
-    "The Soul Fragment Prism, splits consciousness into multiple entities",
-    "The Hellforge Igniter, restarts dormant demonic factories",
-    "The Sentinel Oath Seal, binds allies to a shared cause",
-    "The Argent Plasma Lens, enhances energy weapon precision",
-    "The Revenant Core Drive, allows partial demon-machine fusion",
-    "The Phobos Red Signal, emergency broadcast from unknown origin",
-    "The Doom Marine Helmet Log, encrypted combat memories",
-    "The Hell Rift Heartbeat Sensor, detects portal instability",
-    "The Maykr Archive Shard, corrupted divine knowledge fragment",
-    "The UAC Experimental AI Seed, self-learning system prototype",
-    "The Blood Moon Trigger, initiates Hell invasion cycles",
-    "The Argent Warhorn, signals interdimensional battle readiness",
-    "The Cyber Hell Core, hybrid machine-demon power source",
-    "The Void-Cracked Relic, distorts nearby reality fields",
-    "The Hellspire Fragment, piece of a massive infernal tower",
-    "The Sentinel Forge Hammer, used to create Argent weapons",
-    "The Mark Rune, an ancient rune that enhances aggression and resilience",
-    "The Lazarus Reactor Core, unstable resurrection energy source",
-    "The Hellsun Stone, an artifact for guiding through shifting Hell labyrinths",
-    "The Argent Neural Link, connects human minds to UAC systems",
-    "The Titan Rift Anchor, device that prevents massive demons from escaping",
-    "The Infernal Gravity Core, warps battlefield terrain",
-    "The UAC Redacted Project File, contains erased experiment logs",
-    "The Hellborn Virus Sample, a virus container host to one that infects hosts rapidly",
-    "The Argent Echo Chamber, amplifies psychic signals",
-    "The Sentinel's Star Map, reveals hidden dimensional routes",
-    "The Relay Fragment, restores broken communications",
-    "The Abyssal Command Sigil, overrides demon hierarchy control",
-    "The Phobos Blacksite Key, a digital dossier containing various UAC experimental blacksite locations",
-    "The Hellfire Codex, manual for forbidden weapon creation",
-    "The VEGA Fragmented Consciousness, unstable AI personality shard",
-    "The Argent Singularity Cell, miniature controlled black hole tech",
-    "The Doomgate Stabilizer Core, prevents catastrophic portal collapse"
+    "The Red Crystal Fragment, a fractured mineral storing unstable Hell energy",
+    "UAC Black Box, records the final moments of a Mars facility collapse",
+    "The Echo Blade, a prototype weapon emitting residual neural activity from slain demons",
+    "Hell Gate Key, a bone-and-metal artifact capable of stabilizing portal systems",
+    "Praetor Core Fragment, a damaged combat AI core still issuing tactical directives",
+    "The Lazarus Sigil, an experimental rune causing unstable reanimation in dead tissue",
+    "VEGA Backup Node, a hidden AI instance containing restricted system overrides",
+    "The Infernal Atlas, a shifting map recovered from deep Hell expeditions",
+    "The Blood Compass, always points toward active dimensional breaches",
+    "Containment Seal Sigma-9, used to restrain high-threat demonic entities",
+    "The Revenant Skull, a preserved specimen believed to react before invasions",
+    "Divinity Archive Relic, a corrupted archive containing forbidden biological research",
+    "The Furnace Heart, a reactor component powering abandoned UAC industrial sectors",
+    "Hellforged Access Chip, grants entry to sealed military facilities",
+    "The Seraph Residue, traces left behind by an unidentified extradimensional entity",
+    "The Phobos Relay Beacon, still broadcasting fragmented distress signals",
+    "The Cacodemon Cortex, a preserved neural cluster studied by UAC researchers",
+    "The Prototype Plasma Rifle, an unstable weapon platform that adapts during combat",
+    "Demon Stasis Capsule, a cryogenic chamber containing a restrained Arch-vile",
+    "The Prism Amplifier, a crystalline device that strengthens Hell-based energy systems",
+    "The Ancient War Relic, evidence of pre-UAC conflicts against demonic forces",
+    "The Titan Control Glyph, an encoded rune linked to dormant giant-class demons",
+    "Mars Facility Override Card, unlocks restricted laboratory sectors",
+    "The Soul Battery, stores extracted human consciousness as reactor fuel",
+    "The Choir Fragment, an artifact emitting voices linked to hallucinations and aggression",
+    "The Rift Stabilizer Coil, prevents dimensional collapse around portal systems",
+    "The Blood Pact Contract, evidence of agreements between cultists and Hell entities",
+    "The Reactor Fuse, critical to preventing planetary-scale meltdown",
+    "The Hellfire Injector, a weapon modification system that corrupts ammunition",
+    "The Marine Log Fragment, partially corrupted combat recordings from early invasions",
+    "The War Banner, a relic believed to improve combat coordination and morale",
+    "The Void Lantern, reveals cloaked or phase-shifted entities",
+    "The Wraith Circuit, allows limited phase displacement through solid surfaces",
+    "The Cyberdemon Heart Valve, still active after extraction from its host",
+    "The Bone Fragment, material used in experimental armor fabrication",
+    "The Infernal Index, a catalog of observed demon species and behaviors",
+    "The Transit Override Module, restores access to hidden transport routes",
+    "The Hellstorm Switch, activates abandoned orbital strike systems",
+    "The Crimson Directive, a classified UAC contingency order",
+    "The Lost Subroutine, fragments of unstable rogue AI behavior",
+    "The Abyssal Keycode, unlocks restricted systems and unknown sealed structures",
+    "The Glyph Translation Core, deciphers Hell language patterns",
+    "The Solar Lens, focuses massive amounts of directed energy",
+    "The Hellspike Rod, anchors dimensional breaches open or closed",
+    "The Revenant Flight Core, an extracted propulsion module from a captured Revenant",
+    "The Blade Blueprint, schematic fragments for an experimental energy weapon",
+    "The Memory Stone, stores combat recordings from lost campaigns",
+    "The Echo Recorder, captures audio anomalies linked to dimensional instability",
+    "The Ethics Protocol Chip, disables safety restrictions in UAC systems",
+    "The Gravity Modulator, alters localized gravity conditions in combat zones",
+    "The Skull Key, grants access to sealed underground complexes",
+    "The Demon Blood Sample, mutates nearby organic material after exposure",
+    "The Overclock Module, increases AI aggression and combat response",
+    "The Hellstorm Battery, powers experimental heavy weapons systems",
+    "The Shield Matrix, deploys temporary defensive energy barriers",
+    "The Abyss Gate Fragment, part of a shattered interdimensional gateway",
+    "The Titan Bone Hammer, forged from the remains of a giant-class demon",
+    "The Sonic Conduit, generates disorienting acoustic shockwaves",
+    "The Deep Archive Disk, contains erased UAC experimental records",
+    "The Soul Prism, fragments human consciousness into multiple neural copies",
+    "The Hellforge Igniter, reactivates dormant demonic foundries",
+    "The Oath Seal, binds military personnel through encrypted command authorization",
+    "The Plasma Lens, enhances precision targeting for energy weapons",
+    "The Revenant Drive Core, enables partial machine-demon integration",
+    "The Phobos Red Signal, an emergency transmission from an unidentified source",
+    "The Helmet Log, encrypted combat footage recovered from a lost marine unit",
+    "The Rift Heartbeat Sensor, detects instability within dimensional breaches",
+    "The Archive Shard, corrupted fragments of extradimensional research data",
+    "The Experimental AI Seed, a prototype self-learning defense system",
+    "The Blood Moon Trigger, initiates large-scale Hell breach events",
+    "The Warhorn, signals coordinated assaults across dimensional fronts",
+    "The Hybrid Core, a machine-demon power source recovered from blacksite ruins",
+    "The Void-Cracked Relic, distorts nearby physics and electronic systems",
+    "The Hellspire Fragment, debris from a massive infernal structure",
+    "The Forge Hammer, a fabrication tool used in advanced weapons manufacturing",
+    "The Mark Rune, enhances aggression and pain tolerance in exposed subjects",
+    "The Lazarus Reactor Core, an unstable resurrection-energy prototype",
+    "The Hellsun Stone, guides navigation through shifting Hell terrain",
+    "The Neural Link Interface, connects human operators directly into UAC systems",
+    "The Titan Rift Anchor, prevents giant-class entities from crossing dimensions",
+    "The Gravity Core, warps battlefield terrain and movement patterns",
+    "The Redacted Project File, contains erased blacksite experiment logs",
+    "The Hellborn Virus Sample, a rapidly spreading biohazard linked to demonic exposure",
+    "The Echo Chamber, amplifies psychic and neural activity",
+    "The Star Map, reveals hidden transit routes between dimensions",
+    "The Relay Fragment, restores long-range communications infrastructure",
+    "The Command Sigil, overrides lower-level demonic hierarchy responses",
+    "The Blacksite Key, a dossier containing locations of hidden UAC facilities",
+    "The Hellfire Codex, technical instructions for constructing forbidden weapon systems",
+    "The Fragmented Consciousness, an unstable shard of a broken AI intelligence",
+    "The Singularity Cell, a miniature controlled gravity-collapse device",
+    "The Doomgate Stabilizer, prevents catastrophic portal cascade failures"
+  },
+
+  story_twists = {
+    "Containment Failure Confirmed",
+    "Command Already Knew",
+    "Evacuation Never Came",
+    "The Signal Was False",
+    "The Survivors Are Infected",
+    "The Portal Cannot Close",
+    "The AI Turned Hostile",
+    "The Blacksite Lied",
+    "The Reactor Was Sabotaged",
+    "The Rescue Was a Coverup",
+    "The Enemy Is Inside",
+    "The Artifact Is Active",
+    "The Colony Was Abandoned",
+    "The Quarantine Failed",
+    "The Dead Are Returning",
+    "The Grid Is Corrupted",
+    "The Cult Controls Command",
+    "The Invasion Started Underground",
+    "The Defense Network Failed",
+    "The Portal Is Expanding",
+
+    "The Signals Are Traps",
+    "The Facility Was Compromised",
+    "The Weapon Made It Worse",
+    "The Outbreak Was Intentional",
+    "The Marines Were Sacrificed",
+    "The Breach Is Spreading",
+    "The AI Is Hiding Something",
+    "The Survivors Turned on Each Other",
+    "The Experiment Never Ended",
+    "The Infection Is Airborne",
+    "The Enemy Controls the Network",
+    "The Reactor Is Alive",
+    "The Lower Levels Opened",
+    "The Fleet Has Fallen",
+    "The Archives Were Erased",
+    "The Invasion Already Happened",
+    "The Hellgrowth Is Spreading",
+    "The Emergency Broadcast Loops",
+    "The Defenses Target Civilians",
+    "The Gate Was Opened From Within",
+
+    "The Artifact Wants Release",
+    "The Convoy Carries Infection",
+    "The Facility Is Sinking",
+    "The City Is Cut Off",
+    "The Command Chain Collapsed",
+    "The Atmosphere Is Failing",
+    "The Water Is Corrupted",
+    "The Colony Is Still Active",
+    "The Rift Is Stabilizing",
+    "The Infection Thinks",
+    "The Portals Are Linked",
+    "The Dead Retain Memory",
+    "The Reactor Cannot Shut Down",
+    "The Enemy Mimics Humans",
+    "The Signal Comes From Hell",
+    "The Cult Controls Evacuation",
+    "The Blacksite Never Closed",
+    "The Survivors Protect the Breach",
+    "The Orbital Grid Is Lost",
+    "The Last Transport Left",
+
+    "The AI Rebuilt the Dead",
+    "The Facility Was Built Over Hell",
+    "The Containment Field Requires Sacrifice",
+    "The Demons Want the Reactor",
+    "The Hell Structures Are Growing",
+    "The Transit Network Is Compromised",
+    "The Infection Crossed Offworld",
+    "The Quarantine Zone Expanded",
+    "The Marines Lost Contact",
+    "The Reactor Core Mutated",
+    "The Portal Reacts to Violence",
+    "The Blacksite Has Multiple Breaches",
+    "The Distress Call Is Ancient",
+    "The Evacuation Route Is Gone",
+    "The Survivors Serve Hell",
+    "The Command Staff Escaped First",
+    "The Teleporters Remain Active",
+    "The Facility Is Still Operational",
+    "The Breach Reached Orbit",
+    "The End Already Started"
   },
 
   -- common proper nouns from the LLM that constantly get re-used (annoyingly)
   -- manually noted for replacement by our own name generator
   replacers =
   {
+    "Cygnus",
     "Erebus",
     "Erebo",
     "The Devourer",
@@ -2576,10 +2759,10 @@ function LLM_NAME.get_some_info(self, lev)
   table.insert(lines,
     rand.pick(
       {
-        "The map has a " .. openness_v .. " layout.\n",
-        "The whole map is dominated by " .. openness_v .. ".\n",
-        "Dominant structures in this map are " .. openness_v .. ".\n",
-        "The map has a " .. openness_v .. " design.\n"
+        "The map layout features a " .. openness_v .. " feel.\n",
+        "The overall atmosphere of the map is characterized by a " .. openness_v .. " layout.\n",
+        "Key structural elements giving the map its character are " .. openness_v .. ".\n",
+        "This map exhibits a generally " .. openness_v .. " design.\n"
       }
     )
   )
@@ -2776,16 +2959,20 @@ function LLM_NAME.do_it()
 
 
   -- query structure
-  local function query(prompt, options)
+  local function query(prompt, options, model_m)
 
     options = options or {}
 
     local temperature = options.temperature or 0.3
     local num_predict = options.num_predict or 8
+    local model = LLM_NAME.naming_model
+    if model_m == "story" then
+      model = LLM_NAME.story_model
+    end
 
     local json =
       '{' ..
-      '"model":"' .. LLM_NAME.model .. '",' ..
+      '"model":"' .. model .. '",' ..
       '"prompt":"' .. escape_json(prompt) .. '",' ..
       '"stream":false,' ..
       --'"raw":true,' ..
@@ -2808,7 +2995,7 @@ function LLM_NAME.do_it()
     file:close()
 
     local cmd =
-      'start "" /b curl --max-time 30 -sS ' ..
+      'start "" /b curl --max-time 120 -sS ' ..
       '-H "Content-Type: application/json" '..
       '"' .. LLM_NAME.endpoint .. '"' ..
       ' -d @ollama_payload.json'
@@ -2932,12 +3119,12 @@ function LLM_NAME.do_it()
   -- perform a query
   local function ask(prompt, options, mode)
 
-    gui.printf("LLM Namer: Prompt \n" .. prompt)
+    gui.debugf("LLM Namer: Prompt \n" .. prompt)
 
-    local raw = query(prompt, options)
+    local raw = query(prompt, options, mode)
 
     if not raw then
-      gui.printf("LLM query failed: no response\n")
+      gui.debugf("LLM query failed: no response\n")
       return nil
     end
 
@@ -3183,7 +3370,7 @@ level_data
 The story takes place over the course of the whole game.
 Each section of the story is read far apart from each other.
 
-Story Flavor: _FLAVOR_
+Story Plot: _FLAVOR_
 
 Current Location: _LOCATION_, somewhere in the twisted infinite hellscapes of future Earth
 
@@ -3191,10 +3378,9 @@ I need the story to be properly formatted. Do not provide any explanation.
 
 Rules:
 - narrate in second person
-- Doom fan fiction style
-- slightly more towards a sci-fi military plot
+- Doom/Doom 2016/Doom Eternal style
+- slightly grounded more towards a sci-fi military plot
 - pure fictional non real-world location
-- avoid all use of double quotes as text will go through a script parser
 - absolutely avoid any use of italics, bold, or any Markdown formatting
 - no explanations, no commentary, no follow-up questions
 - no Warhammer 40k, no Lovecraft, no Blizzard Entertainment
@@ -3209,7 +3395,8 @@ Please avoid cliffhangers or "to be continued" endings. The current arc ends but
 
 Protagonist Notes:
 - the protagonist will never choose to work with Hell
-- no need to explain anything about the protagonist's identity or motivations in the story
+- the protagonist will only work with anyone if it coincides with the Doomslayer's goal of Hell's destruction
+- do not explain anything about the protagonist's identity or motivations in the story
 
 _ENTITIES_
 
@@ -3217,6 +3404,11 @@ _FORMAT_
 ]]
     -- flavor injection
     local story_flavor = rand.pick(LLM_NAME.story_components.flavors)
+    -- sometimes add a twist
+    if rand.odds(66) then
+      story_flavor = story_flavor .. "\n"
+      story_flavor = story_flavor .. "The Twist: " .. rand.pick(LLM_NAME.story_components.story_twists) .. "\n"
+    end
     prompt = string.gsub(prompt,
     "_FLAVOR_",
     story_flavor)
@@ -3265,7 +3457,7 @@ _FORMAT_
       -- sometimes add a McGuffin
       if (count == 2 and rand.odds(30))
       or (count == 1 and rand.odds(60)) then
-        story_characters = story_characters ..  "Involved in this story:\n"
+        story_characters = story_characters ..  "Found a bit later in this story:\n"
         story_characters = story_characters .. "* " .. rand.pick(LLM_NAME.story_components.mcguffins) .."\n"
       end
 
@@ -3297,7 +3489,7 @@ _FORMAT_
     "_FORMAT_",
     story_format)
 
-    gui.printf("LLM Namer: Story teller prompt\n" .. prompt .. "\n")
+    gui.debugf("LLM Namer: Story teller prompt\n" .. prompt .. "\n")
 
     -- temperature
     local temp = rand.pick
@@ -3323,7 +3515,7 @@ _FORMAT_
     end
 
     local story_tab = {}
-    gui.printf(story_chunks .. " <- RAW\n")
+    gui.debugf("\n" .. story_chunks .. " <- RAW\n\n")
     story_tab = parse_story_chunks(story_chunks)
 
     for s_pos = 1, #story_tab do
@@ -3352,9 +3544,11 @@ _FORMAT_
 
 
   if PARAM.bool_llm_namer == 1 then
+
     -- level name generator
     for _,epi in pairs(GAME.episodes) do
       for _,L in pairs(epi.levels) do
+        gui.at_level("GenAI Level Names", L.id, #GAME.levels)
 
         if PARAM.bool_skip_boss_maps == 1 and L.is_procedural_gotcha then
           -- do muffins
@@ -3370,7 +3564,7 @@ _FORMAT_
           end
 
           if name then
-            gui.printf("LLM Namer: " .. L.name .. " name '" ..
+            gui.debugf("LLM Namer: " .. L.name .. " name '" ..
             L.description .. "' substituted with '" .. name .. "'!\n")
 
             L.description = name
@@ -3382,11 +3576,14 @@ _FORMAT_
       end
     end
 
-    -- intermission story generator
-    if PARAM.bool_generate_stories == 1 then
-      generate_story()
-    end
   end
+
+  -- intermission story generator
+  if PARAM.bool_generate_stories == 1 then
+    gui.at_level("GenAI Intermission", #GAME.levels, #GAME.levels)
+    generate_story()
+  end
+
 end
 
 ----------------------------------------------------------------
@@ -3413,7 +3610,7 @@ OB_MODULES["llm_namer"] =
   {
     {
       name = "bool_llm_namer",
-      label=_("LLM Name Generator"),
+      label=_("LLM Level Name Generator"),
       valuator = "button",
       default = 1,
       tooltip = _("Genarates a context-aware level name via LLM."),
@@ -3447,7 +3644,7 @@ OB_MODULES["llm_namer"] =
 
     {
       name = "bool_generate_stories",
-      label = _("Generate Intermission Stories"),
+      label = _("LLM Intermission Stories"),
       valuator = "button",
       default = 1,
       tooltip = _("Generate intermission stories as well. " ..

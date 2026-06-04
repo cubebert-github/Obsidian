@@ -241,7 +241,7 @@ function Monster_pacing(LEVEL)
     if amounts.high >= high_quota then tab["high"] = nil end
 
     -- enforce other logic
-    if R.is_after_start   then tab["low"]  = nil end
+    if R.is_after_start and #LEVEL.rooms > 2 then tab["high"] = nil end
     if R.is_teleport_dest then tab["high"] = nil end
 
     local what = rand.key_by_probs(tab)

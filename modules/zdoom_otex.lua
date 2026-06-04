@@ -957,11 +957,9 @@ OTEX_SINK_BASES =
   OMETLF96 = {dz = 128},
   OMETLF97 = {dz = 64},
 
-  OMETLH97 = {dz = 64},
-
-  OMETLJ90 = {dz = 72},
-  OMETLJ96 = {dz = 72},
-  OMETLJ98 = {dz = 72}
+  OMETLH91 = {dz = 128},
+  OMETLH93 = {dz = 128},
+  OMETLH97 = {dz = 128}
 }
 
 function OTEX_PROC_MODULE.setup(self)

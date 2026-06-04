@@ -92,6 +92,10 @@ function math.round(x)
   end
 end
 
+function math.round_to(number, decimals)
+  return math.floor(number * (10 ^ decimals)) / (10 ^ decimals)
+end
+
 function math.mid(x, y)
   return (x + y) / 2.0
 end
@@ -424,6 +428,23 @@ function table.top_n_by_key(t, n)
   end
 end
 
+function table.best_t_by_key(tab, prop)
+  assert(type(tab) == "table" and not table.empty(tab))
+
+  local best = -EXTREME_H
+  local best_tab
+  for _,contents in pairs(tab) do
+    if contents[prop] then
+      if contents[prop] and contents[prop] >= best then
+        best = contents[prop]
+        best_tab = contents
+      end
+    end
+  end
+
+  return best_tab
+end
+
 function table.tostr(t, depth, prefix)
   if not t then return "NIL" end
   if table.empty(t) then return "{}" end
@@ -702,6 +723,32 @@ function table.set_class(child, parent)
   assert(parent)
   child.__parent = parent
   setmetatable(child, table.INHERIT_META)
+end
+
+function table.keys_to_hash(reqs)
+  local keys = {}
+
+  -- gather keys
+  for k in pairs(reqs) do
+    keys[#keys + 1] = k
+  end
+
+  -- stable ordering
+  table.sort(keys)
+
+  local parts = {}
+
+  for i = 1, #keys do
+    local k = keys[i]
+    local v = reqs[k]
+
+    parts[#parts + 1] = k
+    parts[#parts + 1] = "="
+    parts[#parts + 1] = tostring(v)
+    parts[#parts + 1] = ";"
+  end
+
+  return table.concat(parts)
 end
 
 

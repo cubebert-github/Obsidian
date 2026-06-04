@@ -154,8 +154,8 @@ function ob_match_port(T)
   if ob_match_word_or_table(port, OB_CONFIG.port) then
     return result
   end
-  
-  
+
+
 
   -- handle extended ports
 
@@ -193,8 +193,8 @@ function ob_match_port2(T)
   if ob_match_word_or_table(port, OB_CONFIG.port) then
     return result
   end
-  
-  
+
+
 
   -- handle extended ports
 
@@ -270,8 +270,8 @@ function ob_match_port4(T)
   if ob_match_word_or_table(port, OB_CONFIG.port) then
     return result
   end
-  
-  
+
+
 
   -- handle extended ports
 
@@ -628,7 +628,7 @@ function ob_set_mod_option(name, option, value)
 
   -- this can only happen while parsing the CONFIG.TXT file
   -- (containing some no-longer-used value).
-  if not opt.valuator then 
+  if not opt.valuator then
     if not opt.avail_choices[value] then
       warning("invalid choice: %s (for option %s.%s)\n", value, name, option)
       return
@@ -636,7 +636,7 @@ function ob_set_mod_option(name, option, value)
   end
 
   opt.value = value
-  
+
   if not opt.valuator then
     gui.set_module_option(name, option, value)
   else
@@ -672,16 +672,16 @@ function ob_set_config(name, value)
     OB_CONFIG[name] = value or 0
     return
   end
-  
+
   if name == "filename_prefix" then
     OB_CONFIG[name] = value
     return
   end
-  
+
   if name == "string_seed" then
     OB_CONFIG[name] = value
     return
-  end   
+  end
 
   -- check all the UI modules for a matching option
   -- [ this is only needed when parsing the CONFIG.txt file ]
@@ -744,7 +744,7 @@ end
 
 
 function ob_read_all_config(need_full, log_only)
-   
+
   local function do_line(fmt, ...)
     if log_only then
       gui.printf(fmt .. "\n", ...)
@@ -1089,7 +1089,7 @@ function ob_restart()
   end
 
   -- load definitions for all games
-  
+
   ob_load_all_games()
   ob_load_all_ports()
   ob_load_all_modules()
@@ -1227,7 +1227,7 @@ function ob_restart()
           if not opt.valuator then
             assert(opt.choices)
           end
-                  
+
           if opt.valuator then
             if opt.valuator == "slider" then
               if not opt.default then
@@ -1645,13 +1645,13 @@ function ob_get_param(parameter)
       return ""
     end
   end
-  
+
   if type(param) == "string" then
     return param
   else
     return tostring(param)
   end
-  
+
 end
 
 function ob_hexen_ceiling_check(thing_id)
@@ -1660,7 +1660,7 @@ function ob_hexen_ceiling_check(thing_id)
 
   local on_ceiling = 0
 
-  for _, ent in pairs(GAME.ENTITIES) do 
+  for _, ent in pairs(GAME.ENTITIES) do
     if ent.id == tonumber(thing_id) then
         if ent.ceil and ent.ceil == true then
           on_ceiling = 1
@@ -1669,14 +1669,14 @@ function ob_hexen_ceiling_check(thing_id)
     end
   end
   ::skip::
-  
+
   return on_ceiling
 
 end
 
 function ob_get_password()
 
-  local pass_chars = 
+  local pass_chars =
   {
     "1","2","3","4","5","6","7","8","9","0","q","w","e","r","t","y","u","i","o","p","[","]","\\",
     "a","s","d","f","g","h","j","k","l",";","'","z","x","c","v","b","n","m",",",".","/","!","@",
@@ -1693,12 +1693,12 @@ function ob_get_password()
 end
 
 function ob_get_random_words()
-  
+
   RANDOM_WORDS = {}
 
   if OB_CONFIG.mature_words == "yes" then
     RANDOM_WORDS = RANDOM_WORDS_EN_M
-  else 
+  else
     RANDOM_WORDS = RANDOM_WORDS_EN
   end
 
@@ -1711,7 +1711,7 @@ function ob_get_random_words()
       all_caps = 15,
       alternating = 5
     }
-    
+
     local case_pick = rand.key_by_probs(case_odds)
 
     if case_pick == "default" then
@@ -1731,7 +1731,7 @@ function ob_get_random_words()
         end
       end
       return alt_string
-    end 
+    end
   end
 
   local numwords = rand.irange(1, 3)
@@ -1752,7 +1752,7 @@ function ob_default_filename()
 
   assert(OB_CONFIG)
   assert(OB_CONFIG.game)
-  
+
   local name_tab = {}
   if OB_CONFIG.game == "chex1" then
     name_tab = CHEX1.NAMES
@@ -1782,13 +1782,13 @@ function ob_default_filename()
   str = string.gsub(str, ":", "")
   str = string.gsub(str, "'", "")
   str = string.gsub(str, ",", "")
-  
+
   if OB_CONFIG.filename_prefix == "none" then
     return str
   else
     local formatstring
     local levelcount
-    
+
     if OB_CONFIG.length == "single" then
       levelcount = "1"
     elseif OB_CONFIG.length == "few" then
@@ -1802,7 +1802,7 @@ function ob_default_filename()
     else
      levelcount = "FULL"
     end
-        
+
     if OB_CONFIG.filename_prefix == "datetime" then
       formatstring = "%Y-%M-%D-%h%m_"
     elseif OB_CONFIG.filename_prefix == "numlevels" then
@@ -1812,19 +1812,19 @@ function ob_default_filename()
     elseif OB_CONFIG.filename_prefix == "port" then
       formatstring = OB_CONFIG.port .. "_"
     elseif OB_CONFIG.filename_prefix == "theme" then
-      formatstring = OB_CONFIG.theme .. "_"   
+      formatstring = OB_CONFIG.theme .. "_"
     elseif OB_CONFIG.filename_prefix == "version" then
       formatstring = "%v_"
     elseif OB_CONFIG.filename_prefix == "custom" then
       formatstring = "custom"
    end
-   
+
    return gui.format_prefix(levelcount, OB_CONFIG.game, OB_CONFIG.port, OB_CONFIG.theme, formatstring) .. str .. ".wad"
-   
+
  end
- 
+
  ::skip::
- 
+
 end
 
 
@@ -1994,7 +1994,7 @@ function ob_invoke_hook_with_table(name, local_table)
       func(mod, local_table)
     end
   end
-  
+
   for _,mod in pairs(OB_MODULES) do
     if ob_check_ui_module(mod) then
       local func = mod.hooks and mod.hooks[name]
@@ -2106,7 +2106,6 @@ function ob_clean_up()
   SCRIPTS = nil
   EPISODE = nil
   PREFABS = nil
-  PREFABS_FULL = nil
   SEEN_ROOM_THEMES = nil
   SEEN_WALL_GROUPS = nil
   AMBIENT_SOUND_DEFS = nil
@@ -2452,11 +2451,11 @@ function ob_build_cool_shit()
   gui.printf("\n\n")
   gui.printf(gui.gettext("~~~~~~~ Making Levels ~~~~~~~\n\n"))
   gui.printf("-- CONFIG FILE : OBSIDIAN Beta\n\n") -- Do not translate; needed by config parser
-    
+
   ob_read_all_config(false, "log_only")
 
   gui.ticker()
-  
+
   ob_build_setup()
 
   if PARAM["bool_save_gif"] == 1 then

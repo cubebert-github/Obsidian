@@ -674,7 +674,12 @@ function Junction_make_map_edge(junc)
 end
 
 
-function Junction_calc_wall_tex(A1, A2)
+function Junction_calc_wall_tex(A1, A2, type)
+
+  -- clearings - appears first above others
+  if type ~= "window" then
+    if A1.is_clearing then return A1.zone.nature_facade end
+  end
 
   -- foreshadowing exit override
   if A1.room then

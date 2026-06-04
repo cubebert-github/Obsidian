@@ -10747,7 +10747,7 @@ GROW_BIG_REACTOR_ARENA =
     "..............","AAAAAAAAAAAAAA",
     "..............","AAAAAAAAAAAAAA",
     "..............","1111AAAAAA1111",
-    "..............","111/%1111/%111",
+    "..............","111/%AAAA/%111",
     "..............","111%/AAAA%/111",
     "..............","111111AA111111",
     "..............","%11111AA11111/",
@@ -10759,9 +10759,9 @@ GROW_BIG_REACTOR_ARENA =
     ".1","1.",
     ".1","1.",
     "1#","#1","1#","#1",
-    "1#","#1","1#","#1",
-    "1#","#1","1#","#1",
-    "1#","#1","1#","#1",
+    "1#","#A","A#","#1",
+    "1#","#A","A#","#1",
+    "1#","#A","A#","#1",
     ".1","1.",
     ".1","1.",
   },
@@ -16076,6 +16076,29 @@ GROW_ATOMIC_SYMBOL_STEEPNESS =
   }
 },
 
+GROW_MAGEBLOOD =
+{
+  prob = 8,
+  skip_prob = 85,
+
+  structure =
+  {
+    "xxxx.....xxx","xxxx/AAA%xxx",
+    "1...........","1111>AAA<111",
+    "1...........","111111111111",
+    "x...........","xAAA%v1v/AAA",
+    "x...........","xAAAAAAAAAAA",
+    "xxxx.....xxx","xxxx%AAA/xxx"
+  },
+
+  diagonals =
+  {
+    ".A","A.",
+    "A1","1A",
+    ".A","A."
+  }
+},
+
 GROW_SHOTGUN =
 {
   prob = 10,
@@ -16160,6 +16183,30 @@ GROW_CHICKEN_LEG =
     ".1","1A","A.",
     ".1","1.",
     "1."
+  }
+},
+
+GROW_RIBBON =
+{
+  prob = 20,
+  skip_prob = 90,
+
+  structure =
+  {
+    "x...xxx...","x11%xxx/AA",
+    "x....x....","x111%x/AAA",
+    "x.........","x1111>AAAA",
+    "x.........","x1111>AAAA",
+    "1....x....","1111/x%AAA",
+    "1...xxx...","111/xxx%AA"
+  },
+
+  diagonals =
+  {
+    "1.",".A",
+    "1.",".A",
+    "1.",".A",
+    "1.",".A"
   }
 },
 
@@ -17510,6 +17557,75 @@ GROW_ARROW_CHEVRON_NEW_AREA =
     ".A","A.",
     "A1","1A",
     ".1","1."
+  }
+},
+
+GROW_TILE_HERRINGBONE =
+{
+  prob = 10,
+  skip_prob = 85,
+
+  structure =
+  {
+    "1......","111A1A1",
+    "1......","111A1A1",
+    "x......","xAAA1A1",
+    "x......","x1111A1",
+    "x......","xAAAAA1",
+    "x......","x111111"
+  }
+},
+
+GROW_TILE_HOPSCOTCH =
+{
+  prob = 10,
+  skip_prob = 75,
+
+  structure =
+  {
+    "xx11xxxx","xx11xxxx",
+    "xx..xxxx","xx11xxxx",
+    "xx..xxxx","xx11xxxx",
+    "xx......","xxAAAA11",
+    "xx......","xxAAAA11",
+    "......xx","11AAAAxx",
+    "......xx","11AAAAxx",
+    "xxxx..xx","xxxx11xx",
+    "xxxx..xx","xxxx11xx"
+  }
+},
+
+GROW_TILE_WINDMILL =
+{
+  prob = 10,
+  skip_prob = 85,
+
+  structure =
+  {
+    "11xxxx","11xxxx",
+    "......","1111AA",
+    "......","1111AA",
+    "..xx..","AAxxAA",
+    "..xx..","AAxxAA",
+    "......","AA1111",
+    "......","AA1111"
+  }
+},
+
+GROW_TILE_WINDMILL_POOL =
+{
+  prob = 7,
+  skip_prob = 85,
+
+  structure =
+  {
+    "11xxxx","11xxxx",
+    "......","1111AA",
+    "......","1111AA",
+    "......","AA~~AA",
+    "......","AA~~AA",
+    "......","AA1111",
+    "......","AA1111"
   }
 },
 

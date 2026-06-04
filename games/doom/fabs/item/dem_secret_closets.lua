@@ -48,7 +48,7 @@ PREFABS.Item_dem_shrine_secretclosetN =
   template = "Item_dem_shrine_secretclosetC",
 
   map = "MAP12",
-  env = "nature",
+  env = "!building",
   group = "natural_walls",
 }
 
@@ -92,7 +92,7 @@ PREFABS.Item_dem_campsiteN_secretcloset =
 {
   template  = "Item_dem_campsiteC_secretcloset",
   map    = "MAP14",
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 }
@@ -154,7 +154,7 @@ PREFABS.Item_dem_nook_secretcloset =
 
   key   = "secret",
 
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -291,7 +291,7 @@ PREFABS.Pic_dem_waterfallN1_secretcloset =
 
   key   = "secret",
 
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -343,7 +343,7 @@ PREFABS.Pic_dem_jumpy1_secretcloset =
 
   key   = "secret",
 
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 

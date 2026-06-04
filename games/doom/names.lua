@@ -760,10 +760,7 @@ DOOM.NAMES =
       -- numericals
       ["%a %n NOUNSERIAL"] = 26,
       ["%b %n NOUNSERIAL"] = 26,
-      ["%a %b %n NOUNSERIAL"] = 18,
-
-
-      ["%s"] = 30
+      ["%a %b %n NOUNSERIAL"] = 18
     },
 
     lexicon =
@@ -1536,8 +1533,6 @@ DOOM.NAMES =
       ["%e's %a %n"]    = 8,
       ["%e's %n of %h"] = 6,
       ["%e's %n of the %o"] = 6,
-
-      ["%s"] = 120,
 
       ["%e's Bitch"] = 2,
     },
@@ -2751,8 +2746,6 @@ DOOM.NAMES =
       [   "%n of the %o"] = 15,
       ["%t %n of the %o"] = 8,
       ["%a %n of the %o"] = 6,
-
-      ["%s"] = 70,
 
       -- Types of roads, useful when Streets Mode
       -- kicks in.
@@ -4260,9 +4253,6 @@ DOOM.NAMES =
       ["The %p of NOUNGENEXOTIC"] = 25,
       ["Attack on NOUNGENANGLICAN"] = 12,
       ["Assault on NOUNGENANGLICAN"] = 12,
-
-      -- complete names
-      ["%s"] = 100,
 
       -- contributors and their shenanigans
 

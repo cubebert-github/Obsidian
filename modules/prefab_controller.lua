@@ -106,7 +106,7 @@ PREFAB_CONTROL.FILTER_CATEGORIES =
 }
 
 function PREFAB_CONTROL.setup(self)
-  
+
   module_param_up(self)
 
 end
@@ -118,10 +118,17 @@ function PREFAB_CONTROL.fine_tune_filters()
       if fab.filter == filter then
         fab.prob = fab.prob * tonumber(PARAM[pname])
         fab.use_prob = fab.use_prob * tonumber(PARAM[pname])
-  
+
         if fab.skip_prob then
           fab.skip_prob = math.clamp(0,fab.skip_prob / tonumber(PARAM[pname]), 100)
         end
+      end
+    end
+
+    if PARAM.bool_jump_crouch == 1 then
+      if fab.jump_crouch then
+        fab.prob = 0
+        fab.use_prob = 0
       end
     end
 
@@ -179,13 +186,13 @@ function PREFAB_CONTROL.fine_tune_filters()
     for WG,mult in pairs(new_fab_groups_multipliers) do
       for _,theme_name in pairs(themes) do
         if GAME.THEMES[theme_name] then
-          if GAME.THEMES[theme_name].wall_groups and 
+          if GAME.THEMES[theme_name].wall_groups and
           GAME.THEMES[theme_name].wall_groups[WG] then
             GAME.THEMES[theme_name].wall_groups[WG] =
             GAME.THEMES[theme_name].wall_groups[WG] * mult
           end
 
-          if GAME.THEMES[theme_name].outdoor_wall_groups 
+          if GAME.THEMES[theme_name].outdoor_wall_groups
           and GAME.THEMES[theme_name].outdoor_wall_groups[WG] then
             GAME.THEMES[theme_name].outdoor_wall_groups[WG] =
             GAME.THEMES[theme_name].outdoor_wall_groups[WG] * 2
@@ -195,7 +202,7 @@ function PREFAB_CONTROL.fine_tune_filters()
     end
 
     for RT,mult in pairs(new_themes_multipliers) do
-      if GAME.ROOM_THEMES[RT] then 
+      if GAME.ROOM_THEMES[RT] then
         GAME.ROOM_THEMES[RT].prob = GAME.ROOM_THEMES[RT].prob * mult
       end
     end
@@ -265,7 +272,7 @@ OB_MODULES["prefab_control"] =
       valuator = "button",
       default = 0,
       tooltip=_("For Co-operative games, sometimes have players start in different rooms"),
-      
+
     },
     {
       name = "bool_foreshadowing_exit",
@@ -274,7 +281,7 @@ OB_MODULES["prefab_control"] =
       default = 1,
       tooltip = _("Gets exit room theme to follow the theme of the next level, if different."),
       gap=1,
-      
+
     },
 
     {
@@ -285,7 +292,7 @@ OB_MODULES["prefab_control"] =
       tooltip = _("Reduces the amount of complex architecture in a map based on its size. Default is on in binary map format, off in UDMF map format."),
       priority = 150,
       gap = 1,
-      
+
     },
 
     {
@@ -319,7 +326,7 @@ OB_MODULES["prefab_control"] =
       priority = 99,
       gap = 1,
       randomize_group="architecture",
-      
+
     },
 
     --
@@ -337,7 +344,7 @@ OB_MODULES["prefab_control"] =
       tooltip = _("Determines the maximum number of distinct indoor room themes used per level. Default is 1."),
       priority = 100,
       randomize_group="architecture",
-      
+
     },
 
     {
@@ -348,7 +355,7 @@ OB_MODULES["prefab_control"] =
       priority = 48,
       tooltip = _("Attempt to use unique room themes for each generated level, unless the pool of available themes is exhausted."),
       randomize_group="architecture",
-      
+
     },
 
     {
@@ -363,7 +370,7 @@ OB_MODULES["prefab_control"] =
       tooltip = _("Determines the maximum number of distinct indoor wall groups used per level. Default is 2."),
       priority = 50,
       randomize_group="architecture",
-      
+
     },
 
     {
@@ -375,7 +382,7 @@ OB_MODULES["prefab_control"] =
       tooltip = _("Attempt to use unique indoor wall groups for each generated level, unless the pool of available groups is exhausted."),
       gap = 1,
       randomize_group="architecture",
-      
+
     },
     --
 
@@ -388,7 +395,7 @@ OB_MODULES["prefab_control"] =
       priority = 48,
       tooltip = _("Attempt to use matched start and exit fabs for a level (if a matched set is possible)."),
       randomize_group="architecture",
-      
+
     },
 
 
@@ -411,8 +418,8 @@ OB_MODULES["prefab_control"] =
 
 
     {
-      name="pf_crushers", 
-      label=_("Crushers"), 
+      name="pf_crushers",
+      label=_("Crushers"),
       choices=PREFAB_CONTROL.FINE_TUNE_MULT_FACTORS,
       tooltip=_("Changes probabilities for fabs with crushing sectors. Default is on."),
       default="1",
@@ -422,8 +429,8 @@ OB_MODULES["prefab_control"] =
 
 
     {
-      name="pf_dexterity", 
-      label=_("Dexterity Fabs"), 
+      name="pf_dexterity",
+      label=_("Dexterity Fabs"),
       choices=PREFAB_CONTROL.FINE_TUNE_MULT_FACTORS,
       tooltip=_("Changes probabilities for fabs featuring Chasm-ish navigation. Default is on."),
       default="1",
@@ -432,8 +439,8 @@ OB_MODULES["prefab_control"] =
     },
 
     {
-      name="pf_gamble", 
-      label=_("Gambling Fabs"), 
+      name="pf_gamble",
+      label=_("Gambling Fabs"),
       choices=PREFAB_CONTROL.FINE_TUNE_MULT_FACTORS,
       tooltip=_("Changes probabilities for fabs that may lockout a player on items. Default is on."),
       default="1",
@@ -443,8 +450,8 @@ OB_MODULES["prefab_control"] =
 
 
     {
-      name="pf_sight_ambushes", 
-      label=_("Sight Ambush Cages"), 
+      name="pf_sight_ambushes",
+      label=_("Sight Ambush Cages"),
       choices=PREFAB_CONTROL.FINE_TUNE_MULT_FACTORS,
       tooltip=_("Changes probabilities for cages that unleash its monsters when player is in sight. Default is on."),
       default="1",
@@ -454,8 +461,8 @@ OB_MODULES["prefab_control"] =
 
 
     {
-      name = "pf_mirror_mazes", 
-      label=_("Mirror Mazes"), 
+      name = "pf_mirror_mazes",
+      label=_("Mirror Mazes"),
       choices=PREFAB_CONTROL.FINE_TUNE_MULT_FACTORS,
       tooltip=_("Changes probabilities for hell mirror maze closets and joiners."),
       default="1",
@@ -465,19 +472,19 @@ OB_MODULES["prefab_control"] =
 
 
     {
-      name = "pf_dark_mazes", 
-      label=_("Dark Mazes"), 
+      name = "pf_dark_mazes",
+      label=_("Dark Mazes"),
       choices=PREFAB_CONTROL.FINE_TUNE_MULT_FACTORS,
       tooltip=_("Changes probabilities for dark/eye maze joiners in hell theme."),
       default="1",
       priority = 9,
       randomize_group="architecture",
     },
-    
+
 
     {
-      name = "pf_stair_ladders", 
-      label=_("Stair Ladders"), 
+      name = "pf_stair_ladders",
+      label=_("Stair Ladders"),
       choices=PREFAB_CONTROL.FINE_TUNE_MULT_FACTORS,
       tooltip=_("Changes probabilities for high-step ladders (stairs)."),
       default="1",
@@ -501,8 +508,8 @@ OB_MODULES["prefab_control"] =
 
 
     {
-      name = "pf_damaging_halls", 
-      label = _("Damaging Hallways"), 
+      name = "pf_damaging_halls",
+      label = _("Damaging Hallways"),
       choices=PREFAB_CONTROL.DAMAGING_HALLWAY_CHOICES,
       tooltip = _("Changes the liquids on hallways with damaging floors to either be damaging (default) or non-damaging."),
       default = "default",
@@ -518,10 +525,10 @@ OB_MODULES["prefab_control"] =
       label = _("Test New Content"),
       valuator = "button",
       default = 0,
-      tooltip = _("Greatly increase probability for recent added content for testing purposes. " .. 
+      tooltip = _("Greatly increase probability for recent added content for testing purposes. " ..
       "Changes in content is expected and some assets will be gradually removed from this option's effects."),
       priority = 4,
-      
+
     },
 
 
@@ -533,7 +540,7 @@ OB_MODULES["prefab_control"] =
       tooltip = _("Ensures that prefabs selected match their intended Theme."),
       priority = 1,
       randomize_group="architecture",
-      
+
     }
   }
 }

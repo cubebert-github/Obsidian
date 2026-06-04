@@ -32,13 +32,6 @@ DEBUG_CONTROL.TITLE_SCREEN_CHOICES =
   "randomwords", _("Random Word List"),
 }
 
-DEBUG_CONTROL.NAME_GEN_CHOICES =
-{
-  "whole_only",  _("Only Whole Names"),
-  "pattern_only",  _("Only Pattern Names"),
-  "default", _("DEFAULT"),
-}
-
 DEBUG_CONTROL.GROWTH_STEP_CHOICES =
 {
   "showmore", _("Show All Steps"),
@@ -120,10 +113,14 @@ OB_MODULES["debugger"] =
     },
 
     {
-      name = "name_generator_mode",
+      name = "float_name_generator_mode",
       label=_("Name Generator Setting"),
-      choices = DEBUG_CONTROL.NAME_GEN_CHOICES,
-      default = "default",
+      valuator = "slider",
+      units = _("% of Levels Use Whole Names"),
+      min = 0,
+      max = 100,
+      increment = 1,
+      default = 33,
       tooltip = _("Choose between whole names or pattern-based names only for levels."),
       longtip = _("Choose between whole names or pattern-based names only for levels.\n\n" ..
       "Whole names are full single strings e.g. boss maps.\n\n" ..
@@ -131,7 +128,8 @@ OB_MODULES["debugger"] =
       "Default functionality obeys the probabilities set in names.lua\n\n" ..
       "WAD sub titles and Boss maps will continue to use whole level names as they do not have pattern definitions."),
       priority=101,
-    },
+      },
+
 
     {
       name = "bool_shape_rule_stats",
@@ -310,6 +308,29 @@ OB_MODULES["arch_exp"] =
         "to show up compared to manually assigned probs. " ..
         "Or not. Who knows."),
       priority = 103
+    },
+
+    {
+      name = "bool_enable_clearings",
+      label = _("Enable Clearings"),
+      valuator = "button",
+      default = 0,
+      tooltip = _("Clearings are occasional completely natural environment areas that may appear within outdoor rooms. " ..
+        "They are completely separate from Parks but are activated by Parks style."),
+      priority = 102,
+      gap = 1
+    },
+
+    {
+      name = "bool_fail_on_track",
+      label = _("Fail on Tracked Bugs"),
+      valuator = "button",
+      default = 0,
+      tooltip = _(
+        "If checked, parts of the generator with expected bugs will return an error instead of proceeding without issue." ..
+        "Unless you are actively planning to participate in active bug tracking, it is preferred to just keep this off."
+      ),
+      priority = 101
     }
   },
 }

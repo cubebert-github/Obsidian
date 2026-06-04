@@ -19,7 +19,7 @@ PREFABS.Pic_gtd_mall_store_1 =
   bound_z1 = 0,
   bound_z2 = 128,
 
-  x_fit = { 40,48 , 168,216 },
+  x_fit = { 60,68 , 124,132 , 188,196 },
   y_fit = "top",
 
   tex_METAL1 =
@@ -65,5 +65,27 @@ PREFABS.Pic_gtd_mall_store_3 =
     MODWALL3 = 1, MODWALL4 = 1,
     STEP1 = 1, STEP2 = 1, STEP3 = 1, STEP4 = 1,
     STEP5 = 1, STEPLAD = 1, STEPTOP = 1
+  }
+}
+
+PREFABS.Pic_gtd_mall_store_EPIC =
+{
+  template = "Pic_gtd_mall_store_1",
+  map = "MAP04",
+
+  texture_pack = "armaetus",
+
+  tex_DNSTOR01 =
+  {
+    MODWALL3 = 1, MODWALL4 = 1,
+    STEP1 = 1, STEP2 = 1, STEP3 = 1, STEP4 = 1,
+    STEP5 = 1, STEPLAD = 1, STEPTOP = 1,
+
+    DNSTOR01 = 2, DNSTOR02 = 2,
+    DNSTOR03 = 2, DNSTOR04 = 2,
+    DNSTOR05 = 2, DNSTOR06 = 2,
+    DNSTOR07 = 2, DNSTOR08 = 2,
+    DNSTOR12 = 2, DNSTOR13 = 2,
+    DNSTOR20 = 2
   }
 }

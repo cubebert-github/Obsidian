@@ -51,6 +51,7 @@ function ZStoryGen_format_story_chunk(story_strings, info, store)
       story_strings = string.gsub(story_strings, "_LEVEL", info.level_name)
     end
     story_strings = string.gsub(story_strings, "_RAND_CONTRIBUTOR", info.contributor_name)
+
     if info.mcguffin then
       story_strings = string.gsub(story_strings, "_MCGUFFIN", info.mcguffin)
     end
@@ -59,11 +60,6 @@ function ZStoryGen_format_story_chunk(story_strings, info, store)
     end
     if info.installation then
       story_strings = string.gsub(story_strings, "_INSTALLATION", info.installation)
-    end
-
-    if info.enemy_name == "NOUNMEMBERS" then
-      gui.printf("Unreplaced story strings found: " .. table.tostr(info, 2) .. "\n")
-      assert(info.enemy_name == "NOUNMEMBERS")
     end
   end
 
@@ -171,20 +167,32 @@ function ZStoryGen_init()
   while x <= #GAME.episodes do
     local story_id = ZStoryGen_fetch_story_chunk()
     local info = ZStoryGen_create_characters_and_stuff()
+
     if GAME.STORIES.TEXT[story_id].enemy_theme then
       local enemy_name = rand.key_by_probs(namelib.NAMES[GAME.STORIES.TEXT[story_id].enemy_theme].lexicon.e)
       enemy_name = string.gsub(enemy_name, "NOUNGENEXOTIC", namelib.generate_unique_noun("exotic"))
       info.enemy_name = enemy_name
     end
+
     if GAME.STORIES.TEXT[story_id].level_theme then
       info.level_name = Naming_grab_one(GAME.STORIES.TEXT[story_id].level_theme)
     end
+
     if GAME.STORIES.TEXT[story_id].mcguffin_theme then
       info.mcguffin = rand.key_by_probs(GAME.STORIES.MCGUFFINS[GAME.STORIES.TEXT[story_id].mcguffin_theme])
+    else
+      local mc_t = {}
+      for name,tab in pairs(GAME.STORIES.MCGUFFINS) do
+        mc_t[name] = #tab
+      end
+      local picked_mc_t = rand.key_by_probs(mc_t)
+      info.mcguffin = rand.key_by_probs(GAME.STORIES.MCGUFFINS[picked_mc_t])
     end
+
     if GAME.STORIES.TEXT[story_id].entity_theme then
       info.entity = rand.key_by_probs(GAME.STORIES.ENTITIES[GAME.STORIES.TEXT[story_id].entity_theme])
     end
+
     hooks[x] = ZStoryGen_hook_me_with_a_story(story_id, info, x)
     conclusions[x] = ZStoryGen_conclude_my_story(story_id, info, x)
     x = x + 1

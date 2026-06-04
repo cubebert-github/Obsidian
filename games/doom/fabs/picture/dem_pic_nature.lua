@@ -384,7 +384,7 @@ PREFABS.Pic_dem_nook1 =
   map    = "MAP28",
 
   prob   = 100 * 20,
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -436,7 +436,7 @@ PREFABS.Pic_dem_nook4 =
   map    = "MAP31",
 
   prob   = 100 * 20,
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -489,7 +489,7 @@ PREFABS.Pic_dem_nook7 =
   map    = "MAP34",
 
   prob   = 100 * 20,
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -540,7 +540,7 @@ PREFABS.Pic_dem_nook10 =
   map    = "MAP37",
 
   prob   = 100 * 20,
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -600,7 +600,7 @@ PREFABS.Pic_dem_nookd1 =
 
   prob   = 100 * 20,
   theme = "!hell",
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -657,7 +657,7 @@ PREFABS.Pic_dem_nookd4 =
   map    = "MAP43",
 
   prob   = 100 * 20,
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -711,7 +711,7 @@ PREFABS.Pic_dem_nookd7 =
   map    = "MAP46",
 
   prob   = 100 * 20,
-  env = "nature",
+  env = "!building",
   theme = "!hell",
 
   group = "natural_walls",
@@ -770,7 +770,7 @@ PREFABS.Pic_dem_nookd10 =
   map    = "MAP49",
 
   prob   = 100 * 20,
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -856,7 +856,7 @@ PREFABS.Pic_dem_campsiteN =
 {
   template  = "Pic_dem_campsiteC",
   map    = "MAP53",
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 }
@@ -883,7 +883,7 @@ PREFABS.Pic_dem_cabin =
   theme = "!hell",
 
   prob   = 100 * 20,
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -968,7 +968,7 @@ PREFABS.Pic_dem_waterfallN1 =
 
   prob   = 100 * 20,
 
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -1047,7 +1047,7 @@ PREFABS.Pic_dem_waterfallN2 =
 
   prob   = 100 * 20,
 
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -1128,7 +1128,7 @@ PREFABS.Pic_dem_waterfallN3 =
 
   prob   = 100 * 20,
 
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 
@@ -1170,7 +1170,7 @@ PREFABS.Pic_dem_ruinsN1 =
 
   prob   = 100 * 20,
 
-  env = "nature",
+  env = "!building",
 
   group = "natural_walls",
 

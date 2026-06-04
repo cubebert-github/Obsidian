@@ -724,8 +724,6 @@ HERETIC.NAMES =
       ["%v %n"]    = 25,
       ["%v %a %n"] = 25,
 
-      ["%s"] = 100,
-
       ["Killing for %e"] = 3,
       ["Killing in %e's name"] = 3,
       ["Dying for %e"] = 3,

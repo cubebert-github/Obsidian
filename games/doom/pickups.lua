@@ -86,7 +86,7 @@ DOOM.PICKUPS =
     cluster = { 3,7 },
     give = { {health=1} },
     storage_prob = 20,
-    stroage_qty = 5
+    storage_qty = 5
   },
 
   -- AMMO --

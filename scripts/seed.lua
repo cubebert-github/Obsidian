@@ -861,7 +861,7 @@ end
 
 
 
-function Seed_save_svg_image(filename, SEEDS)
+function Seed_save_svg_image(filename, SEEDS, LEVEL)
 
   -- grid size
   local SIZE = 10

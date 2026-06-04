@@ -908,7 +908,8 @@ function Grower_calc_rule_probs(LEVEL)
 
     if rule.name:find("GROW_")
     and PARAM.bool_auto_shape_rule_prob
-    and PARAM.bool_auto_shape_rule_prob == 1 then
+    and PARAM.bool_auto_shape_rule_prob == 1
+    and not rule.name:find("aux") then
       local match_bonus = 0
       local apply_bonus = 0
       for i, str in ipairs(rule.structure) do
@@ -926,7 +927,11 @@ function Grower_calc_rule_probs(LEVEL)
           end
         end
       end
-      prob = apply_bonus * math.min(match_bonus/2, 1)
+      prob = apply_bonus * math.max(match_bonus/2, 1)
+
+      if rule.base_set == true then
+        prob = prob * 16
+      end
     end
 
     prob = prob *  style_factor(rule)

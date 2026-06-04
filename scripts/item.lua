@@ -1014,11 +1014,18 @@ function Item_pickups_for_class(LEVEL, CL)
         end
       end
 
+      -- add ammo to undiscovered weapons
       if pick1 and not stats[GAME.WEAPONS[pick1].ammo] then
-        stats[GAME.WEAPONS[pick1].ammo] = 1
+        -- of course, if it only uses ammo at all
+        if GAME.WEAPONS[pick1].ammo then
+          stats[GAME.WEAPONS[pick1].ammo] = 1
+        end
       end
       if pick2 and not stats[GAME.WEAPONS[pick2].ammo] then
-        stats[GAME.WEAPONS[pick2].ammo] = 1
+        -- of course, if it only uses ammo at all
+        if GAME.WEAPONS[pick2].ammo then
+          stats[GAME.WEAPONS[pick2].ammo] = 1
+        end
       end
     end
 

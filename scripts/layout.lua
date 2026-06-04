@@ -1732,6 +1732,10 @@ function Layout_decorate_rooms(LEVEL, pass, SEEDS)
       reqs.group = A.floor_group.wall_group
     end
 
+    if A.is_clearing or A.room.is_park and rand.odds(50) then
+      reqs.group = "natural_walls"
+    end
+
     local def = Fab_pick(LEVEL, reqs, "none_ok")
 
     -- remove group requirement if no fab was found and try again
@@ -1968,6 +1972,10 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
       if R.is_natural_park then
         reqs.group = "natural_walls"
       end
+    end
+
+    if chunk.from_area.is_clearing and rand.odds(50) then
+      reqs.group = "natural_walls"
     end
 
     chunk.prefab_def = Fab_pick(LEVEL, reqs, "none_ok")
