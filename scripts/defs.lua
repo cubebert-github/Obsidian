@@ -458,7 +458,7 @@ PROC_GOTCHA_MAP_SIZES =
   regular = 26,
   small = 22,
   tiny = 16,
-  microscopic = 12,
+  micro = 12,
   room = 8
 }
 

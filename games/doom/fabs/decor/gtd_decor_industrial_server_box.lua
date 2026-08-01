@@ -3,13 +3,13 @@ PREFABS.Decor_SD_server_rack =
   file = "decor/gtd_decor_industrial_server_box.wad",
   map = "MAP01",
 
-  prob = 7500,
+  prob = 5000,
   theme = "!hell",
   env = "building",
   texture_pack = "armaetus",
 
   where = "point",
-  size = 96,
+  size = 64,
   height = 144,
 
   bound_z1 = 0,

@@ -51,7 +51,7 @@ PREFABS.Pic_gtd_mall_store_2 =
   {
     MODWALL3 = 1, MODWALL4 = 1,
     STEP1 = 1, STEP2 = 1, STEP3 = 1, STEP4 = 1,
-    STEP5 = 1, STEPLAD = 1, STEPTOP = 1
+    STEP5 = 1, STEPLAD1 = 1, STEPTOP = 1
   }
 }
 
@@ -64,7 +64,7 @@ PREFABS.Pic_gtd_mall_store_3 =
   {
     MODWALL3 = 1, MODWALL4 = 1,
     STEP1 = 1, STEP2 = 1, STEP3 = 1, STEP4 = 1,
-    STEP5 = 1, STEPLAD = 1, STEPTOP = 1
+    STEP5 = 1, STEPLAD1 = 1, STEPTOP = 1
   }
 }
 
@@ -79,7 +79,7 @@ PREFABS.Pic_gtd_mall_store_EPIC =
   {
     MODWALL3 = 1, MODWALL4 = 1,
     STEP1 = 1, STEP2 = 1, STEP3 = 1, STEP4 = 1,
-    STEP5 = 1, STEPLAD = 1, STEPTOP = 1,
+    STEP5 = 1, STEPLAD1 = 1, STEPTOP = 1,
 
     DNSTOR01 = 2, DNSTOR02 = 2,
     DNSTOR03 = 2, DNSTOR04 = 2,

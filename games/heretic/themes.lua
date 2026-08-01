@@ -314,13 +314,12 @@ HERETIC.THEMES =
 
     sink_style =
     {
-      sharp = 1,
-      curved = 0.1,
+      sharp = 1
     },
 
     skyboxes =
     {
-      Skybox_city_skybox = 50,
+      Skybox_city_skybox = 50
     },
 
     steps_mat = "CSTLRCK",
@@ -466,19 +465,17 @@ HERETIC.THEMES =
 
     sink_style =
     {
-      sharp = 1,
-      curved = 0.1,
+      sharp = 1
     },
 
     skyboxes =
     {
-      Skybox_maw_skybox = 50,
+      Skybox_maw_skybox = 50
     },
 
     steps_mat = "SQPEB1",
 
-    post_mat  = "SQPEB1",
-
+    post_mat  = "SQPEB1"
   },
 
   dome =
@@ -600,19 +597,17 @@ HERETIC.THEMES =
       GATMETL2 = 50,
       GATMETL3 = 50,
       GATMETL4 = 50,
-      GATMETL5 = 50,
+      GATMETL5 = 50
     },
 
     sink_style =
     {
-      sharp = 1,
-      curved = 0.1,
+      sharp = 1
     },
 
     steps_mat = "GRSTNPB",
 
-    post_mat  = "WOODWL",
-
+    post_mat  = "WOODWL"
   },
 
    ossuary =
@@ -752,14 +747,12 @@ HERETIC.THEMES =
 
     sink_style =
     {
-      sharp = 1,
-      curved = 0.1,
+      sharp = 1
     },
 
     steps_mat = "SQPEB2",
 
-    post_mat  = "WOODWL",
-
+    post_mat  = "WOODWL"
   },
 
 
@@ -905,19 +898,17 @@ HERETIC.THEMES =
 
     sink_style =
     {
-      sharp = 1,
-      curved = 0.1,
+      sharp = 1
     },
 
     skyboxes =
     {
-      Skybox_demense_skybox = 50,
+      Skybox_demense_skybox = 50
     },
 
     steps_mat = "SQPEB1",
 
-    post_mat  = "WOODWL",
-
+    post_mat  = "WOODWL"
   },
 
 }

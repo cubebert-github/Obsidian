@@ -159,7 +159,8 @@ SHAPE RULE ELEMENTS:
     end
 
     if #line ~= grid.w then
-      error("Malformed structure in grammar: " .. def.name)
+      error("Malformed structure in grammar: " .. def.name .."\n" ..
+      "Pattern sizes do not match.")
     end
 
     local ch = string.sub(line, x, x)
@@ -312,7 +313,8 @@ SHAPE RULE ELEMENTS:
     local H = #def.structure
 
     if (H % 2) ~= 0 then
-      error("Malformed structure in grammar: " .. def.name)
+      error("Malformed structure in grammar: " .. def.name .. "\n" ..
+      "Pattern lines are not even pairs.")
     end
 
     H = H / 2
@@ -4530,8 +4532,66 @@ gui.debugf("=== Coverage seeds: %d/%d  rooms: %d/%d\n",
         end]]
       end
 
+    elseif LEVEL.is_procedural_gotcha then
+
+      -- trim out the smallest room in procedural gotchas
+      -- if the room count is past 2
+      if #LEVEL.rooms >= 3 then
+        local smallest = EXTREME_H
+        local worst
+        for _,R in pairs(LEVEL.rooms) do
+          if R.svolume <= smallest then
+            smallest = R.svolume
+            worst = R
+          end
+        end
+
+        if worst then
+          Grower_kill_room(SEEDS, LEVEL, worst)
+        end
+      end
     end
   end
+
+  -- grow barely grown rooms
+  for _,R in pairs(LEVEL.rooms) do
+    R.is_last_grown = true
+
+    for _,A in pairs(R.areas) do
+      A:calc_volume()
+      R.svolume = R.svolume + A.svolume
+    end
+
+    local tries = 1
+    while R.svolume <= 16 and tries <= 3 do
+      local str = "#" .. tries .. ": Grow barely grown rooms -> " .. R.id .. ": " .. R.svolume
+      Grower_grammatical_room(SEEDS, LEVEL, R, "grow")
+      Grower_grammatical_room(SEEDS, LEVEL, R, "decorate")
+      R.svolume = 0
+      for _,A in pairs(R.areas) do
+        A:calc_volume()
+        R.svolume = R.svolume + A.svolume
+      end
+
+      for _,A in pairs(R.areas) do
+        A:calc_volume()
+        R.svolume = R.svolume + A.svolume
+      end
+      str = str .. "->" .. R.svolume .. " of " .. R.floor_limit
+      if R.symmetry then str = str .. " sym" end
+      gui.printf(str .. "\n")
+
+      if R.symmetry then
+        gui.printf("Symmetry disabled on this room.\n")
+        R.symmetry = {}
+        R.symmetry = nil
+        Grower_grammatical_room(SEEDS, LEVEL, R, "grow")
+        Grower_grammatical_room(SEEDS, LEVEL, R, "decorate")
+      end
+      tries = tries + 1
+    end
+  end
+  
 end
 
 

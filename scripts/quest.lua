@@ -237,14 +237,24 @@ function Quest_create_initial_quest(LEVEL)
       cur_score = math.exp(-(diff * diff) / (2 * sigma * sigma))
 
       -- should have at least one closet
+      local closet_mult = 1
       if R.closets and #R.closets >= 1 then
-        cur_score = cur_score * 1.25
+        closet_mult = 1.25
       end
 
       -- absolutely no rooms without more than 1 connection
       if #R.conns > 1 or (R.symmetry and #R.conns == 1) then
         cur_score = cur_score * (1 / #R.conns)
       end
+
+      -- prefer the other room to be a not too open
+      local N = R.conns[1]:other_room(R)
+      local openness_mult = math.clamp(1,(1.6 - N.openness),1.6) or 1
+
+      cur_score = cur_score * closet_mult * openness_mult
+
+      -- nay rooms
+      if R.is_hallway then cur_score = -1000 end
 
       R.start_score = math.round_to(cur_score,2)
 
@@ -342,7 +352,7 @@ function Quest_create_initial_quest(LEVEL)
     -- occasionally the grower will only produce a single room,
     -- hence we cannot reject a starting room completely
     if R.is_start then
-      return 1
+      return -1
     end
     if R.start_neighbor then
       score = score / 50
@@ -357,7 +367,7 @@ function Quest_create_initial_quest(LEVEL)
     end
 
     if R:total_conns() > 1 then
-      score = score / 10
+      score = score * (1 / (R:total_conns() * 0.75))
     end
 
     return score
@@ -511,6 +521,12 @@ function Quest_create_initial_quest(LEVEL)
 
   if LEVEL.secret_exit then
     add_secret_exit()
+  end
+
+  assert(LEVEL.start_room)
+  assert(LEVEL.exit_room)
+  if #LEVEL.rooms > 1 then
+    assert(LEVEL.start_room ~= LEVEL.exit_room)
   end
 end
 
@@ -3197,11 +3213,7 @@ function Quest_room_themes(LEVEL)
 
     for _,R in pairs(LEVEL.rooms) do
       if R:get_env() == "building" then
-        if not R.is_exit then
-          R.forced_wall_groups = the_wall_group_tab[LEVEL.theme_name]
-        else
-          R.forced_wall_groups = the_wall_group_tab[LEVEL.next_theme]
-        end
+        R.forced_wall_groups = the_wall_group_tab[LEVEL.theme_name]
       end
     end
 
@@ -3241,12 +3253,9 @@ function Quest_room_themes(LEVEL)
       end
     end
 
-    if THEME.outdoor_wall_groups then -- MSSP-TODO: No need for this check
-                                      -- once all themes have outdoor_wall_groups?
+    if THEME.outdoor_wall_groups then
       LEVEL.outdoor_wall_group = rand.key_by_probs(THEME.outdoor_wall_groups)
-      gui.debugf("outdoor_wall_group : " .. LEVEL.outdoor_wall_group .. "\n")
     end
-
   end
 
 
@@ -3453,10 +3462,10 @@ function Quest_room_themes(LEVEL)
       R.floor_mat_list_natural = {}
 
       R.floor_mat_list[rand.key_by_probs(R.theme.floors)] = 100
-      R.floor_mat_list[rand.key_by_probs(R.theme.floors)] = 100
-      R.floor_mat_list[rand.key_by_probs(R.theme.floors)] = 100
+      R.floor_mat_list[rand.key_by_probs(R.theme.floors)] = 75
+      R.floor_mat_list[rand.key_by_probs(R.theme.floors)] = 50
       R.floor_mat_list_natural[rand.key_by_probs(R.theme.naturals)] = 100
-      R.floor_mat_list_natural[rand.key_by_probs(R.theme.naturals)] = 100
+      R.floor_mat_list_natural[rand.key_by_probs(R.theme.naturals)] = 50
 
     else
       R.main_tex = rand.key_by_probs(R.theme.walls)
@@ -3528,10 +3537,16 @@ function Quest_room_themes(LEVEL)
     local f_tab = GAME.THEMES[next_theme].facades
     local wg_tab = GAME.THEMES[next_theme].outdoor_wall_groups
 
+    -- wall group for if outdoors
     if wg_tab then
       LEVEL.alt_outdoor_wall_group = rand.key_by_probs(wg_tab)
     else
       LEVEL.alt_outdoor_wall_group = "none"
+    end
+
+    -- wall group for when indoors
+    if exit_room:get_env() == "building" then
+      exit_room.forced_wall_groups = LEVEL.preferred_wall_groups[next_theme]
     end
 
     LEVEL.exit_windows = rand.key_by_probs(GAME.THEMES[next_theme].window_groups)
@@ -3629,6 +3644,10 @@ function Quest_trim_prefabs(LEVEL)
 
   if LEVEL.outdoor_wall_group then
     used_groups[LEVEL.outdoor_wall_group] = 1
+  end
+
+  if LEVEL.alt_outdoor_wall_group then
+    used_groups[LEVEL.alt_outdoor_wall_group] = 1
   end
 
   -- not necessarily unused, but if the level has parks, this'll be

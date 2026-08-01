@@ -156,7 +156,7 @@ MISC_STUFF.ROOM_AREA_MIX_FINE_TUNE_CHOICES =
 }
 
 function MISC_STUFF.setup(self)
-  
+
   module_param_up(self)
 
   --Brightness sliders
@@ -191,7 +191,7 @@ function MISC_STUFF.begin_level(self, LEVEL)
 
   if PARAM.outdoor_openness then
     if PARAM.outdoor_openness == "urbtech"
-    and LEVEL.theme_name == "urban" 
+    and LEVEL.theme_name == "urban"
     or LEVEL.theme_name == "tech" then
       LEVEL.outdoor_openness = true
     elseif PARAM.outdoor_openness == "urban"
@@ -278,7 +278,7 @@ OB_MODULES["misc"] =
     },
 
     {
-      name="room_size_multiplier", 
+      name="room_size_multiplier",
       label=_("Room Size Multiplier"),
       choices = MISC_STUFF.ROOM_SIZE_MULTIPLIER_CHOICES,
       default = "mixed",
@@ -287,7 +287,7 @@ OB_MODULES["misc"] =
       randomize_group="architecture",
     },
     {
-      name="room_area_multiplier", 
+      name="room_area_multiplier",
       label=_("Area Count Multiplier"),
       choices = MISC_STUFF.AREA_COUNT_MULTIPLIER_CHOICES,
       default = "mixed",
@@ -296,7 +296,7 @@ OB_MODULES["misc"] =
       randomize_group="architecture",
     },
     {
-      name="room_size_consistency", 
+      name="room_size_consistency",
       label=_("Size Consistency"),
       choices = MISC_STUFF.ROOM_SIZE_CONSISTENCY_CHOICES,
       default = "mixed",
@@ -305,17 +305,17 @@ OB_MODULES["misc"] =
       randomize_group="architecture",
     },
     {
-      name="room_size_mix_type", 
+      name="room_size_mix_type",
       label=_("Room Size Mix Fine Tune"),
       choices = MISC_STUFF.ROOM_SIZE_MIX_FINE_TUNE_CHOICES,
       default = "normal",
       tooltip = _("Alters the behavior of Mix It Up for Room Size Multiplier options.\n\nNormal: Mix it up uses a normal curve distribution. Traditional-sized rooms are common and smaller or larger sizes are slightly less so.\n\nSmall-ish: Only smaller room sizes, but biased towards normal sizes.\n\nSmall: Biased towards smaller room sizes with no larger room sizes.\n\nLarge: Biased towards large rooms sizes with no smaller room sizes..\n\nLarge-ish: Only larger room sizes, but biased towards normal sizes.\n\nConservative: Probability is biased more towards regular room sizes, making much smaller or much larger rooms significantly rarer.\n\nVery Conservative: Bias is even stronger towards regular and smaller rooms sizes, while larger rooms are very rare.\n\nRandom: No curve distribution - room sizes and room area counts are picked completely randomly."),
       priority = 91,
       randomize_group="architecture",
-      
+
     },
     {
-      name="room_area_mix_type", 
+      name="room_area_mix_type",
       label=_("Room Area Mix Fine Tune"),
       choices = MISC_STUFF.ROOM_AREA_MIX_FINE_TUNE_CHOICES,
       default = "normal",
@@ -323,24 +323,24 @@ OB_MODULES["misc"] =
       priority = 90,
       gap = 1,
       randomize_group="architecture",
-      
+
     },
 
-    { name="big_rooms",   
-      label=_("Big Rooms"), 
-      tooltip=_("Raises upper limits on individual room growth"), 
-      choices=STYLE_CHOICES, priority = 89, randomize_group="architecture", 
+    { name="big_rooms",
+      label=_("Big Rooms"),
+      tooltip=_("Raises upper limits on individual room growth"),
+      choices=STYLE_CHOICES, priority = 89, randomize_group="architecture",
     },
-    { name="big_outdoor_rooms", 
-      label=_("Big Outdoors"), 
-      tooltip=_("Raises upper limits on outdoor area growth"), 
+    { name="big_outdoor_rooms",
+      label=_("Big Outdoors"),
+      tooltip=_("Raises upper limits on outdoor area growth"),
       choices=STYLE_CHOICES, priority = 88, randomize_group="architecture",
     },
-    { name="sub_rooms", 
-      label=_("Sub Rooms"), 
-      tooltip=_("Controls number of small sub rooms. Actually controls the degree at which ungrown rooms are left instead of culled."), 
+    { name="sub_rooms",
+      label=_("Sub Rooms"),
+      tooltip=_("Controls number of small sub rooms. Actually controls the degree at which ungrown rooms are left instead of culled."),
       choices=STYLE_CHOICES, priority = 87.5, randomize_group="architecture",
-      
+
     },
     {
       name="room_heights",
@@ -354,9 +354,9 @@ OB_MODULES["misc"] =
     },
 
 
-    { name="parks",       
-    label=_("Parks"), 
-    tooltip = _("Control the number of parks."), 
+    { name="parks",
+    label=_("Parks"),
+    tooltip = _("Control the number of parks."),
     choices=STYLE_CHOICES, priority = 86, randomize_group="architecture", },
     {
       name="natural_parks",
@@ -366,7 +366,7 @@ OB_MODULES["misc"] =
       default="mixed",
       priority = 85,
       randomize_group="architecture",
-      
+
     },
     { name="park_detail",
       label=_("Park Detail"),
@@ -375,12 +375,22 @@ OB_MODULES["misc"] =
       priority = 84,
       gap=1,
       randomize_group="architecture",
-      
+
     },
 
-    { name="windows",     
-    label=_("Windows"), 
-    tooltip = _("Control the number of windows."), 
+    { name="clearings",
+      label=_("Clearings"),
+      tooltip=_("Reduces or increases the probability of clearings, small naturalistic lots inside artificial outdoors."),
+      choices=STYLE_CHOICES,
+      priority = 83,
+      gap=1,
+      randomize_group="architecture",
+
+    },
+
+    { name="windows",
+    label=_("Windows"),
+    tooltip = _("Control the number of windows."),
     choices=STYLE_CHOICES, priority = 83, randomize_group="architecture", },
     {
       name="passable_windows",
@@ -389,7 +399,7 @@ OB_MODULES["misc"] =
       tooltip=_("Sets the preferences for passability on certain windows. On Vistas Only means only windows that look out to vistas/map border scenics have a blocking line."),
       default="never",
       priority = 82,
-      
+
     },
     {
       name="passable_railings",
@@ -397,45 +407,45 @@ OB_MODULES["misc"] =
       choices=MISC_STUFF.RAIL_BLOCKING_CHOICES,
       tooltip=_("Sets the passability of railing junctions between full impassability or the 3D midtex flag. Occasional means 3D midtex is only used on railings between areas the player is supposed to circumvent. Always means the inclusion of cages and scenic rails, allowing flying monsters to potentially escape.\n\nNote: 3D midtex lines currently *block* projectiles as well."),
       default="never",
-      priority = 81, 
+      priority = 81,
       gap=1,
-      
+
     },
 
-    { name="symmetry",    
-    label=_("Symmetry"), 
-    tooltip = _("Affects amount of symmetry when growing levels."), 
+    { name="symmetry",
+    label=_("Symmetry"),
+    tooltip = _("Affects amount of symmetry when growing levels."),
     choices=STYLE_CHOICES, priority = 80, randomize_group="architecture", },
-    { name="beams",       
-    label=_("Beams"),          
+    { name="beams",
+    label=_("Beams"),
     choices=STYLE_CHOICES,
     tooltip = _("Allows the appearance of thin pillars to appear between the borders of different elevations."),
     priority = 79,
     randomize_group="architecture",
     },
-    { name="fences",      
-    label=_("Fences"),         
+    { name="fences",
+    label=_("Fences"),
     choices=STYLE_CHOICES,
     tooltip = _("Creates thick solid fences and fence posts between areas of varying height for outdoor rooms."),
     priority = 78,
     randomize_group="architecture",
     },
-    { name="porches",     
-    label=_("Porches\\Gazebos"),        
+    { name="porches",
+    label=_("Porches\\Gazebos"),
     choices=STYLE_CHOICES,
     tooltip = _("Occasional outdoor areas with a lowered indoor-ish ceiling."),
     priority = 77,
     randomize_group="architecture",
     },
-    { name="pictures",     
-    label=_("Pictures"),          
+    { name="pictures",
+    label=_("Pictures"),
     choices=STYLE_CHOICES,
     tooltip = _("Controls the large wall setpieces in a map. Works on a chance per room basis."),
     priority = 76.5,
     randomize_group="architecture",
     },
-    { name="scenics",     
-    label=_("Scenics"),          
+    { name="scenics",
+    label=_("Scenics"),
     choices=STYLE_CHOICES,
     tooltip = _("Controls the number of fancy scenics visible at room bordering the maps."),
     priority = 76,
@@ -453,13 +463,13 @@ OB_MODULES["misc"] =
       gap = 1,
     },
 
-    { name="darkness",    
-    label=_("Dark Outdoors"),  
-    tooltip=_("Affects the chance of a level having darker skies."), 
+    { name="darkness",
+    label=_("Dark Outdoors"),
+    tooltip=_("Affects the chance of a level having darker skies."),
     choices=STYLE_CHOICES, priority = 73 },
 
-    { 
-      name="float_minimum_brightness", 
+    {
+      name="float_minimum_brightness",
       label=_("Minimum Brightness"),
       valuator = "slider",
       min = 0,
@@ -468,11 +478,11 @@ OB_MODULES["misc"] =
       default = 0,
       tooltip = _("Sets the minimum brightness for the map."),
       priority = 72,
-      
+
     },
 
-    { 
-      name="float_maximum_brightness", 
+    {
+      name="float_maximum_brightness",
       label=_("Maximum Brightness"),
       valuator = "slider",
       min = 0,
@@ -481,38 +491,38 @@ OB_MODULES["misc"] =
       default = 256,
       tooltip = _("Sets the maximum brightness for the map."),
       priority = 71,
-      
+
     },
 
-    { name="barrels",     
-    label=_("Explosive Decor"),        
+    { name="barrels",
+    label=_("Explosive Decor"),
     choices=STYLE_CHOICES, gap=1,
     tooltip = _("Controls the presence of barrels, pods, canisters, etc."),
     priority = 70,
     randomize_group="architecture",
     },
 
-    { name="doors",       
-    label=_("Doors"), 
-    tooltip = _("Control the number of doors."), 
+    { name="doors",
+    label=_("Doors"),
+    tooltip = _("Control the number of doors."),
     choices=STYLE_CHOICES, priority = 69, randomize_group="architecture", },
-    { name="keys",        
-    label=_("Keyed Doors"), 
-    tooltip = _("Control the number of keyed doors."), 
+    { name="keys",
+    label=_("Keyed Doors"),
+    tooltip = _("Control the number of keyed doors."),
     choices=STYLE_CHOICES, priority = 68, randomize_group="architecture", },
-    { name="trikeys",     
-    label=_("Triple-Keyed Doors"),          
+    { name="trikeys",
+    label=_("Triple-Keyed Doors"),
     choices=STYLE_CHOICES,
     tooltip = _("Controls the chance to get three key door whenever three keys are present."),
     priority = 67,
     randomize_group="architecture",
     },
-    { name="switches",    label=_("Switch Goals"), choices=STYLE_CHOICES, 
+    { name="switches",    label=_("Switch Goals"), choices=STYLE_CHOICES,
       tooltip = _("Controls the chance for long-distance switch and lock quests."),
       priority = 66,
       randomize_group="architecture",
     },
-    { name="local_switches",    label=_("Switch Rooms"), choices=STYLE_CHOICES, 
+    { name="local_switches",    label=_("Switch Rooms"), choices=STYLE_CHOICES,
       tooltip = _("Controls the chance same-room switches and locks."),
       priority = 65,
       gap=1,
@@ -526,7 +536,7 @@ OB_MODULES["misc"] =
       default = 1,
       tooltip = _("Adds street markings to roads."),
       priority = 64,
-      
+
     },
     {
       name="street_traffic",
@@ -536,7 +546,7 @@ OB_MODULES["misc"] =
       priority = 63,
       gap = 1,
       randomize_group="architecture",
-      
+
     },
 
     {
@@ -556,7 +566,7 @@ OB_MODULES["misc"] =
       tooltip=_("Stops start rooms from having more than one external room connection. Can help reduce being overwhelmed by attacks from multiple directions when multiple neighboring rooms connect into the start room. Default means no control, and levels can have linear starts at random based on shape grammars as per original Oblige 7.7 behavior."),
       default = "default",
       priority = 61,
-      
+
     },
     {
       name="outdoor_openness",
@@ -565,7 +575,7 @@ OB_MODULES["misc"] =
       tooltip=_("Disables shape rules that involve obstructive geometry such as pillars for outdoors based on theme."),
       default="none",
       priority = 60,
-      
+
     },
     {
       name="dead_ends",
@@ -576,7 +586,7 @@ OB_MODULES["misc"] =
       priority = 59,
       gap = 1,
       randomize_group="architecture",
-      
+
     },
 
 ---- PLANNED (UNFINISHED) STUFF ----

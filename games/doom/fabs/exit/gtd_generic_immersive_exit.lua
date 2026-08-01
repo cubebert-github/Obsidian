@@ -8,8 +8,6 @@ PREFABS.Exit_tech_immersive_exit =
 
   where = "seeds",
 
-  
-
   start_fab_peer = "Start_generic_immersive_start",
 
   seed_w = 2,
@@ -32,5 +30,16 @@ PREFABS.Exit_tech_immersive_exit_urban =
 
   theme = "urban",
 
-  start_fab_peer = "Start_generic_immersive_start_urban",
+  start_fab_peer = "Start_generic_immersive_start_urban"
+}
+
+PREFABS.Exit_generic_immersive_start_gothic =
+{
+  template = "Exit_tech_immersive_exit",
+
+  map = "MAP03",
+
+  theme = "!tech",
+
+  start_fab_peer = "Start_generic_immersive_start_gothic"
 }

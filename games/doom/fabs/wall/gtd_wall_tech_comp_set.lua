@@ -342,3 +342,121 @@ PREFABS.Wall_gtd_dh_comp_diag =
 
   bound_z2 = 112
 }
+
+--
+
+PREFABS.Wall_gtd_black_mirror_1 =
+{
+  file   = "wall/gtd_wall_tech_comp_set.wad",
+  map    = "MAP25",
+
+  prob   = 50,
+  group  = "gtd_black_mirror",
+
+  where  = "edge",
+
+  deep   = 16,
+
+  height = 96,
+
+  bound_z1 = 0,
+  bound_z2 = 96,
+
+  z_fit = "top"
+}
+
+PREFABS.Wall_gtd_black_mirror_ad_panel =
+{
+  template = "Wall_gtd_black_mirror_1",
+  map = "MAP26",
+
+  texture_pack = "armaetus",
+
+  prob = 10,
+
+  tex_ADVCR3 =
+  {
+    ADVCR3 = 2,
+    ADVCR5 = 2,
+    ADVDE4 = 2,
+    ADVDE6 = 2,
+
+    COMPSA1 = 2,
+    COMPSC1 = 2,
+    COMPSD1 = 2,
+    LAVWHIT1 = 2,
+    NOISE2A = 2,
+    NOISE3A = 2
+  },
+
+  sector_12 =
+  {
+    [0] = 10,
+    [12] = 2,
+    [13] = 2,
+    [21] = 2,
+  }
+}
+
+PREFABS.Wall_gtd_black_mirror_diag =
+{
+  template = "Wall_gtd_black_mirror_1",
+  map = "MAP27",
+
+  where = "diagonal"
+}
+
+--
+
+
+PREFABS.Wall_gtd_spbc_1 =
+{
+  file = "wall/gtd_wall_tech_comp_set.wad",
+  map = "MAP30",
+
+  prob = 50,
+  group = "gtd_silver_pillars_blue_computers",
+
+  where = "edge",
+
+  deep = 16,
+
+  height = 96,
+
+  bound_z1 = 0,
+  bound_z2 = 96,
+
+  z_fit = {92,94}
+}
+
+PREFABS.Wall_gtd_spbc_2 =
+{
+  template = "Wall_gtd_spbc_1",
+  map = "MAP31",
+
+  prob = 10,
+}
+
+PREFABS.Wall_gtd_spbc_3 =
+{
+  template = "Wall_gtd_spbc_1",
+  map = "MAP32",
+
+  prob = 5,
+
+  tex_COMPSTA1 =
+  {
+    COMPSTA1 = 5,
+    COMPSTA2 = 5
+  }
+}
+
+
+PREFABS.Wall_gtd_spbc_diag =
+{
+  template = "Wall_gtd_spbc_1",
+  map = "MAP33",
+
+  where = "diagonal",
+}
+

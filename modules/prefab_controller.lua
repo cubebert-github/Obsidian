@@ -149,11 +149,11 @@ function PREFAB_CONTROL.fine_tune_filters()
   }
   local new_fab_groups_multipliers =
   {
-    gtd_fireblu_where_its_made = 1,
-    gtd_tech_barrier_tek = 2,
-    gtd_data_center = 3,
-    gtd_dh_comp = 4,
-    gtd_shopping_mall = 4
+    gtd_storage_wood = 2,
+    gtd_door_storage = 2,
+    gtd_silver_pillars_blue_computers = 4,
+    gtd_wall_quakish_insets_horizon = 12,
+    gtd_wall_quakish_insets_horizon_mid = 12
   }
   local new_themes_multipliers =
   {
@@ -338,7 +338,7 @@ OB_MODULES["prefab_control"] =
       valuator = "slider",
       units = "",
       min = 1,
-      max = 8,
+      max = 10, --8
       increment = 1,
       default = 1,
       tooltip = _("Determines the maximum number of distinct indoor room themes used per level. Default is 1."),
@@ -364,7 +364,7 @@ OB_MODULES["prefab_control"] =
       valuator = "slider",
       units = "",
       min = 1,
-      max = 8,
+      max = 10, --8
       increment = 1,
       default = 2,
       tooltip = _("Determines the maximum number of distinct indoor wall groups used per level. Default is 2."),

@@ -16,7 +16,7 @@ PREFABS.Decor_gtd_DMV_multi_bench =
   template = "Decor_gtd_DMV_double_bench",
   map = "MAP02",
 
-  size = 104
+  size = 96
 }
 
 PREFABS.Decor_gtd_DMV_rope_barrier =

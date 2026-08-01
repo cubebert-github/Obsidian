@@ -430,8 +430,7 @@ function Fab_expansion_groups(list, axis_name, fit_size, pf_size, fabinfo)
     if fabinfo.kind == "beam" then goto skip end
     local problem_string = "\n\nPREFAB DOES NOT FIT!!!\n"
     .. "(on " .. axis_name .. " axis)\n"
-    .. "Fab info:\n"
-    .. table.tostr(fabinfo) .. "\n"
+    .. "Fab: " .. fabinfo.name .. "\n"
     .. "Required: " .. fit_size .. " Prefab has: " .. pf_size .. "\n\n"
     gui.printf(problem_string)
     ::skip::
@@ -875,7 +874,7 @@ end
 
 
 
-function Fab_bound_brushes_Z(fab, z1, z2)
+--[[function Fab_bound_brushes_Z(fab, z1, z2)
   if not (z1 or z2) then return end
 
   for _,B in pairs(fab.brushes) do
@@ -885,7 +884,7 @@ function Fab_bound_brushes_Z(fab, z1, z2)
     if z1 and not b then table.insert(B, { b = z1 }) end
     if z2 and not t then table.insert(B, { t = z2 }) end
   end
-end
+end]]
 
 
 
@@ -1339,13 +1338,6 @@ function Fab_load_wad(def)
       C2.sidedef_index = side.sidedef_index
     end
 
-    --[[if side then
-      table.alt_print_table(side)
-      gui.printf("--\n")
-    end
-    table.alt_print_table(C2)
-    gui.printf("\n")]]
-
     return C2
   end
 
@@ -1525,8 +1517,6 @@ function Fab_load_wad(def)
       C.shadow = 64
     elseif S.light < 144 then
       C.shadow = 144 - S.light
-    elseif S.light == 144 then
-      -- nothing happens
     elseif S.light > 240 then
       C.light_add = 96
     elseif S.light > 144 then

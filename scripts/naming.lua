@@ -1612,7 +1612,7 @@ namelib.MARKOV_DB =
     order = {2}, -- Refers to the memory of the Markov chain. 
                  -- A number too low means gibberish, a number too high means outputting just the same words.
 
-    max_len = {8,8,8,9,9,10,10}, -- rand.pick() range of how long the name should be. 
+    max_len = {6,7,7,8,8,8,8,9,10}, -- rand.pick() range of how long the name should be. 
                                        -- Not recomended to go really long. 
     min_len = {5,6,6,6,6},             -- rand.pick() range of how short the name can be. 
                                        -- Too short results in easy collisions with common words... like "Meth" or "Cunt"

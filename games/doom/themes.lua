@@ -553,6 +553,8 @@ DOOM.SINKS =
 
     trim_mat = "FLAT23",
     trim_dz  = -5,
+
+    light_color = "red"
   },
 
   light_orange_shiny =
@@ -563,6 +565,8 @@ DOOM.SINKS =
 
     trim_mat = "FLAT23",
     trim_dz  = -5,
+
+    light_color = "beige"
   },
 
   light_brightred_metal =
@@ -574,6 +578,8 @@ DOOM.SINKS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   light_brightred_metal2 =
@@ -585,6 +591,8 @@ DOOM.SINKS =
     trim_mat = "SHAWN2",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   light_diamond =
@@ -602,6 +610,8 @@ DOOM.SINKS =
 
     trim_mat = "METAL",
     trim_dz  = -5,
+
+    light_color = "beige"
   },
 
   light_hell_red =
@@ -609,6 +619,8 @@ DOOM.SINKS =
     mat = "FLAT5_3",
     dz  = 16,
     light = 16,
+
+    light_color = "red"
   },
 
   light_hell_lava =
@@ -626,6 +638,8 @@ DOOM.SINKS =
 
     trim_mat = "LITE5",
     trim_dz  = 0,
+
+    light_color = "blue"
   },
 
   light_side2 =
@@ -636,6 +650,8 @@ DOOM.SINKS =
 
     trim_mat = "LITE5",
     trim_dz  = 0,
+
+    light_color = "white"
   },
 
   light_side3 =
@@ -646,6 +662,8 @@ DOOM.SINKS =
 
     trim_mat = "METAL7",
     trim_dz  = 0,
+
+    light_color = "white"
   },
 
   light_side4 =
@@ -656,6 +674,8 @@ DOOM.SINKS =
 
     trim_mat = "LITE5",
     trim_dz  = 0,
+
+    light_color = "blue"
   },
 
   light_side5 =
@@ -666,6 +686,8 @@ DOOM.SINKS =
 
     trim_mat = "LITE5",
     trim_dz  = 0,
+
+    light_color = "white"
   },
 
   light_side6 =
@@ -676,6 +698,28 @@ DOOM.SINKS =
 
     trim_mat = "BRONZE4",
     trim_dz  = 0,
+
+    light_color = "beige"
+  },
+
+  light_torches =
+  {
+    mat = "_WALL",
+    dz = 144,
+    light = 24,
+
+    trim_mat = "BRICKLIT",
+    trim_dz = 16,
+  },
+
+  light_torches2 =
+  {
+    mat = "_WALL",
+    dz = 144,
+    light = 24,
+
+    trim_mat = "BSTONE3",
+    trim_dz = 16,
   },
 
   -- misc floor --
@@ -867,6 +911,8 @@ DOOM.SINKS =
     trim_dz  = -8,
   },
 
+  --
+
   ceil_mix_with_f =
   {
     mat = "_FLOOR",
@@ -884,6 +930,26 @@ DOOM.SINKS =
     trim_mat = "_FLOOR",
     trim_dz = 64
   },
+
+  ceil_mix_with_f_flat =
+  {
+    mat = "_FLOOR",
+    dz = 64,
+
+    trim_mat = "_WALL",
+    trim_dz = 64
+  },
+
+  ceil_mix_with_w_flat =
+  {
+    mat = "_WALL",
+    dz = 64,
+
+    trim_mat = "_FLOOR",
+    trim_dz = 64
+  },
+
+  --
 
   ceil_mix_with_f_tall =
   {
@@ -903,6 +969,26 @@ DOOM.SINKS =
     trim_dz = 128
   },
 
+  ceil_mix_with_f_tall_flat =
+  {
+    mat = "_FLOOR",
+    dz = 128,
+
+    trim_mat = "_WALL",
+    trim_dz = 128
+  },
+
+  ceil_mix_with_w_tall_flat =
+  {
+    mat = "_WALL",
+    dz = 128,
+
+    trim_mat = "_FLOOR",
+    trim_dz = 128
+  },
+
+  --
+
   ceil_mix_with_f_ultratall =
   {
     mat = "_FLOOR",
@@ -916,6 +1002,24 @@ DOOM.SINKS =
   {
     mat = "_WALL",
     dz = 512,
+
+    trim_mat = "_FLOOR",
+    trim_dz = 256
+  },
+
+  ceil_mix_with_f_ultratall_flat =
+  {
+    mat = "_FLOOR",
+    dz = 256,
+
+    trim_mat = "_WALL",
+    trim_dz = 256
+  },
+
+  ceil_mix_with_w_ultratall_flat =
+  {
+    mat = "_WALL",
+    dz = 256,
 
     trim_mat = "_FLOOR",
     trim_dz = 256
@@ -1094,12 +1198,12 @@ DOOM.THEMES =
     ceiling_sinks =
     {
       PLAIN = 0.01,
-      ceil_mix_with_f = 250,
-      ceil_mix_with_w = 150,
-      ceil_mix_with_f_tall = 150,
-      ceil_mix_with_w_tall = 75,
-      ceil_mix_with_f_ultratall = 75,
-      ceil_mix_with_w_ultratall = 30
+      ceil_mix_with_f = 150,
+      ceil_mix_with_w = 85,
+      ceil_mix_with_f_tall = 75,
+      ceil_mix_with_w_tall = 35,
+      ceil_mix_with_f_ultratall = 50,
+      ceil_mix_with_w_ultratall = 25
     },
 
     wall_groups =
@@ -1276,7 +1380,21 @@ DOOM.THEMES =
       light_side4 = 100,
       light_side5 = 100,
       light_side6 = 100,
-      ceil_vdark2 = 30
+      ceil_vdark2 = 30,
+
+      ceil_mix_with_f = 250,
+      ceil_mix_with_w = 125,
+      ceil_mix_with_f_tall = 150,
+      ceil_mix_with_w_tall = 100,
+      ceil_mix_with_f_ultratall = 75,
+      ceil_mix_with_w_ultratall = 25,
+
+      ceil_mix_with_f_flat = 125,
+      ceil_mix_with_w_flat = 75,
+      ceil_mix_with_f_tall_flat = 75,
+      ceil_mix_with_w_tall_flat = 35,
+      ceil_mix_with_f_ultratall_flat = 35,
+      ceil_mix_with_w_ultratall_flat = 20
     },
 
     passable_decor =
@@ -1342,7 +1460,9 @@ DOOM.THEMES =
       gtd_computers_lite5 = 25,
       gtd_computers_blue_shawn = 25,
       gtd_dh_comp = 50,
+      gtd_silver_pillars_blue_computers = 50,
       --
+      gtd_black_mirror = 50,
       gtd_data_center = 50,
       --
       gtd_writhing_mass = 10,
@@ -1351,6 +1471,8 @@ DOOM.THEMES =
       --
       gtd_wall_quakish_insets = 25,
       gtd_wall_quakish_insets_2 = 25,
+      gtd_wall_quakish_insets_horizon = 10,
+      gtd_wall_quakish_insets_horizon_mid = 10,
       --
       gtd_ribbed_lights = 18,
       gtd_ribbed_lights_no3d = 18,
@@ -1802,7 +1924,24 @@ DOOM.THEMES =
       light_side3 = 70,
       light_side4 = 70,
       light_side5 = 70,
-      light_side6 = 70
+      light_side6 = 70,
+
+      light_torches = 70,
+      light_torches2 = 70,
+
+      ceil_mix_with_f = 125,
+      ceil_mix_with_w = 75,
+      ceil_mix_with_f_tall = 75,
+      ceil_mix_with_w_tall = 35,
+      ceil_mix_with_f_ultratall = 35,
+      ceil_mix_with_w_ultratall = 25,
+
+      ceil_mix_with_f_flat = 60,
+      ceil_mix_with_w_flat = 30,
+      ceil_mix_with_f_tall_flat = 30,
+      ceil_mix_with_w_tall_flat = 15,
+      ceil_mix_with_f_ultratall_flat = 20,
+      ceil_mix_with_w_ultratall_flat = 10
     },
 
     beam_groups =
@@ -1850,7 +1989,9 @@ DOOM.THEMES =
       gtd_computers_lite5 = 18,
       gtd_computers_blue_shawn = 18,
       gtd_dh_comp = 25,
+      gtd_silver_pillars_blue_computers = 25,
       --
+      gtd_black_mirror = 40,
       gtd_data_center = 35,
       --
       gtd_drywall = 50,
@@ -1860,6 +2001,8 @@ DOOM.THEMES =
       --
       gtd_wall_quakish_insets = 25,
       gtd_wall_quakish_insets_2 = 25,
+      gtd_wall_quakish_insets_horizon = 20,
+      gtd_wall_quakish_insets_horizon_mid = 20,
       --
       gtd_ribbed_lights = 17,
       gtd_ribbed_lights_no3d = 17,
@@ -2144,8 +2287,7 @@ DOOM.THEMES =
 
     sink_style =
     {
-      sharp = 1,
-      curved = 1
+      sharp = 1
     },
 
     skyboxes =
@@ -2204,7 +2346,7 @@ DOOM.THEMES =
       BROWNGRN = 5,
       BROVINE2 = 5,
 
-      
+
     },
 
     fences =
@@ -2351,8 +2493,26 @@ DOOM.THEMES =
       light_diamond = 35,
       light_hell_red = 80,
       light_hell_lava = 40,
+
+      light_torches = 50,
+      light_torches2 = 50,
+
       ceil_redash = 25,
-      ceil_vdark = 10
+      ceil_vdark = 10,
+
+      ceil_mix_with_f = 175,
+      ceil_mix_with_w = 125,
+      ceil_mix_with_f_tall = 125,
+      ceil_mix_with_w_tall = 65,
+      ceil_mix_with_f_ultratall = 65,
+      ceil_mix_with_w_ultratall = 35,
+
+      ceil_mix_with_f_flat = 75,
+      ceil_mix_with_w_flat = 35,
+      ceil_mix_with_f_tall_flat = 50,
+      ceil_mix_with_w_tall_flat = 25,
+      ceil_mix_with_f_ultratall_flat = 30,
+      ceil_mix_with_w_ultratall_flat = 15
     },
 
     beam_groups =
@@ -2412,7 +2572,11 @@ DOOM.THEMES =
       gtd_furnace_water = 20,
       --
       gtd_wall_marbface = 50,
+      --
       gtd_wall_quakish_insets = 50,
+      gtd_wall_quakish_insets_horizon = 25,
+      gtd_wall_quakish_insets_horizon_mid = 25,
+      --
       gtd_wall_hell_ossuary = 50,
       --
       gtd_wall_high_gap_set = 12,
@@ -2711,8 +2875,7 @@ DOOM.THEMES =
 
     sink_style =
     {
-      sharp = 0.25,
-      curved = 1
+      sharp = 1
     },
 
     skyboxes =
@@ -4022,7 +4185,7 @@ DOOM.ROOM_THEMES =
     {
       FLAT1_1 = 7,
       FLAT1_2 = 7,
- 
+
       DEM1_5 = 10,
       DEM1_6 = 10,
 
@@ -4467,7 +4630,7 @@ DOOM.ROOM_THEMES =
     floors =
     {
       MFLR8_2 = 40,
-    
+
       FLAT1_1 = 40,
       FLAT8 = 30,
       FLOOR0_1 = 10,
@@ -5304,7 +5467,7 @@ DOOM.TITLE_MAIN_STYLES =
 
     background = "techbg1",
 
-    props = 
+    props =
     {
       barrel_1 =
       {
@@ -5597,8 +5760,8 @@ DOOM.TITLE_COLOR_RAMPS =
 }
 
 function DOOM.setup()
-  GAME.TITLE_MAIN_STYLES = DOOM.TITLE_MAIN_STYLES 
-  GAME.TITLE_SUB_STYLES = DOOM.TITLE_SUB_STYLES 
+  GAME.TITLE_MAIN_STYLES = DOOM.TITLE_MAIN_STYLES
+  GAME.TITLE_SUB_STYLES = DOOM.TITLE_SUB_STYLES
   GAME.TITLE_SPACE_STYLES = DOOM.TITLE_SPACE_STYLES
   GAME.TITLE_INTERMISSION_STYLES = DOOM.TITLE_INTERMISSION_STYLES
   GAME.TITLE_COLOR_RAMPS = DOOM.TITLE_COLOR_RAMPS

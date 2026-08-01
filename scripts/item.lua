@@ -613,7 +613,24 @@ function Item_distribute_stats(LEVEL)
     -- handle hallways that are entered from a different zone
     -- (i.e. via a keyed door).
     if R.is_hallway and table.empty(list) then
-      N = R.entry_conn:other_room(N)
+
+      if R.entry_conn then
+        N = R.entry_conn:other_room(R)
+      else
+        local lower = EXTREME_H
+
+        for _,C in pairs(R.conns) do
+
+          local C1 = C:other_room(R)
+          N = C1
+
+          if C1.lev_along < lower then
+            lower = C1.lev_along
+            N = C1
+          end
+
+        end
+      end
 
       table.insert(list, { room=N, ratio=1.0 })
       total = 1.0

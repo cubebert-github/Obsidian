@@ -24,7 +24,7 @@ PREFABS.Decor_gtd_green_shipping_container_2 =
 
   height = 256,
 
-  tex_SDM_CTR2 = 
+  tex_SDM_CTR2 =
   {
     SDM_CTR2 = 1
   }
@@ -36,7 +36,7 @@ PREFABS.Decor_gtd_green_shipping_container_3 =
   map = "MAP03",
 
   height = 128,
-  size = 96,
+  size = 128,
 
   tex_SDM_CTR4 =
   {

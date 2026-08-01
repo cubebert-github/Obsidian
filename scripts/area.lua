@@ -347,6 +347,15 @@ function AREA_CLASS.touches(A, N)
 end
 
 
+function AREA_CLASS.shares_edge(A, N)
+  for _,E1 in pairs(A.edges) do
+    for _,E2 in pairs(N.edges) do
+      if E1 == E2 then return E1 end
+    end
+  end
+end
+
+
 function AREA_CLASS.has_conn(A, LEVEL)
   for _,C in pairs(LEVEL.conns) do
     if C.kind ~= "teleporter" and (C.A1 == A or C.A2 == A) then
@@ -431,6 +440,15 @@ function AREA_CLASS.get_fseed_coord(A)
   end
 
   return ""
+end
+
+
+function AREA_CLASS.set_floor(A, h)
+  A.floor_h = h
+end
+
+function AREA_CLASS.set_ceil(A, h)
+  A.ceil_h = h
 end
 
 
@@ -674,11 +692,20 @@ function Junction_make_map_edge(junc)
 end
 
 
-function Junction_calc_wall_tex(A1, A2, type)
+function Junction_calc_wall_tex(A1, A2, kind, group)
 
   -- clearings - appears first above others
-  if type ~= "window" then
-    if A1.is_clearing then return A1.zone.nature_facade end
+  if kind ~= "window" then
+
+    if A1.is_clearing then
+      if kind == "joiner" or
+      kind == "closet" and
+      group ~= "natural_walls" then
+        return A1.zone.facade_mat
+      end
+
+      return A1.zone.nature_facade
+    end
   end
 
   -- foreshadowing exit override
@@ -813,7 +840,7 @@ function Junction_calc_fence_z(A1, A2)
   -- one of the areas' ceiling heights (usually the one with the porch)
   -- MSSP
   if A1.is_porch or A2.is_porch then
-    if not A1.room.is_outdoor or not A2.room.is_outdoor then
+    if not A1.is_outdoor or not A2.is_outdoor then
       top_z = per_area_z
     end
 
@@ -1255,7 +1282,6 @@ end
 
 
 function Corner_is_at_area_corner(corner)
-
   -- corner isn't at a corner when along parallel walls
   local wall_count = 0
   for _,junc in pairs(corner.junctions) do
@@ -1283,34 +1309,54 @@ function Corner_is_at_area_corner(corner)
   -- corner is definitely at a corner if more than two areas meet
   if #corner.areas > 2 then return true end
 
+  -- corner is between more than 1 junction
+  if #corner.junctions > 1 then return true end
+
   -- corner is definitely at a corner if one seed has an area
   -- that doesn't match all the others
   if #corner.seeds == 4 then
 
+    -- corner sits between diagonals that are not parallel
+    local dir_score = 0
+    local diag_count = 0
+    for _,S in pairs(corner.seeds) do
+      if S.diagonal then
+        diag_count = diag_count + 1
+        dir_score = dir_score + S.diagonal
+      end
+    end
+
+    if diag_count >= 2 and dir_score ~= 10 then
+      return true
+    end
+
+    -- compare NW
     if corner.seeds[1].area ~= corner.seeds[2].area and
     corner.seeds[1].area ~= corner.seeds[3].area and
     corner.seeds[1].area ~= corner.seeds[4].area then
       return true
     end
 
+    -- compare NE
     if corner.seeds[2].area ~= corner.seeds[1].area and
     corner.seeds[2].area ~= corner.seeds[3].area and
     corner.seeds[2].area ~= corner.seeds[4].area then
       return true
     end
 
+    -- compare SW
     if corner.seeds[3].area ~= corner.seeds[1].area and
     corner.seeds[3].area ~= corner.seeds[3].area and
     corner.seeds[3].area ~= corner.seeds[4].area then
       return true
     end
 
+    -- compare SE
     if corner.seeds[4].area ~= corner.seeds[1].area and
     corner.seeds[4].area ~= corner.seeds[2].area and
     corner.seeds[4].area ~= corner.seeds[3].area then
       return true
     end
-
   end
 
   -- corner is by at least one diagonal and is between two areas
@@ -1318,7 +1364,7 @@ function Corner_is_at_area_corner(corner)
     local diagonal_score = 0
 
     for _,S in pairs(corner.seeds) do
-      if S.top then diagonal_score = diagonal_score + 1 end
+      if S.top or S.bottom then diagonal_score = diagonal_score + 1 end
     end
 
     if diagonal_score == 1 then return true end

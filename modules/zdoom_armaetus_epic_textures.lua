@@ -709,23 +709,28 @@ function OBS_RESOURCE_PACK_EPIC_TEXTURES.synthesize_procedural_themes()
     t.env = "building"
     t.prob = rand.pick({20,30,40,50,60}) * PARAM.float_orp_room_theme_synth_mult
 
-    t.floors[pick_element(theme, "floors")] = 5
-    t.floors[pick_element(theme, "floors")] = 5
-    t.walls[pick_element(theme, "walls")] = 5
-    t.ceilings[pick_element(theme, "ceilings")] = 5
-    t.ceilings[pick_element(theme, "ceilings")] = 5
+    local wall_t = pick_element(theme, "walls")
+    t.walls[wall_t] = 5
 
-    t.name = name
+    local floor_t = pick_element(theme, "floors")
+    t.floors[floor_t] = 5
+    t.floors[pick_element(theme, "floors")] = 2
+
+    local ceil_t = pick_element(theme, "ceilings")
+    t.ceilings[ceil_t] = 5
+    t.ceilings[pick_element(theme, "ceilings")] = 2
+
+    t.name = name.."_"..wall_t.."_"..floor_t.."_"..ceil_t
 
     GAME.ROOM_THEMES[t.name] = t
   end
 
   local function synthesize_themes(y)
     for x = 1, y do
-      create_theme("tech", "synth_room_theme_" .. x)
-      create_theme("urban", "synth_room_theme_" .. x)
-      create_theme("hell", "synth_room_theme_" .. x)
-      create_theme("any", "synth_room_theme_" .. x)
+      create_theme("tech", "synth_" .. x)
+      create_theme("urban", "synth_" .. x)
+      create_theme("hell", "synth_" .. x)
+      create_theme("any", "synth_" .. x)
     end
   end
 
@@ -952,29 +957,37 @@ function OBS_RESOURCE_PACK_EPIC_TEXTURES.generate_environment_themes(self, LEVEL
   local snow_tab = table.copy(ORP_SNOW_ROOM_THEMES)
   local sand_tab = table.copy(ORP_DESERT_ROOM_THEMES)
 
-  -- greatly increase the probabilities for outdoor_theme specials
-  for _,T in pairs(snow_tab) do
-    for _,TG in pairs(T) do
-      for key,prob in pairs(TG) do
-        TG[key] = prob * 5000
-      end
-    end
-  end
-  for _,T in pairs(sand_tab) do
-    for _,TG in pairs(T) do
-      for key,prob in pairs(TG) do
-        TG[key] = prob * 5000
-      end
-    end
-  end
-
   -- modify themes if there's a non-"temperate" outdoor_theme
-  if OB_CONFIG.game == "doom2" then
-    if LEVEL.outdoor_theme == "snow" then
-      table.deep_merge(GAME.ROOM_THEMES, snow_tab, 2)
-    elseif LEVEL.outdoor_theme == "desert" then
-      table.deep_merge(GAME.ROOM_THEMES, sand_tab, 2)
+  if OB_CONFIG.game == "doom2" and PARAM.environment_themes ~= "no" then
+
+    for _,T in pairs(sand_tab) do
+      for _,TG in pairs(T) do
+        for key,prob in pairs(TG) do
+          if LEVEL.outdoor_theme == "snow"
+          or LEVEL.outdoor_theme == "temperate" then
+            TG[key] = 0 -- disable the wrong flats 
+          else
+            TG[key] = prob * 32 -- feature the correct flats
+          end
+        end
+      end
     end
+
+    for _,T in pairs(snow_tab) do
+      for _,TG in pairs(T) do
+        for key,prob in pairs(TG) do
+          if LEVEL.outdoor_theme == "desert"
+          or LEVEL.outdoor_theme == "temperate" then
+            TG[key] = 0 -- disable the wrong flats
+          else
+            TG[key] = prob * 32 -- feature the correct flats
+          end
+        end
+      end
+    end
+
+    table.deep_merge(GAME.ROOM_THEMES, snow_tab, 2)
+    table.deep_merge(GAME.ROOM_THEMES, sand_tab, 2)
   end
   -- MSSP-TODO: do all proper substitutions for Doom1
 

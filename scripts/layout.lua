@@ -276,7 +276,7 @@ function Layout_spot_for_wotsit(LEVEL, R, kind, required, SEEDS)
     score = score + gui.random() ^ 2
 
     -- the exit room generally has a closet pre-booked
-    if kind == "EXIT" then 
+    if kind == "EXIT" then
       if chunk.prefer_usage == "exit" then score = score + 200 end
       -- ...and if not, mark up any closet anyway
       if chunk.kind == "closet" then score = score * 2 end
@@ -1131,7 +1131,7 @@ gui.debugf("MonRelease in %s : kind --> %s\n",
 
     local chunk1 = table.remove(locs, 1)
     local chunk2 = table.remove(locs, 1)
-    local chunk3 = table.remove(locs, 1)    
+    local chunk3 = table.remove(locs, 1)
     local chunk4 = table.remove(locs, 1)
 
     -- in a symmetrical room, try to use a peered chunk
@@ -2009,7 +2009,7 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
     local locs = {}
 
     if not R.closet_mode then
-      if not rand.odds(style_sel("pictures", 0, 45, 75,100)) 
+      if not rand.odds(style_sel("pictures", 0, 45, 75,100))
       and not R.no_decor_closets then
         R.closet_mode = "no_closets"
       else
@@ -2043,7 +2043,7 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
     if not R.secondary_important then return end
 
     gui.printf(R.secondary_important.kind .. " placed in ROOM_" .. R.id .. "\n")
-    
+
     local usable_chunks = {}
     local preferred_chunk, def, reqs
 
@@ -2098,21 +2098,22 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
       if THEME.plain_wall_multiplier then
         mult = THEME.plain_wall_multiplier
       end
-      prob = prob * (PREFAB_CONTROL.WALL_GROUP_ODDS[PARAM.group_wall_prob] 
+      prob = prob * (PREFAB_CONTROL.WALL_GROUP_ODDS[PARAM.group_wall_prob]
       or 1) * mult
     end
 
     prob = math.clamp(0, prob, 100)
 
     for _,fg in pairs(R.floor_groups) do
+
+      -- increase odds of grouped walls for floor groups with larger volumes
+      if fg.volume and fg.volume > 64 then
+        prob = math.clamp(0, prob + (fg.volume/16),100)
+      end
+
       if rand.odds(prob) then
-
-        -- increase odds of grouped walls for floor groups with larger volumes
-        if fg.volume and fg.volume > 64 then
-          prob = math.clamp(0, prob + (fg.volume/16),100) 
-        end
-
         fg.wall_group = rand.key_by_probs(tab)
+
         if not PARAM.bool_avoid_wall_group_reuse
         or (PARAM.bool_avoid_wall_group_reuse
         and PARAM.bool_avoid_wall_group_reuse == 1) then
@@ -2126,7 +2127,7 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
 
   local function grab_usable_sinks(R, group, where)
 
-    local function filter_ceiling_sinks(sink_name, tab, LEVEL)
+    local function filter_ceiling_sinks(sink_name, tab, LEVEL, filter)
       if sink_name == "PLAIN" then return end
 
       local sink = GAME.SINKS[sink_name]
@@ -2156,12 +2157,36 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
         tab[sink_name] = nil
       end
 
+      if where == "ceiling" then
+        -- remove light sinks based on light_color
+        if sink.light_color and LEVEL.light_group then
+          local sink_is_valid = false
+
+          for light,prob in pairs(LEVEL.light_group) do
+            if sink.light_color == light then
+              sink_is_valid = true
+            end
+          end
+
+          if sink_is_valid == false then
+            tab[sink_name] = nil
+          end
+        end
+
+        -- remove light sinks as per theme too
+        if filter.no_light_ceilings then
+          if string.match(sink_name, 1, 5) == "light" then
+            tab[sink_name] = nil
+          end
+        end
+      end
+
       -- remove sinks that are taller than the zone sky height
       if R.is_outdoor then
-        if group and group.h >= 0 then
+        if group and group.h then
           local h_diff = R.max_ceil_h - group.h
           if h_diff > 0 then
-            if sink.dz and sink.dz > h_diff then
+            if sink.dz or sink.trim_dz > h_diff then
               tab[sink_name] = nil
             end
           end
@@ -2185,6 +2210,14 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
       tab = R.theme.ceiling_sinks or GAME.THEMES[theme].ceiling_sinks
     end
 
+    local ceil_light_prob = R.theme.ceil_light_prob or THEME.ceil_light_prob or 50
+    local filter = {}
+
+    ceil_light_prob = math.clamp(0, ceil_light_prob + 25, 100)
+    if rand.odds(100 - ceil_light_prob) then
+      filter.no_light_ceilings = true
+    end
+
     -- PLAIN setting is now ignored for a universal prob, see individual code below
     -- assert(tab["PLAIN"])
 
@@ -2196,7 +2229,7 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
     end
 
     for _,name in pairs(table.keys(tab)) do
-      filter_ceiling_sinks(name, tab, LEVEL)
+      filter_ceiling_sinks(name, tab, LEVEL, filter)
     end
 
     return tab
@@ -2256,10 +2289,10 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
     if R.is_cave then return end
 
     for _,cg in pairs(R.ceil_groups) do
-      if cg.openness < 0.4 then goto skip end
+      --[[if cg.openness < 0.4 then goto skip end
 
       local height = cg.h - cg.max_floor_h
-      if height < 128 then goto skip end
+      if height < 128 then goto skip end]]
 
       local tab = grab_usable_sinks(R, cg, "ceiling")
       if tab == nil then return end
@@ -2269,7 +2302,10 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
 
       -- PLAIN keyword for sinks should now be ignored in
       -- favor of this direct prob
-      if rand.odds(75) then name = "PLAIN" end
+      local volume_prob_add = math.remap_range(cg.volume, 4, 48, 0, 40)
+      local openness_prob_add = math.remap_range(cg.openness, 0.2, 0.6, 0, 40, "clamp_it")
+      local has_ceil_sink = rand.odds(30 + volume_prob_add + openness_prob_add)
+      if has_ceil_sink == false then name = "PLAIN" end
 
       if name ~= "PLAIN" then
         cg.sink = GAME.SINKS[name]
@@ -2282,7 +2318,6 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
           end
         end
       end
-      ::skip::
     end
 
 
@@ -2296,9 +2331,9 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
     -- PLAIN keyword for sinks should now be ignored in
     -- favor of this direct prob
     if not R.liquid_sink_prob then
-      R.liquid_sink_prob = rand.odds(75)
+      R.liquid_sink_prob = rand.odds(65 + math.remap_range(R.svolume, 8, 64, 0, 30))
     end
-    if R.liquid_sink_prob then name = "PLAIN" end
+    if R.liquid_sink_prob == false then name = "PLAIN" end
 
     if name ~= "PLAIN" then
       R.liquid_ceiling_sink = GAME.SINKS[name]
@@ -2375,7 +2410,7 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
     if LEVEL.light_group and not table.empty(LEVEL.light_group) then
       reqs.light_color = rand.key_by_probs(LEVEL.light_group)
     end
-  
+
     if A.room.theme.theme_override then
       reqs.theme_override = A.room.theme.theme_override
     end
@@ -2445,8 +2480,11 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
     local groups = {}
 
     local prob = R.theme.ceil_light_prob or THEME.ceil_light_prob or 50
+    prob = prob + 25
+    prob = prob + math.remap_range(R.openness, 0.6, 0.2, 0, 30, "clamp_it")
+    prob = math.clamp(prob, 0, 100)
 
-    if rand.odds(prob) and not R.has_liquid_ceil_lights then 
+    if rand.odds(prob) and not R.has_liquid_ceil_lights then
       R.has_liquid_ceil_lights = true
     end
 
@@ -2480,8 +2518,10 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
     -- allow fabrication of ceiling lights in outdoor porches
     if R.is_outdoor then
       for _,A in pairs(R.areas) do
-        if A.is_porch then
+        if A.is_porch or A.is_porch_neighbor then
           if not rand.odds(prob) then goto skip end
+
+          if A.ceil_group and A.ceil_group.sink then goto skip end
 
           A.lamp_def = select_lamp(A)
           if not A.lamp_def then goto skip end
@@ -2540,7 +2580,7 @@ stderrf("Cages in %s [%s pressure] --> any_prob=%d  per_prob=%d\n",
         ::skip::
       end
     end
-  
+
   end
 
 
@@ -2716,7 +2756,7 @@ function Layout_handle_corners(LEVEL)
         near_porch = true
       end
 
-      if near_porch and A.ceil_h ~= diff then 
+      if near_porch and A.ceil_h ~= diff then
         return true
       end
     end
@@ -2724,7 +2764,7 @@ function Layout_handle_corners(LEVEL)
     return false
   end
 
-  
+
   local function near_indoor_fence(junc)
 
     if junc.A1.room and junc.A1.room:get_env() == "building" or
@@ -2801,32 +2841,38 @@ function Layout_handle_corners(LEVEL)
 
         local mostly_env = Corner_get_env(corner)
 
-        -- indoor posts should meet the ceiling
-        local tallest_h = -EXTREME_H
+        local tallest_floor = -EXTREME_H
+        local tallest_ceil = -EXTREME_H
+        local lowest_ceil = EXTREME_H
+        local corner_at_differing_height = false
 
-        if mostly_env == "building" then
-          post_top_z = EXTREME_H
+        for _,A in pairs(corner.areas) do
+          tallest_floor = math.max(tallest_floor, A.floor_h)
+          tallest_ceil = math.max(tallest_ceil, A.ceil_h)
+          lowest_ceil = math.min(lowest_ceil, A.ceil_h)
 
-        else
+          corner.h_diff = tallest_ceil - lowest_ceil
+        end
 
-          -- outdoor posts should meet up to the rail height
-          for _,A in pairs(corner.areas) do
-
-            -- extend posts all the way to the roof if
-            -- neighboring porches
-            if A.is_porch or A.is_porch_neighbor then
-              tallest_h = EXTREME_H
-              goto skip
-            end
-
-            tallest_h = math.max(tallest_h, A.floor_h + junc.E1.rail_offset)
-            if A.vista_type == "simple_fence" and A.fence_type ~= "railing" then
-              tallest_h = math.max(tallest_h, A.floor)
-            end
-            ::skip::
+        for _,A in pairs(corner.areas) do
+          -- extend posts all the way to the roof if
+          -- neighboring porches
+          if A.is_porch or A.is_porch_neighbor then
+            tallest_floor = EXTREME_H
+            goto skip
           end
 
-          post_top_z = tallest_h
+          if corner.h_diff > 0 then
+            post_top_z = EXTREME_H
+            goto skip
+          end
+
+          if A.vista_type == "simple_fence" and A.fence_type ~= "railing" then
+            tallest_floor = math.max(tallest_floor, A.floor_h)
+          end
+          post_top_z = tallest_floor + junc.E1.rail_offset
+
+          ::skip::
         end
 
         corner.kind = "post"
@@ -2866,7 +2912,7 @@ function Layout_handle_corners(LEVEL)
 
       -- create support pillars on the corners
       -- where sky and ceilings of any other texture meet 
-      if near_porch(corner) 
+      if near_porch(corner)
       or near_indoor_fence(junc) then
         pillar_it = true
       end
@@ -2976,7 +3022,7 @@ function Layout_indoor_lighting(LEVEL)
 
     for _,A in pairs(R.areas) do
       -- brightness clamp
-      A.base_light = math.clamp(PARAM.wad_minimum_brightness or 0, 
+      A.base_light = math.clamp(PARAM.wad_minimum_brightness or 0,
         base_light, PARAM.wad_maximum_brightness or 255)
     end
 

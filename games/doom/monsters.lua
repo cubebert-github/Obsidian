@@ -429,13 +429,14 @@ DOOM.MONSTERS =
     r = 20,
     h = 56,
     level = 1,
-    prob  = 0,
-    crazy_prob = 0,
+    prob = 125,
+    crazy_prob = 180,
     health = 50,
     damage = 2.8,
     attack = "hitscan",
     give = { {ammo="bullet",count=5} },
     density = 1.5,
     infight_damage = 6.0,
+    secret = true
   },
 }

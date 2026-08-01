@@ -709,13 +709,19 @@ DOOM.NAMES =
         ["Spinehammer"]=10,
         ["Swarm of Terror"]=10,
         ["The Crawling Chaos"]=10,
+        ["The Grueling Grind"]=10,
         ["The Root of Evil"]=10,
         ["Theatre of Pain"]=10,
         ["Theory of Conspiracy"]=10,
+        ["This is Not for You"]=10,
         ["Through Hellfire"]=10,
         ["Towards Greater Gods"]=10,
         ["Under the Gun"]=10,
-        ["Weapon against Oneself"]=10
+        ["Weapon against Oneself"]=10,
+
+        -- Special marker for Bobby "Robert" Prince, who passed away on June 16th, 2026
+        -- Source: https://www.legacy.com/legacy/robert-bobby-prince-lll
+        ["In Memory of Bobby Prince"]=13
         
         -- end marker
 
@@ -882,8 +888,8 @@ DOOM.NAMES =
         Support=5, Holding=5, Loading=5,
         Quarantine=5, Shipment=5, Staging=5,
         --+ manufacturing
-        Testing=5, Authorization=5, Administration=5,
-        Synthesis=5, Unification=3,
+        Authorization=5, Administration=5, Fabrications=5,
+        Synthesis=5,
         --+ waste
         Drainage=5, Disposal=5, Dumping=3, Disperser=5,
         --+ resources
@@ -1107,7 +1113,7 @@ DOOM.NAMES =
 
         -- science-y places
         Station=15, Tower=5, Relay=5,
-        Satellite=10, Colony=15, Project=5,
+        Array=10, Colony=15, Project=5,
         Experiment=3, Network=5, System=15,
         Node=5, Router=5,
 
@@ -1132,7 +1138,7 @@ DOOM.NAMES =
         -- MSSP adds
         -- shapes
         Dome=7, Quadrangle=3, Rotunda=2,
-        Circle=10, Triangle=3, Ring=5,
+        Circle=10, Ring=5,
         Oval=2,
 
         Basin=5, Arm=5,
@@ -1498,9 +1504,19 @@ DOOM.NAMES =
         ["The Perfect Virus"]=10,
         ["To Thee We Confide"]=10,
         ["Window of Time"]=10,
-        ["Wounded Warsong"]=10 
+        ["Wounded Warsong"]=10,
         
         -- 2026 stub
+
+        -- Because FUCK YOU MICROSOFT for laying off a large chunk of staff at Id, ZOS
+        -- and other talented people in July of 2026. Get off the AI dick and actually
+        -- be productive instead of investing in AI Slop and raising consumer grade
+        -- hardware. -R
+        -- Sources: https://forums.elderscrollsonline.com/en/discussion/695703/huge-layoffs-at-zenimax-a-lot-of-eso-devs-impacted
+        -- and https://www.doomworld.com/forum/topic/159113-layoffs-at-id-software
+        ["Microsoft HQ"]=10,
+        ["Microsoft Investor Meeting Offices"]=10
+
         -- end marker
 
       }
@@ -3803,6 +3819,7 @@ DOOM.NAMES =
         ["Wrong End of the Stick"]=10,
         ["Wild Hunt"]=10,
         ["You Are Already Dead"]=10,
+        ["You Are The Noise, We Are The Data"]=10,
         ["You'll Float Too"]=10,
         ["You'll See"]=10,
         ["You Need Food... Badly!"]=10,
@@ -6052,7 +6069,7 @@ DOOM.NAMES =
         ["Not Safe For Game Journalists"] = 35,
         ["Now with Dynamic Lights!"] = 30,
         ["Now with more Impse"] = 30,-- This is not a spelling error, look it up lol
-        ["Oblige is Love, Oblige is Life"] = 40,
+        ["We Love Obsidian. Do You?"] = 40,
         ["Perfect on Ultra-Violence"] = 30,
         ["Peripheral Vision is Mandatory!"] = 30,
         ["Please Let Us Know!"] = 25,

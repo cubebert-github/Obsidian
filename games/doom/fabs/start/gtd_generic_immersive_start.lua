@@ -5,8 +5,6 @@ PREFABS.Start_generic_immersive_start =
 
   prob = 500, --1500,
 
-  
-
   theme = "tech",
 
   where = "seeds",
@@ -28,4 +26,13 @@ PREFABS.Start_generic_immersive_start_urban =
   map = "MAP02",
 
   theme = "urban",
+}
+
+PREFABS.Start_generic_immersive_start_gothic =
+{
+  template = "Start_generic_immersive_start",
+
+  map = "MAP03",
+
+  theme = "!tech"
 }

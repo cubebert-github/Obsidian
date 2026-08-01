@@ -4011,8 +4011,8 @@ function Cave_build_a_park(LEVEL, R, entry_h, SEEDS)
 
     if B.has_conn then return false end
 
-    -- rarely put goals in a damaging liquid
-    if B.is_walk and LEVEL.liquid.damage and rand.odds(85) then
+    -- never put goals in a damaging liquid
+    if B.is_walk and LEVEL.liquid.damage then
       return false
     end
 
@@ -4038,6 +4038,10 @@ function Cave_build_a_park(LEVEL, R, entry_h, SEEDS)
     if rand.odds(all_prob) then
       prob = 95
       if R.is_plain then prob = 45 end
+    end
+
+    if LEVEL.liquid.damage and PARAM.liquid_sinks == "not_damaging" then
+      prob = prob / 5
     end
 
     -- visit each blob and see if we can make a pool

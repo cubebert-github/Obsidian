@@ -239,11 +239,6 @@ function Render_edge(LEVEL, E, SEEDS)
       reqs.height = 2
     end
 
-    if A.chunk and A.chunk.kind == "stair" then
-      reqs.height = A.ceil_h - math.max(A.chunk.dest_area.floor_h,
-        A.chunk.from_area.floor_h)
-    end
-
     if geom.is_corner(dir) then
       reqs.where = "diagonal"
       reqs.seed_h = reqs.seed_w
@@ -294,7 +289,7 @@ function Render_edge(LEVEL, E, SEEDS)
     -- don't get prefabs with a z_fit other than "top" for parks.
     local S1 = E.S
     if A.room and A.room.is_park then
-      if not S1.floor_h and 
+      if not S1.floor_h and
       (A.room.park_type == "hills"
       or A.room.park_type == "river") then
         reqs.no_top_fit = true
@@ -394,7 +389,7 @@ function Render_edge(LEVEL, E, SEEDS)
     end
 
     -- when a wall group is not selected, use the ungrouped walls
-    if not def or (def and def.stop_group) then
+    if not def then
       reqs.group = nil
       def = Fab_pick(LEVEL, reqs)
     end
@@ -413,7 +408,7 @@ function Render_edge(LEVEL, E, SEEDS)
       seed_w = assert(E.long)
     }
 
-    if E.area and E.area.room 
+    if E.area and E.area.room
     and E.area.room.is_exit and LEVEL.exit_fence then
       reqs.group = LEVEL.exit_fence
     end
@@ -531,6 +526,7 @@ function Render_edge(LEVEL, E, SEEDS)
     end
 
     local def = pick_wall_prefab()
+    assert(def)
 
     if not E.S.depth then E.S.depth = {} end
     E.S.depth[dir] = def.deep
@@ -566,13 +562,13 @@ function Render_edge(LEVEL, E, SEEDS)
       local dir2 = DIAG_DIR_MAP[dir]
       local S = E.S
 
-      if not def then def = PREFABS[Wall_plain_diag] end
+      if not def then def = PREFABS["Wall_plain_diag"] end
 
       T = Trans.box_transform(S.x1, S.y1, S.x2, S.y2, z1, dir2)
 
     else  -- axis-aligned edge
 
-      if not def then def = PREFABS[Wall_plain] end
+      if not def then def = PREFABS["Wall_plain"] end
 
       T = Trans.edge_transform(E, z1, 0, 0, def.deep, 0, false)
     end
@@ -620,13 +616,14 @@ function Render_edge(LEVEL, E, SEEDS)
 
     if not def then
       def = pick_fence_prefab()
+      assert(def)
     end
 
     -- this is set in Room_pick_edge_prefab()
     skin.door_tag = E.door_tag
 
 
-    local z = assert(E.fence_top_z) - def.fence_h
+    local z = assert(E.fence_top_z) - (def.fence_h or 32)
     if def.post_offset_h then E.post_offset_h = def.post_offset_h end
 
     local T
@@ -666,6 +663,7 @@ function Render_edge(LEVEL, E, SEEDS)
 
   local function straddle_beams()
     local def = pick_beam_prefab()
+    assert(def)
 
     local z = assert(E.beam_z)
 
@@ -703,216 +701,6 @@ function Render_edge(LEVEL, E, SEEDS)
     Fabricate(LEVEL, A.room, def, T, { skin })
 
     Ambient_pop()
-  end
-
-
-  local function seed_touches_junc(S, junc)
-    -- FIXME
-
-    return false
-  end
-
-
-  local function calc_step_A_mode(S, dir)
---FIXME
-do return "narrow" end
-
-    local junc = S.foo  -- FIXME
-    if not junc or junc.kind ~= "steps" then return "narrow" end
-
-    local N, bord
-
-    if geom.is_straight(dir) then
-      N = S:neighbor(geom.LEFT[dir])
-      if not (N and N.area == S.area) then return "" end
-
-      N = N:neighbor(dir)
-      if not (N and N.area == S.area) then return "" end
-
-      bord = N.foo  -- FIXME
-      if bord.junction == junc then return "wide" end
-
-      return "xx"
-
-    else  -- corner
-
-      local dir2 = geom.ROTATE[5][dir]
-      local dir3 = geom.RIGHT[dir2]
-
-      N = S:neighbor(dir2)
-      if not (N and N.area == S.area) then return "" end
-
-      N = N:neighbor(dir3)
-      if not (N and N.area == S.area) then return "" end
-
-      if seed_touches_junc(N, junc) then return "wide" end
-
-      N = N:neighbor(10 - dir2)
-      if not (N and N.area == S.area) then return "" end
-
-      if seed_touches_junc(N, junc) then return "wide" end
-
-      return "xx"
-    end
-  end
-
-
-  local function calc_step_B_mode(S, dir)
---FIXME
-do return "narrow" end
-
-    local junc = S.foo -- FIXME
-    if not junc or junc.kind ~= "steps" then return "narrow" end
-
-    local N, bord
-
-    if geom.is_straight(dir) then
-      N = S:neighbor(geom.RIGHT[dir])
-      if not (N and N.area == S.area) then return "" end
-
-      N = N:neighbor(dir)
-      if not (N and N.area == S.area) then return "" end
-
-      bord = N.foo -- FIXME
-      if bord.junction == junc then return "wide" end
-
-      return "xx"
-
-    else  -- corner
-
-      local dir2 = geom.ROTATE[3][dir]
-      local dir3 = geom.LEFT[dir2]
-
-      N = S:neighbor(dir2)
-      if not (N and N.area == S.area) then return "" end
-
-      N = N:neighbor(dir3)
-      if not (N and N.area == S.area) then return "" end
-
-      if seed_touches_junc(N, junc) then return "wide" end
-
-      N = N:neighbor(10 - dir2)
-      if not (N and N.area == S.area) then return "" end
-
-      if seed_touches_junc(N, junc) then return "wide" end
-
-      return "wide"
-    end
-  end
-
-
-  local function make_step_brush(S, dir, a_mode, b_mode, TK)
-    -- define points A and B
-
-    local ax, ay = S.x1, S.y1
-    local bx, by = S.x2, S.y2
-
-    if dir == 2 then by = ay ; ax,bx = bx,ax end
-    if dir == 8 then ay = by end
-    if dir == 4 then bx = ax end
-    if dir == 6 then ax = bx ; ay,by = by,ay end
-
-    if dir == 1 or dir == 9 then
-      ax,bx = bx,ax
-    end
-
-    if dir == 3 or dir == 9 then
-      ax,bx = bx,ax
-      ay,by = by,ay
-    end
-
-    -- compute vectors of points A and B
-
-    local adx, ady = 0, 0
-    local bdx, bdy = 0, 0
-
-    if dir == 8 then
-      ady, bdy = -1, -1
-      if a_mode == "narrow" then adx =  0.5 elseif a_mode == "wide" then adx = -1 end
-      if b_mode == "narrow" then bdx = -0.5 elseif b_mode == "wide" then bdx =  1 end
-    elseif dir == 2 then
-      ady, bdy = 1, 1
-      if a_mode == "narrow" then adx = -0.5 elseif a_mode == "wide" then adx =  1 end
-      if b_mode == "narrow" then bdx =  0.5 elseif b_mode == "wide" then bdx = -1 end
-    elseif dir == 4 then
-      adx, bdx = 1, 1
-      if a_mode == "narrow" then ady =  0.5 elseif a_mode == "wide" then ady = -1 end
-      if b_mode == "narrow" then bdy = -0.5 elseif b_mode == "wide" then bdy =  1 end
-    elseif dir == 6 then
-      adx, bdx = -1, -1
-      if a_mode == "narrow" then ady = -0.5 elseif a_mode == "wide" then ady =  1 end
-      if b_mode == "narrow" then bdy =  0.5 elseif b_mode == "wide" then bdy = -1 end
-
-    elseif dir == 1 then
-      if a_mode ~= "wide" then ady = 1 else adx = 1 end
-      if b_mode ~= "wide" then bdx = 1 else bdy = 1 end
-    elseif dir == 9 then
-      if a_mode ~= "wide" then ady = -1 else adx = -1 end
-      if b_mode ~= "wide" then bdx = -1 else bdy = -1 end
-    elseif dir == 3 then
-      if a_mode ~= "wide" then adx = -1 else ady =  1 end
-      if b_mode ~= "wide" then bdy =  1 else bdx = -1 end
-    elseif dir == 7 then
-      if a_mode ~= "wide" then adx =  1 else ady = -1 end
-      if b_mode ~= "wide" then bdy = -1 else bdx =  1 end
-    else
-      error("bad dir in make_step_brush")
-    end
-
---[[ HANDY DEBUG
-stderrf("dir = %d\n", dir)
-stderrf("A = (%d %d)  B = (%d %d)\n", ax - S.x1, ay - S.y1, bx - S.x1, by - S.y1)
-stderrf("dA = (%1.1f %1.1f)  dB = (%1.1f %1.1f)\n", adx, ady, bdx, bdy)
---]]
-
-    local brush =
-    {
-      { x = bx, y = by },
-      { x = ax, y = ay },
-      { x = ax + adx * TK, y = ay + ady * TK },
-      { x = bx + bdx * TK, y = by + bdy * TK }
-    }
-
-    return brush
-  end
-
-
-  local function edge_steps()
-    local mat = assert(E.steps_mat)
-    local steps_z1 = E.steps_z1
-    local steps_z2 = E.steps_z2
-
-    -- wrong side?
-    assert(steps_z2 > steps_z1)
-
-    local diff_h = steps_z2 - steps_z1,
-    assert(diff_h > 8)
-
-    local num_steps = 1
-
-    while (diff_h / num_steps) > 24 do
-      num_steps = num_steps + 1
-    end
-
-    local thick = 16 * num_steps
-    if thick > 64 then thick = 64 end
-
-    -- determine A and B modes (FIXME? quite broken atm)
-    local a_mode = calc_step_A_mode(S, dir)
-    local b_mode = calc_step_B_mode(S, dir)
-
-    for i = 1, num_steps do
-      local z = steps_z1 + i * diff_h / (num_steps + 1)
-      local TK = thick * (num_steps + 1 - i) / num_steps
-
-      local brush = make_step_brush(E.S, E.dir, a_mode, b_mode, TK)
-
-      table.insert(brush, { t=z })
-
-      brushlib.set_mat(LEVEL, brush, mat, mat)
-
-      Trans.brush(brush)
-    end
   end
 
 
@@ -975,8 +763,10 @@ stderrf("dA = (%1.1f %1.1f)  dB = (%1.1f %1.1f)\n", adx, ady, bdx, bdy)
     if E.kind == "window" then
       def = pick_window_fab()
     else
-      def = assert(E.prefab_def)
+      def = E.prefab_def
     end
+
+    assert(def)
 
     local T
 
@@ -1038,9 +828,6 @@ stderrf("dA = (%1.1f %1.1f)  dB = (%1.1f %1.1f)\n", adx, ady, bdx, bdy)
 
   elseif E.kind == "sky_edge" and A.floor_h then
     edge_outer_sky()
-
-  elseif E.kind == "steps" then
-    edge_steps()
 
   elseif E.kind == "railing" then
     straddle_railing()
@@ -1171,7 +958,7 @@ function Render_corner(LEVEL, cx, cy)
 
     local def = corner.areas[1].room.pillar_def
 
-    local T = Trans.spot_transform(mx, my, 1024, dir)
+    local T = Trans.spot_transform(mx, my, 1024--[[, dir]])
 
     local skin = {wall=mat}
 
@@ -1645,6 +1432,18 @@ stderrf("away = %s\n\n", string.bool(away))
       local A1 = S.area
       local A2, S1
 
+      -- north
+      S1 = SEEDS[S.sx][S.sy + 1]
+      A2 = S1.area
+      if A2 ~= A1 then
+        p7, p9 = false, false
+      end
+      if S1.diagonal == 9 then
+        p9 = true
+      elseif S1.diagonal == 7 then
+        p7 = true
+      end
+
       -- south
       S1 = SEEDS[S.sx][S.sy - 1]
       A2 = S1.area
@@ -1666,6 +1465,9 @@ stderrf("away = %s\n\n", string.bool(away))
       if S1.diagonal == 1 then
         p1 = true
       end
+      if S1.diagonal == 7 then
+        p7 = true
+      end
 
       -- east
       S1 = SEEDS[S.sx + 1][S.sy]
@@ -1676,17 +1478,8 @@ stderrf("away = %s\n\n", string.bool(away))
       if S1.diagonal == 3 then
         p3 = true
       end
-
-      -- north
-      S1 = SEEDS[S.sx][S.sy + 1]
-      A2 = S1.area
-      if A2 ~= A1 then
-        p7, p9 = false, false
-      end
       if S1.diagonal == 9 then
         p9 = true
-      elseif S1.diagonal == 7 then
-        p7 = true
       end
 
       -- SW
@@ -1719,7 +1512,7 @@ stderrf("away = %s\n\n", string.bool(away))
 
     end
   end
-  
+
   if S.diagonal == 1 then
     local p_val = sel(p1,1,0) + sel(p3,2,0) + sel(p7,4,0)
 
@@ -2755,7 +2548,7 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
   if A.floor_group and A.floor_group.wall_group then
     reqs.group = A.floor_group.wall_group
   end
-  if chunk.from_area 
+  if chunk.from_area
   and chunk.from_area.floor_group
   and chunk.from_area.floor_group.wall_group then
     reqs.group = chunk.from_area.floor_group.wall_group
@@ -2827,6 +2620,7 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
     def = Fab_pick(LEVEL, reqs)
   end
 
+  assert(def)
 
   -- lighting --
   -- FIX-ME: transfer dynamic lighting code from ceiling lights to here
@@ -2854,7 +2648,7 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
     end
 
   elseif chunk.from_area then
-    skin.wall  = Junction_calc_wall_tex(chunk.from_area, A)
+    skin.wall  = Junction_calc_wall_tex(chunk.from_area, A, chunk.kind, def.group)
     skin.floor = chunk.floor_mat or chunk.from_area.floor_mat
     skin.ceil  = chunk.from_area.ceil_mat
   end
@@ -2863,12 +2657,12 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
     local C = assert(chunk.conn)
     local A2 = sel(C.R1 == A.room, C.A2, C.A1)
 
-    skin.outer  = Junction_calc_wall_tex(A2, A)
+    skin.outer  = Junction_calc_wall_tex(A2, A, chunk.kind, def.group)
     skin.floor2 = A2.floor_mat
     skin.ceil2  = A2.ceil_mat
 
   elseif chunk.dest_area then
-    skin.outer  = Junction_calc_wall_tex(chunk.dest_area, A)
+    skin.outer  = Junction_calc_wall_tex(chunk.dest_area, A, chunk.kind, def.group)
     skin.floor2 = chunk.dest_area.floor_mat
     skin.ceil2  = chunk.dest_area.ceil_mat
   end
@@ -2887,7 +2681,11 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
   end
 
   if A.is_natural_park or A.is_clearing then
+
+    skin.wall = A.zone.facade_mat
     if def.group == "natural_walls" or reqs.key == "secret" then
+
+      skin.wall = A.zone.nature_facade
       if chunk.kind == "joiner" then
         if chunk.from_area.is_natural_park then
           skin.wall = chunk.from_area.zone.nature_facade
@@ -2895,12 +2693,10 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
         if chunk.dest_area.is_natural_park then
           skin.outer = chunk.dest_area.zone.nature_facade
         end
-      else
-        skin.wall = A.zone.nature_facade
       end
-    else
-      skin.wall = A.zone.facade_mat
+
     end
+
   end
 
 
@@ -2943,6 +2739,16 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
 
   if def.mirror_x and rand.odds(50) then
     T.mirror_x = chunk.sw * SEED_SIZE / 2
+  end
+
+  -- fix outdoor lighting
+  if reqs.kind == "picture" or reqs.kind == "item"
+  and reqs.env == "outdoor" or reqs.env == "park" then
+    if not chunk.from_area.lighting then
+      gui.printf(table.tostr(chunk.from_area,2))
+    end
+    assert(chunk.from_area.lighting)
+    A.lighting = chunk.from_area.lighting
   end
 
   Ambient_push(A.lighting)
@@ -3157,7 +2963,7 @@ function Render_all_areas(LEVEL, SEEDS)
 
   if LEVEL.has_streets and PARAM.bool_road_markings == 1 then
     Render_find_street_markings(LEVEL, SEEDS)
-    Render_all_street_markings(LEVEL, SEEDS)
+    Render_all_street_markings(LEVEL)
     Render_establish_street_lanes(LEVEL, SEEDS)
     Render_all_street_traffic(LEVEL, SEEDS)
   end
@@ -3689,6 +3495,7 @@ function Render_scenic_fabs(LEVEL, SEEDS)
       }
 
       local pick = rand.pick(area.seeds)
+      assert(pick)
       local x = pick.sx
       local y = pick.sy
 

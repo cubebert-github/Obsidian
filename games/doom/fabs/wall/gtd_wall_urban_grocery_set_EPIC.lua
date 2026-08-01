@@ -49,23 +49,3 @@ PREFABS.Wall_urban_grocery_2 =
     DNSTOR12 = 20
   }
 }
-
-PREFABS.Wall_urban_grocery_anti_group =
-{
-  template = "Wall_urban_grocery_1",
-
-  stop_group = "yes",
-
-  prob = 12
-}
-
-PREFABS.Wall_urban_grocery_anti_group_2 =
-{
-  template = "Wall_urban_grocery_1",
-
-  group = "gtd_grocery_2",
-
-  stop_group = "yes",
-
-  prob = 12
-}

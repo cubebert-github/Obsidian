@@ -125,8 +125,7 @@ PREFABS.Item_gtd_closet_simple_4 =
   map = "MAP05",
 
   y_fit = "top",
-
-  z_fit = "top",
+  z_fit = {92,94},
 
   bound_z1 = 0,
   bound_z2 = 104

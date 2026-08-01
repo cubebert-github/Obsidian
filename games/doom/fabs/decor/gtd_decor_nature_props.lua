@@ -8,7 +8,7 @@ PREFABS.Decor_gtd_nature_props_1 =
   group = "natural_walls",
 
   where = "point",
-  size = 64,
+  size = 96,
   height = 64,
 
   bound_z1 = 0,

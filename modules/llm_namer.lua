@@ -16,6 +16,39 @@
 --
 -------------------------------------------------------------------
 
+-- This module is for prompt construction and connecting to a local LLM
+-- in order to supply Obsidian with context-aware strings in place
+-- of map names and story intermissions.
+
+-- The Level Namer system draws metadata from the level and passes them
+-- through a semantic translation layer to allow for a more natural language
+-- prompt e.g. "This level has bank_prefab" becomes 
+-- "This abandoned dense urban zone contains high-security cash vaults."
+--
+-- Not all assets Obsidian have a semantic translation but they will still
+-- be passed as-is to the LLM as, for example, "bank_prefab" is still
+-- understandable but not necessarily context-rich.
+
+-- The Story Intermission is a prompt constructor where rules and objects within the story
+-- are based on pre-generated elements such as pre-named actors, McGuffins, places,
+-- and tropes in the story to prevent a problem with popular latent attractors appearing
+-- e.g. too much "Kaelin Vex" or "Elara Voss", which have become widely popular
+-- names in AI data sets pretty much do to training on regurgitated web data.
+
+-- If you are interested in using your own model,
+-- just replace the model aliases under LLM_NAME.naming_model and LLM_NAME.story_model below.
+-- It's fine to use any model or even the same model for both features.
+
+-- cURL is used for connecting to the chat instance. If something else is preferred
+-- from Ollama, you will need to change the API call as well.
+
+-- In other words, we believe Obsidian is fine not turning into a pretrained diffusion model.
+-- We would rather that diffusion models become Obsidian's bitch, as in this case,
+-- as we believe in the integrity of the rules we set for our own procedural generation,
+-- we being a group of designers, programmers, and artists ourselves whose work
+-- has been trained on.
+
+
 LLM_NAME = { }
 
 LLM_NAME.naming_model = "llama3.1:8b" -- which Ollama alias to use for the level renamer
@@ -34,7 +67,9 @@ LLM_NAME.PROMPT_FLAVOR_CHOICES =
   "dn3d", _("Duke Nukem"),
   "black_metal", _("Black Metal"),
   "ecchi", _("HDoom"),
-  "action", _("Action Movie")
+  "action", _("Action Movie"),
+  "meguca", _("Meguca"),
+  "meguca_suffering", _("Meguca is Suffering")
 }
 
 -- semantics translation table
@@ -98,6 +133,7 @@ LLM_NAME.semantics_grouping =
   gtd_gothic_ceilwall_inner_framed_arch = "gtd_gothic_ceilwall",
 
   gtd_wall_quakish_insets = "gtd_modquake_set",
+  gtd_wall_quakish_insets_horizon = "gtd_modquake_set",
 
   gtd_wall_hell_mindscrew_skywall = "gtd_wall_hell_mindscrew",
 
@@ -274,6 +310,13 @@ LLM_NAME.semantics =
     "packed storage sectors",
     "industrial stockpiles",
     "overpacked warehouses"
+  },
+
+  gtd_storage_shawn =
+  {
+    "high-tech storage center",
+    "compact tech supplies warehouse",
+    "polished materials yard"
   },
 
   gtd_wall_server_room =
@@ -471,6 +514,12 @@ LLM_NAME.semantics =
     "administrative workspaces"
   },
 
+  gtd_black_mirror =
+  {
+    "power cycling halls",
+    "manual power generation facility",
+    "mandatory advertisement viewing centers"
+  },
 
 
   -- URBAN
@@ -698,9 +747,9 @@ LLM_NAME.semantics =
 
   tech_deimosRoom =
   {
-    "Deimos-inspired research chambers",
-    "retro sci-fi interiors",
-    "classic techbase rooms"
+    "hell-corrupted research chambers",
+    "inferno-touched sci-fi interiors",
+    "hellified techbase rooms"
   },
 
   tech_Doom3_green_hulls =
@@ -1447,12 +1496,17 @@ LLM_NAME.name_theme =
 {
   char_limits =
   {
-    "- 1 word",
-    "- 2 words",
-    "- 3 words",
-    "- 4 words",
-    "- 5 words, maximum 22 characters long including spaces",
-    "- 6 words, maximum 22 characters long including spaces",
+    "- 1 word, 4-10 letters. Do not combine more than 2 dictionary words into one",
+    "- 1 word, 4-10 letters, in the format 'The <Name>'. Do not combine more than 2 dictionary words into one",
+    "- 2 words, in the format 'The <Adjective> <Name>'. Do not combine more than 2 dictionary words into one",
+    "- 2 words, in the format 'The <Name> of <Adjective>'. Do not combine more than 2 dictionary words into one",
+    "- 2 words, in the format 'The <Adjective> <Non-Diciontary Name>'. Do not combine more than 2 dictionary words into one",
+    "- 2 words, in the format 'The <Non-Diciontary Adjective> <Name>'. Do not combine more than 2 dictionary words into one",
+    "- 2 words, involve a non-real coined place name or 2 non-dictionary words",
+    "- 3 words, involve a non-real coined place name",
+    "- 4 words, involve a non-real coined place name",
+    "- 5 words, not more than 18 characters long including spaces, involve a non-real coined place name",
+    "- 6 words, not more than 18 characters long including spaces, involve a non-real coined place name",
   }
 }
 
@@ -1526,52 +1580,391 @@ LLM_NAME.prompt_flavors =
 {
   -- these are substituted to the "Generate a Doom map name that " part of the instructional line
   dn3d = "Generate a Doom map name that leans towards an extremely euphemistic and badly suggestive 80's comedic porn parody title that's rather blue and practically lewd if not laughable. The name ",
-  black_metal = "Generate a Doom map name that sounds like a hardcore black metal band song title. The name ",
-  ecchi = "Generate a Doom map name that sounds like a English-translated Japanese ecchi hentai anime, game, or light novel title. The name ",
-  action = "Generate a Doom map name that sounds like a classic and explosively thrilling action movie title, quote, or one-liner. The name "
+  black_metal = "Generate a Doom map name that sounds like a hardcore black metal band song title. _REPLACER_ The name ",
+  ecchi = "Generate a Doom map name that sounds like a fully English-translated Japanese ecchi hentai anime, game, or light novel title. _REPLACER_ The name ",
+  action = "Generate a Doom map name that sounds like a classic and explosively thrilling action movie title, quote, or one-liner. _REPLACER_ The name ",
+  meguca = "Generate a Doom map name that sounds like an classic cute and fluffy lighthearted soft slice-of-life magical girl and romantic shoujo anime or episode. _REPLACER_" ..
+    "Dark-themed instructions are only for flavoring, do not make the name dark. The name must be preferably English-translated and ",
+  meguca_suffering = "Generate a Doom map name that sounds like a heavy-handed and dark, serious-themed shonen-oriented magical girl anime or episode with themes of despair, loss, and existential realizations. The name "
+}
+
+LLM_NAME.prompt_sub_flavors =
+{
+  action = 
+  {
+    source =
+    {
+      "_REPLACER_",
+    },
+
+    replacers =
+    {
+      "",
+      "Use an intimidating and provocative action movie quote.",
+      "Involve using a military operation code name.",
+      "Use an insulting phrase as part of the name."
+    }
+  },
+
+  black_metal = 
+  {
+    source =
+    {
+      "_REPLACER_",
+    },
+
+    replacers =
+    {
+      "",
+      "Use a short philosphical phrase as a name.",
+      "Focus on creating a song single title.",
+      "Focus on creating an album title."
+    }
+  },
+
+  ecchi =
+  {
+    source =
+    {
+      "_REPLACER_",
+    },
+
+    replacers =
+    {
+      "",
+      "Involve tentacles or tentacle monster in the name."
+    }
+  },
+
+  meguca =
+  {
+    source =
+    {
+      "_REPLACER_"
+    },
+
+    replacers =
+    {
+      "",
+      "Use and create your own cute Japanese manga onomatopoeia similar to 'fuwa fuwa' or 'doki doki' as non-dictionary name.",
+      "Use sweet romantic shoujo manga verbiage in the name.",
+      "Use flowery and lighthearted-feeling name.",
+      "Use lighthearted-feeling name alongside a real, beautiful flower species.",
+      "Use fluffy-feeling cafe menu name based on a sweet dessert.",
+      "Use a character's youthful love declaration or confession speech or dialogue as part of the name."
+    }
+  }
 }
 
 LLM_NAME.story_components =
 {
   flavors = {
-    "War on Multiple Fronts",
-    "Alliance Under Fire",
-    "Internal Security Breach",
-    "Hostiles Inside the Perimeter",
-    "Insurrection and Collapse",
-    "Containment Failure in Progress",
-    "Hell Forces Enter the Theater",
-    "Secondary Incursion Detected",
-    "Search and Destroy Operation",
-    "Stranded Behind Enemy Lines",
-    "Holding the Line",
-    "Attrition Without End",
-    "Unauthorized Experiment Released",
-    "Sector Descends into Chaos",
-    "Enemy Forces Coordinate Attacks",
-    "Catastrophic Event Imminent",
-    "Collapse Beneath the Surface",
-    "Hellgate Breach Confirmed",
-    "Balance of Power Shifts",
-    "Multiple Operations Converge",
-    "Sacrifice to Secure Evacuation",
-    "Dead Colony Transmission Detected",
-    "Enemy Reconnaissance Active",
-    "Defense of a Failing Earth",
-    "Corruption Spreads Through Command",
-    "Outnumbered and Cut Off",
-    "Final Defensive Position",
-    "Combat Operations During Extreme Conditions",
-    "Hunter-Killer Units Deployed",
-    "False Signals and Misdirection",
-    "Demonic War Machines Activated",
-    "Operational Time Running Out",
-    "Unknown Actors Influence Events",
-    "Lost Beyond Charted Space",
-    "Weapon System Out of Control",
-    "The Nuclear Option",
-    "Scorched Earth",
-    "Destroy the Source of Power"
+    -- The Nature of Threat (What causes the crisis?)
+    "Incursion from adjacent dimensions.",
+    "Threat from internal military corruption.",
+    "Overwhelming alien intelligence presence.",
+    "Escalation due to failed bio-weaponry.",
+    "Contamination spreading through resources.",
+    "Enemy focused on tracking specific assets.",
+    "Parasitic entity consuming life force.",
+    "Weaponized demonic power outbreaks only.",
+    "Rival supernatural forces competing here.",
+    "The sudden mutation of native lifeforms.",
+    "External celestial body entering sector.",
+
+    -- Systemic Breakdown (How is the world falling apart?)
+    "Loss of central command oversight.",
+    "Resource scarcity fueling internal strife.",
+    "Structural integrity failing everywhere.",
+    "Containment protocols breaking down sequentially.",
+    "Core life support systems failure imminent.",
+    "Time stream fluctuating erratically here.",
+    "The facility is self-destructing rapidly.",
+    "Artificial gravity fields destabilizing wildly.",
+
+    -- Authority / Control Failure (Who controls the situation?)
+    "Authority vacuum; no single leader remains.",
+    "Military chains of command dissolved entirely.",
+    "Security forces turning on own allies.",
+    "Overlord AI system gone rogue.",
+    "Government failing due to external pressure.",
+    "Jurisdictional conflicts between armed groups.",
+    "Loss of governing scientific council.",
+
+    -- Character and Trust Stakes (The human drama)
+    "Conflict driven by political rivalries.",
+    "Faction loyalties strained constantly now.",
+    "Opposition using widespread misinformation.",
+    "Forced alliance with dubious minor faction.",
+    "Protagonists hunted by allied forces.",
+    "Trust placed in a single questionable source.",
+    "Moral compromise unavoidable survival task.",
+
+    -- Environment and Physical Hazards (The physical setting)
+    "Unstable gravity fields fluctuating wildly.",
+    "Toxicity levels reaching fatal maximums.",
+    "Extreme weather patterns causing panic.",
+    "Structural instability from dimensional stress.",
+    "Permanent radiation zones are active.",
+    "Mutagenic spores changing everything living.",
+
+    -- Conflict Scale and Scope (The size of the conflict)
+    "Conflict on a massive planetary scale.",
+    "Localized threat requiring immediate isolation.",
+    "Small skirmish over single object access.",
+    "Large-scale war approaching sector boundary.",
+    "Combat spanning multiple disconnected levels.",
+    "Ongoing struggle against relentless enemy flow.",
+
+    -- Psycho-Social Stakes (The emotional core)
+    "Paranoia due to constant surveillance always.",
+    "Psychological warfare targeting personnel minds.",
+    "The weight of forbidden historical knowledge.",
+    "Secret agendas hidden in clear plain sight.",
+    "Truth is revealed at immense personal cost.",
+
+    -- Primary Governing Force (The Narrative Hook)
+    "Search for missing vital power prototype.",
+    "Rescue critical scientist from trapped area.",
+    "Investigation into ancient alien secrets.",
+    "Military necessity over civilian life mandate.",
+    "Uncovering the true nature of existence."
+  },
+
+  objectives = {
+    "Secure the demonic breach",
+    "Destroy the Hell portal",
+    "Eliminate hostile presence",
+    "Neutralize infernal artillery",
+    "Purge corrupted stronghold",
+    "Reclaim abandoned outpost",
+    "Restore facility power",
+    "Activate emergency generator",
+    "Disable Hell beacon",
+    "Destroy corruption nexus",
+    "Seal dimensional fracture",
+    "Collapse unstable gateway",
+    "Recover stolen Argent cells",
+    "Locate missing expedition",
+    "Escort surviving personnel",
+    "Rescue trapped marines",
+    "Defend evacuation route",
+    "Hold defensive perimeter",
+    "Clear reactor chamber",
+    "Secure command center",
+    "Capture communications hub",
+    "Protect research archives",
+    "Lock down containment",
+    "Restore automated defense network",
+    "Activate orbital uplink",
+    "Restart cooling systems",
+    "Stabilize fusion reactor",
+    "Disable enemy transmitter",
+    "Silence demonic signal",
+    "Recover security credentials",
+    "Retrieve command codes",
+    "Access restricted terminal",
+    "Download classified intelligence",
+    "Upload containment protocols",
+    "Purge corrupted database",
+    "Destroy cursed relic",
+    "Recover ancient artifact",
+    "Locate UAC shrine",
+    "Protect UAC archives",
+    "Recover UAC standard",
+    "Defend sacred chamber",
+    "Destroy corrupted altar",
+    "Purify ritual grounds",
+    "Interrupt summoning ritual",
+    "Prevent Hell incursion",
+    "Disrupt enemy logistics",
+    "Sabotage Hell foundry",
+    "Destroy ammunition reserves",
+    "Disable production lines",
+    "Capture supply depot",
+    "Destroy fuel reserves",
+    "Recover prototype weapon",
+    "Test experimental arsenal",
+    "Secure weapons cache",
+    "Destroy toxic reserves",
+    "Eliminate cult leadership",
+    "Neutralize heavy resistance",
+    "Destroy armored convoy",
+    "Intercept enemy patrol",
+    "Eliminate elite demons",
+    "Purge infested tunnels",
+    "Sweep maintenance corridors",
+    "Sweep industrial district",
+    "Sweep habitation block",
+    "Sweep cargo terminal",
+    "Sweep reactor levels",
+    "Sweep lower catacombs",
+    "Sweep surface installations",
+    "Sweep excavation site",
+    "Sweep docking bay",
+    "Sweep refinery complex",
+    "Sweep mining tunnels",
+    "Sweep processing plant",
+    "Sweep quarantine sector",
+    "Sweep laboratory wing",
+    "Sweep security offices",
+    "Sweep engineering deck",
+    "Sweep ventilation shafts",
+    "Sweep waste facility",
+    "Sweep storage warehouse",
+    "Investigate distress signal",
+    "Investigate radio silence",
+    "Investigate containment breach",
+    "Investigate seismic anomaly",
+    "Investigate energy surge",
+    "Investigate corrupted zone",
+    "Track hostile commander",
+    "Locate enemy commander",
+    "Locate hidden bunker",
+    "Locate secret laboratory",
+    "Locate ancient vault",
+    "Locate dimensional anchor",
+    "Locate Hell forge",
+    "Locate escape route",
+    "Locate extraction point",
+    "Reach extraction zone",
+    "Reach communications tower",
+    "Reach surface elevator",
+    "Reach transport hub",
+    "Reach orbital platform",
+    "Reach UAC fortress",
+    "Reach command bunker",
+    "Reach evacuation shuttle",
+    "Reach reactor core",
+    "Reach corrupted cathedral",
+    "Secure landing zone",
+    "Establish forward outpost",
+    "Expand defensive perimeter",
+    "Destroy defensive emplacements",
+    "Disable shield generator",
+    "Destroy shield emitter",
+    "Neutralize sniper nests",
+    "Destroy artillery battery",
+    "Silence anti-air batteries",
+    "Disable orbital defenses",
+    "Destroy observation towers",
+    "Secure bridge crossing",
+    "Repair damaged bridge",
+    "Restore rail transport",
+    "Activate cargo elevator",
+    "Unlock blast doors",
+    "Bypass security lockdown",
+    "Override access controls",
+    "Open maintenance tunnels",
+    "Recover access keycard",
+    "Recover master key",
+    "Acquire security clearance",
+    "Acquire command authorization",
+    "Protect civilian survivors",
+    "Defend refugee convoy",
+    "Escort engineering team",
+    "Protect medical personnel",
+    "Secure medical station",
+    "Recover medical supplies",
+    "Deliver emergency supplies",
+    "Restore life support",
+    "Stabilize oxygen systems",
+    "Repair communications relay",
+    "Repair defense grid",
+    "Restore navigation systems",
+    "Activate emergency broadcast",
+    "Transmit evacuation signal",
+    "Call orbital support",
+    "Await reinforcement arrival",
+    "Prepare defensive positions",
+    "Fortify command post",
+    "Defend reactor core",
+    "Defend communications array",
+    "Defend research facility",
+    "Defend power station",
+    "Defend supply depot",
+    "Defend landing zone",
+    "Defend transport convoy",
+    "Destroy Hell growth",
+    "Destroy corruption spores",
+    "Burn infected biomass",
+    "Incinerate corrupted remains",
+    "Cleanse blood sanctum",
+    "Purge sacrificial chamber",
+    "Destroy cursed obelisk",
+    "Destroy infernal monument",
+    "Collapse demon tunnels",
+    "Collapse unstable caverns",
+    "Destroy excavation equipment",
+    "Disable mining operations",
+    "Destroy extraction machinery",
+    "Sabotage processing facility",
+    "Sabotage energy conduits",
+    "Destroy warp anchors",
+    "Deactivate rune pylons",
+    "Disable soul harvesters",
+    "Destroy soul engines",
+    "Destroy flesh machinery",
+    "Neutralize bio-mechanical horrors",
+    "Destroy infernal generators",
+    "Overload Hell reactor",
+    "Overload energy conduits",
+    "Drain Argent reserves",
+    "Contain Argent leak",
+    "Seal toxic reservoirs",
+    "Destroy corrupted pipeline",
+    "Secure industrial sector",
+    "Secure research laboratories",
+    "Secure orbital station",
+    "Secure transit hub",
+    "Secure excavation complex",
+    "Secure cargo platforms",
+    "Secure command bunker",
+    "Secure perimeter defenses",
+    "Secure quarantine zone",
+    "Secure ritual chamber",
+    "Secure ancient crypt",
+    "Secure forgotten temple",
+    "Capture enemy outpost",
+    "Capture control tower",
+    "Capture power station",
+    "Capture command relay",
+    "Capture strategic position",
+    "Capture fortified checkpoint",
+    "Destroy command node",
+    "Destroy surveillance network",
+    "Disable tracking systems",
+    "Blind enemy sensors",
+    "Jam hostile communications",
+    "Intercept enemy transmissions",
+    "Decrypt captured data",
+    "Recover navigation maps",
+    "Recover mission logs",
+    "Recover research samples",
+    "Recover corrupted archives",
+    "Extract valuable intelligence",
+    "Verify target elimination",
+    "Confirm area secure",
+    "Confirm reactor stability",
+    "Confirm civilian evacuation",
+    "Await mission completion",
+    "Proceed to extraction",
+    "Advance toward objective",
+    "Advance through catacombs",
+    "Advance into Hell",
+    "Advance without hesitation",
+    "Push enemy lines",
+    "Break enemy defenses",
+    "Destroy final guardian",
+    "Face the champion",
+    "Confront Hell priest",
+    "Slay infernal commander",
+    "Execute terminal purge",
+    "Complete cleansing operation",
+    "End the invasion",
+    "Finish the mission",
+    "Leave nothing standing",
+    "Rip and tear"
   },
 
   naming_styles =
@@ -1617,7 +2010,7 @@ LLM_NAME.story_components =
     tech = {
       "Cygon Research Division, deep-space UAC materials testing and containment site",
       "New Attica Survey Complex, planetary mapping and pre-colonization analysis facility",
-      "Nexus Forward Station, strategic relay hub for interstellar operations and logistics routing",
+      "Nexera Forward Station, strategic relay hub for interstellar operations and logistics routing",
       "Illuminari Observation Tower, high-altitude surveillance and communications intercept structure",
       "Apex Systems Laboratory, advanced weapons and propulsion research subdivision",
       "Elysium Containment Chapel, converted UAC facility used for civilian quarantine and psychological stabilization",
@@ -1640,18 +2033,18 @@ LLM_NAME.story_components =
 
       "Blacksite Helix Array, restricted UAC research cluster operating under total communications lockdown",
       "Phenom Forward Complex, primary staging ground for interplanetary security deployments",
-      "Deimos Relay Station, long-range signal interception and anomaly tracking facility",
+      "Delos Relay Station, long-range signal interception and anomaly tracking facility",
       "Redline Industrial Belt, heavily automated extraction and weapons manufacturing corridor",
       "Sector 12 Quarantine Zone, permanently sealed containment region following systemic breach event",
-      "Red Rock Adjacent Facility, abandoned comparative research site repurposed for dimensional testing",
+      "Red Rock Adjunct Facility, abandoned comparative research site repurposed for dimensional testing",
       "Arcadia Wastes Processing Zone, industrial disposal region contaminated by unknown biological agents",
       "Outpost K-Theta, forward observation station with intermittent contact reports",
       "Vanguard Transit Hub, subterranean logistics network connecting multiple UAC installations",
-      "Iron Meridian Reactor Yard, high-output energy generation complex under emergency suppression protocols",
+      "Ironhide Reactor Complex, high-output energy generation complex under emergency suppression protocols",
 
       "Umbra Surveillance Grid, orbital monitoring network tracking Hell incursion signatures",
       "Dead Orbit Relay Chain, failed communications infrastructure still intermittently transmitting unknown data",
-      "Carcass Point Station, derelict salvage depot repurposed as civilian refugee intake zone",
+      "Charon Point Station, derelict salvage depot repurposed as civilian refugee intake zone",
       "Echo-9 Black Facility, deep containment site classified above clearance level Omega",
       "Crimson Drydock Yards, armored vehicle fabrication and orbital ship repair installation",
       "Null Sector Excavation Site, abandoned dig operation uncovering non-terrestrial materials",
@@ -1660,7 +2053,7 @@ LLM_NAME.story_components =
       "Gatewatch Command Node, centralized control center for dimensional breach response protocols",
       "Broken Crown Arcology, partially collapsed megastructure used for emergency habitation",
 
-      "Phantom Line Communications Array, corrupted signal relay network broadcasting looping distress calls",
+      "Argenta Space Elevator Array, a massive complex of multiple space elevators constantly battled between by Hell and humans",
       "Cold Harbor Evacuation Corridor, high-risk civilian extraction route repeatedly compromised by hostiles",
       "Sector R-17 Containment Wall, reinforced barrier structure separating infected zones from active cities",
       "Greyfield Industrial Expanse, overgrown manufacturing district abandoned after containment breach",
@@ -1674,14 +2067,13 @@ LLM_NAME.story_components =
       "Red Gate Entry Complex, primary controlled access point for interdimensional transit experiments",
       "Salted Moon Cryo Facility, suspended animation storage site for displaced personnel",
       "Broken Atlas Logistics Spine, collapsed intercontinental supply network for UAC assets",
-      "Rook Sector Command District, administrative control zone operating under martial law",
-      "White Noise Broadcast Tower, emergency transmission hub still emitting unidentified audio patterns",
+      "Rook's Hang Command District, administrative control zone operating under martial law",
+      "Whitetail Broadcast Facility, emergency transmission hub still emitting unidentified audio patterns",
       "Nullpoint Gravity Well Station, experimental physics site studying localized spacetime distortion",
       "Ferroline Refinery Stack, industrial fuel processing center feeding regional reactor grids",
       "Outlands Containment Ring, planetary perimeter quarantine system for external threat isolation",
       "Deep Meridian Sublevels, multi-layer underground facility network with restricted access tunnels",
       "Last Light Civil Shelter Grid, distributed survival infrastructure network for displaced populations"
-
     },
 
     urban = {
@@ -1710,7 +2102,7 @@ LLM_NAME.story_components =
 
       "Blackwater Industrial City, coastal manufacturing hub contaminated by chemical and biological spillover",
       "Rust Meridian Housing Grid, worker-class residential sector experiencing long-term systemic decay",
-      "Phantom Transit City, transportation-linked megacity where communication systems remain intermittently corrupted",
+      "Acheron Transit City, transportation-linked megacity where communication systems remain intermittently corrupted",
       "Nullhaven Urban Remnant, abandoned city fragment isolated after dimensional instability event",
       "Broken Crown Metropolis, former capital district fractured into sealed emergency sectors",
       "Red Quarantine Belt City, continuous urban containment zone encircling infected interior regions",
@@ -1721,46 +2113,49 @@ LLM_NAME.story_components =
     },
 
     hell = {
-      "Infernal Abyssal Stratum, a sub-dimensional pressure zone exhibiting infinite spatial collapse behavior",
-      "Magma Processing Layer, a geothermal-scarred expanse where biological matter is continuously refined into fuel biomass",
-      "Furnacehold Bastion Complex, a fortress-like extrusion of Hell matter exhibiting industrial architecture patterns",
-      "Embergulch Consumption Zone, a planetary-scale burn field where matter is broken down into raw infernal substrate",
-      "Sootfall Extraction Canyon, a chasm used as a mass disposal and reclamation system for failed demonic units",
-      "Ironworks of Damnation, a biomechanical manufacturing region producing infernal constructs through forced organic refinement",
-      "Blazing Spire Cluster, vertical growth formations acting as transmission towers for Hell-wide signal propagation",
-      "Damned Processing Trench, a continuous excavation-like formation used for sorting and restructuring captured entities",
+      "The Ash Pit, a collapsed Hell quarry filled with burning bones and broken UAC gear",
+      "Magma Refinery, a demon-run furnace where corpses are rendered into fuel",
+      "Furnacehold, a black iron fortress built around a screaming foundry core",
+      "Ember Gulch, a burning ravine where Hell grinds dead matter into slag",
+      "Sootfall Canyon, a dumping ground for failed demons and shattered machines",
+      "The Damned Ironworks, a gore-stained factory forging armor from flesh and steel",
+      "Blazing Spires, signal towers pulsing with Hell energy over the wastes",
+      "The Sorting Trench, a meat-choked pit where prisoners become raw material",
 
-      "Infernal Reactor Belt, a chain of semi-stable energy conversion sites feeding off dimensional rupture heat",
-      "Charred Transit Wastes, a corrupted transport layer where broken matter and failed constructs accumulate",
-      "Bonefoundry Network, distributed fabrication zones where organic material is repurposed into demonic infrastructure",
-      "Ruinfeed Assembly Field, a large-scale conversion zone processing battlefield remnants into Hell infrastructure",
-      "Scorchline Industrial Layer, a perimeter zone of active expansion and environmental overwriting",
-      "Crimson Pressure Depths, subsurface Hell strata exhibiting extreme gravitational and thermal distortion",
-      "Ashen Logistics Grid, a coordination layer responsible for routing biological and mechanical resources",
-      "Voidfire Refinery Zone, a high-energy processing region where dimensional instability is harvested",
+      "Infernal Reactor Belt, chained Hell engines feeding on portal heat",
+      "Charred Transit Wastes, a ruined route littered with broken convoys",
+      "Bonefoundry Network, scattered workshops building walls from corpses",
+      "Ruinfeed Yard, a battlefield scrapyard dragged into Hell's machinery",
+      "Scorchline Perimeter, the burning edge of Hell's expansion front",
+      "Crimson Depths, a pressure-cooked underworld of lava, bone, and iron",
+      "Ash Logistics Grid, a demon supply route through burnt-out war zones",
+      "Voidfire Refinery, a portal-fueled plant harvesting unstable Hell energy",
 
-      "Blackglass Incursion Fields, regions where reality has been chemically and structurally overwritten",
-      "Hellspine Structural Ridge, a skeletal geological formation functioning as support infrastructure for surrounding strata",
-      "Meatmetal Fabrication Layer, hybrid organic-industrial zone producing armored infernal entities",
-      "Riftburn Containment Basin, a stabilizing depression used to hold active dimensional breaches in partial equilibrium",
-      "Obsidian Flow Network, a slow-moving structural circulation system distributing infernal matter across layers",
-      "Graveheat Conversion Zone, a thermodynamic processing field converting biological mass into usable energy",
-      "Netherforge Continuum, a persistent industrial expanse operating without identifiable origin or termination points",
-      "Corruption Bloom Fields, rapidly expanding zones of environmental assimilation and structural conversion",
+      "Blackglass Fields, fused reality plains where stone, glass, and gore merge",
+      "Hellspine Ridge, a skeletal mountain chain holding up fortress walls",
+      "Meatmetal Works, a hybrid factory birthing armored demon forms",
+      "Riftburn Basin, a crater holding unstable portals under brutal restraint",
+      "Obsidian Flow, a slow river of black slag feeding Hell's forges",
+      "Graveheat Fields, corpse-furnaces converting dead flesh into power",
+      "Netherforge, an endless industrial hellscape of chains, anvils, and flame",
+      "Corruption Bloom, a spreading Hellgrowth zone consuming stone and steel",
 
-      "False Cathedral Strata, large-scale architectural growth formations mimicking religious infrastructure for containment signaling",
-      "Redwake Pressure Expanse, a high-instability region where spatial coherence intermittently fails",
-      "Dreadfoundry Deepworks, sub-layer industrial Hell sector producing high-tier demonic constructs",
-      "Null Choir Resonance Field, a sonic-psychic zone emitting structured cognitive disruption patterns",
-      "Severed Transit Veins, broken transport pathways repurposed as energy circulation channels",
-      "Infernal Drift Zone, a free-expansion region where structures evolve without centralized control",
-      "Harvest Null Corridor, a processing lane used for extracting usable components from captured incursions",
-      "Burned Memory Field, a degraded informational layer where previous incursions leave persistent cognitive residue"
+      "False Cathedral, a mock holy fortress built from ribs and rusted bells",
+      "Redwake Expanse, a warped battlefield where space tears open at random",
+      "Dreadfoundry Deepworks, a lower forge producing elite demon warforms",
+      "Null Choir Field, a dead zone filled with psychic shrieks and broken hymns",
+      "Severed Transit Veins, ruined tunnels pumping blood, fuel, and portal sludge",
+      "Infernal Drift, a lawless Hell zone where structures grow without design",
+      "Harvest Corridor, a conveyor trench stripping invaders for parts",
+      "Burned Memory Field, a scarred wasteland haunted by failed invasions"
     }
   },
 
   actors =
   {
+    -- secret
+    "Isabelle, the cheerful anthromorophic Shi-Tzu and mayor's secretary and assistant who carries a sweet tooth and a double shotgun",
+
     -- protagonists
     "Dr. Emilia Ottisen, a UAC physicist trying to destroy the portal research she helped create",
     "Captain Jackson Reed, a security commander who survived multiple facility breaches",
@@ -1803,21 +2198,21 @@ LLM_NAME.story_components =
     "Father Michael Patton, a priest sheltering refugees while questioning his faith",
     "The Carpenter, an engineer rebuilding infrastructure across ruined city sectors",
     "Gideon Reyes, a smuggler trading supplies and information between isolated settlements",
-    "Sister Alrene, a field medic using experimental methods to slow demonic corruption",
+    "Sister Arelynne, a field medic using experimental methods to slow demonic corruption",
     "Marshal Conrad Rhyne, a law officer enforcing martial rule in collapsing settlements",
     "Selene Ward, a former UAC dispatcher maintaining fragmented emergency communication networks",
     "Dr. Hector Wynn, a biochemist studying controlled exposure to Hell contaminants",
     "Vera Holt, a convoy leader negotiating fragile ceasefires between survivor groups",
     "The Quartermaster, a black-market supplier distributing salvaged military hardware",
-    "Major Lucien Draik, a former ARC officer coordinating unofficial operations beyond military oversight",
+    "Major Lucien Drake, a former ARC officer coordinating unofficial operations beyond military oversight",
     "Iris Vale, an evacuation coordinator accused of abandoning entire population sectors",
-    "Brother Gideon Shaw, a battlefield chaplain documenting possession outbreaks among refugees",
+    "Brother Gibson Shaw, a battlefield chaplain documenting possession outbreaks among refugees",
 
     -- antagonists
     "The Matron, a cybernetic arachnid created during failed UAC weapons experiments",
     "Carnifex, an infernal executioner commanding large-scale assaults against human strongholds",
     "High Priest Malvek, a Hell priest directing cult uprisings across occupied colonies",
-    "Korath, the corrupted overseer of a sealed UAC blacksite complex",
+    "Director Harlan, the corrupted overseer of a sealed UAC blacksite complex",
     "The Bloodhand, an infernal warlord manipulating conflicts between Hell and humanity",
     "Overseer Veyr, a machine intelligence fused with demonic consciousness",
     "Executor Cain, a former marine commander transformed into Hell's chief hunter",
@@ -1826,9 +2221,9 @@ LLM_NAME.story_components =
     "The Warden of Rust, a demonic sentinel controlling corrupted manufacturing sectors",
     "Grinder, a brutal siege demon deployed against fortified human settlements",
     "Inquisitor Voss, a cult enforcer overseeing forced possession experiments",
-    "Ardos Krell, a bounty hunter employed by cult networks and rogue UAC officials",
+    "The Custodian, a bounty hunter employed by cult networks and rogue UAC officials",
     "The Ruin Engine, an unstable entity created through catastrophic dimensional experiments",
-    "Domos, a massive demon lord consuming both human populations and lesser demons",
+    "The Scourge, a massive demon lord consuming both human populations and lesser demons",
     "The Harrower, a towering beast unleashed during failed containment operations",
     "Director Malach, a possessed UAC executive continuing experiments after total facility collapse",
     "Black Bishop, a cult commander coordinating sabotage within surviving military sectors",
@@ -1866,9 +2261,18 @@ LLM_NAME.story_components =
     "The Exodus Labs, breakaway UAC researchers operating outside military oversight",
     "The Red Vipers, an aggressive isolationist militant group fighting against hell, distrustful of outsiders",
     "The Collective, a loose network former UAC scientists turned mystics and occultists dedicated to unleashing Hell",
-    "The Defectors, former UAC scientists and occultists aiding Hell incursions",
+    "The Defectors, former UAC scientists and occultists aiding Hell incursions through secretive blood sacrifices",
     "The Apostates, ex-research personnel devoted to spreading demonic influence",
     "The Outer Circle, rogue researchers attempting to unleash Hell across human colonies",
+    "Hell's Hammers, former Sentinels from Argent D'Nur, their escapades have brought them to Earth in their continued conquest against Hell",
+    "The Holdouts, former UAC employees and soldiers who have escaped corporate control before they too were to be corrupted",
+    "The Emancipators, radical and anarchic militia preying on humans and demons alike for pleasure first and survival second",
+    "The Reforgers, a group of dedicated survivalists perusing abandoned UAC technology in the hopes of rebuilding humanity",
+    "The Warpath, cybernetic and magically-enhanced horned warriors from another dimension long ago conquered and possessed by Hell",
+    "The Aerators, an elite corporate-aligned assassin unit with an unclear allegiance and a mission to steal or reposses UAC technology",
+    "The Fishers, stranded survivors who have a keen eye for assistance, but absolutely only upon joining their cause",
+    "The Firing Squad, disgruntled former UAC soldiers executing any known corporate collaborators and hellspawn alike",
+    "The Aquila, a highly aggressive and distrustful paramilitary group believing that diverting from the old ways is the reason behind Hell's invasion",
 
     -- us?!
     "The Obsidian Developers, a nigh-invincible and enigmatic group from another dimension always only observing and never interfering"
@@ -1879,6 +2283,9 @@ LLM_NAME.story_components =
     epi =
 [[Make it as engaging as possible.
 
+The text in each tag section must at least be _WORD_COUNT_ words, separated into paragraphs with proper spacing.
+Ensure that the tag section is properly surrounded by the proper HTML tags e.g. <S1> and enclosed with </S1>. Refer to the example provided below.
+
 SYSTEM: Please use exactly the following tagged structure and do not use any Markdown.
 Please do not add other blocks than is found in the example:
 
@@ -1888,16 +2295,17 @@ story intro here
 
 <S2> 
 story ending here 
-</S2>
-
-The text in each tag section must at least be 130-140 words, maximum of 4 paragraphs with proper spacing.]],
+</S2>]],
 
     game =
 [[There are three chapters and the story is an intro and end for each,
 making six intermissions overall. Each chapter has new twists and revalations.
+The text in each tag section must at least be _WORD_COUNT_ words, separated into paragraphs with proper spacing.
+Ensure that the tag section is properly surrounded by the proper HTML tags e.g. <S1 and <S2> Refer to the example provided below.
 
-SYSTEM: Use the following tagged structure and do not use any Markdown formatting.
-Please do not add other blocks than is found in the example:
+SYSTEM: Use the following tagged structure in the example below.
+Please do not add other blocks than is found in the example.
+The following example must absolutely be followed as there is no input validation:
 
 <S1> 
 chapter 1 intro here
@@ -1921,9 +2329,7 @@ chapter 3 intro here
 
 <S6> 
 chapter 3 ending here
-</S6>
-
-The text in each tag section must at least be 130-140 words, maximum of 4 paragraphs with proper spacing.]]
+</S6>]]
   },
 
   mcguffins = {
@@ -2427,6 +2833,85 @@ LLM_NAME.naming_novelty =
       "evoking cosmic insignificance",
       "evoking doomed grandeur"
     }
+  },
+
+  -- replace names for common LLM favorites
+  replacers =
+  {
+    Cathedral = {
+      "Basilica",
+      "Minster",
+      "Abbey",
+      "Temple",
+      "Sanctuary",
+      "Shrine",
+      "Chapel",
+      "Church",
+      "Oratory",
+      "Parish",
+      "Duomo",
+      "Kirche",
+      "Cathedra",
+      "Dom",
+      "Citadel",
+      "Fortress",
+      "Stronghold",
+      "Necropolis",
+      "Monastery",
+      "Pantheon"
+    },
+
+    Abattoir = {
+      "Slaughterhouse",
+      "Butchery",
+      "Knackery",
+      "Stockyard",
+      "Shambles",
+      "Packinghouse",
+      "Rendering",
+      "Meatworks",
+      "Carnarium",
+      "Slaughter",
+      "Knacker",
+      "Abator",
+      "Abatorium",
+      "Bloodshed",
+      "Carnage",
+      "Extermination",
+      "Hellpit",
+      "Bonehouse",
+      "Gorefane"
+    },
+
+    Citadel = {
+      "Hellkeep",
+      "Bloodspire",
+      "Skullforge",
+      "Gorehold",
+      "Warspire",
+      "Doomwall",
+      "Bonefort",
+      "Inferno",
+      "Oblivion",
+      "Carnage",
+      "Crucible",
+      "Soulforge",
+      "Blasphemy",
+      "Rampage",
+      "Chaos",
+      "Fleshspire",
+      "Shadowkeep",
+      "Deathspire",
+      "Hellforge",
+      "Slayerhold",
+      "Nightmare",
+      "Bloodkeep",
+      "Skullspire",
+      "Warfort",
+      "Descent",
+      "Cataclysm",
+      "Ashspire",
+    }
   }
 }
 
@@ -2642,6 +3127,23 @@ function LLM_NAME.get_some_info(self, lev)
   ----------------------------------------------------------------------
 
   table.insert(lines, get_semantic(lev.theme_name) .. "\n")
+
+  -- extra mentions of the level's nature as procedural
+  if lev.is_procedural_gotcha then
+    local gotcha_line = rand.pick(
+      {
+        "A significant hostile presence has been detected in this level. Resistance will be challenging.",
+        "A major host of the demonic horde lies waiting this level. Survival will be difficult.",
+        "The leader of the Hell's invasion resides and commands from this level.",
+        "This area hosts a significant brunt of the demonic invasion force. Be prepared.",
+        "A high-ranking demon general has made this level their home. They will not take kindly to intrusion",
+        "An significant entrapping ambush from the forces of Hell await in this level.",
+        "This is the site of a major encounter with the core of demonic forces. Their invasion must stop here.",
+        "This area is critically possessed and controlled by Hell as its staging ground. Its significant hostile forces await."
+      }
+    )
+    table.insert(lines, gotcha_line .. "\n")
+  end
 
   ----------------------------------------------------------------------
   -- ROOM DISTRIBUTION
@@ -2995,7 +3497,7 @@ function LLM_NAME.do_it()
     file:close()
 
     local cmd =
-      'start "" /b curl --max-time 120 -sS ' ..
+      'start "" /b curl --max-time 180 -sS ' ..
       '-H "Content-Type: application/json" '..
       '"' .. LLM_NAME.endpoint .. '"' ..
       ' -d @ollama_payload.json'
@@ -3209,7 +3711,7 @@ function LLM_NAME.do_it()
   end
 
 
-
+  -- formats story strings into Doom1 intermission screen-constricted lines
   local function format_story_string(text, max_chars)
 
     local formatted_lines = {}
@@ -3266,8 +3768,13 @@ function LLM_NAME.do_it()
     -- optionally normalize control chars
     s = s:gsub("\t", "\\t")
 
+    -- convert special unicode quote symbols to normal
+    s = s:gsub("‘", "\\'")
+    s = s:gsub("’", "\\'")
+
     return s
   end
+
 
   -- main name generator capsule
   local function generate_level_name(level_data, episodic_level_data)
@@ -3287,8 +3794,10 @@ function LLM_NAME.do_it()
 Rules:
 _NAME_LENGTH_
 - 1 name only
-- do not add any comment or explanation, give only the name
+- absolutely no comments, explanation, or follow-up
+- give only the name, do not add any explanation
 - no quotation marks, no camelcase, no snakecase
+- avoid using of any nouns that begin with "Kh", "Kr", "Ky", "Ely"
 
 ]]..
 level_data
@@ -3300,10 +3809,19 @@ level_data
       LLM_NAME.prompt_flavors[PARAM.prompt_flavor])
     end
 
+    -- sub-flavor injection
+    if LLM_NAME.prompt_sub_flavors[PARAM.prompt_flavor] then
+      local tab = LLM_NAME.prompt_sub_flavors[PARAM.prompt_flavor]
+      assert(tab)
+
+      prompt = string.gsub(prompt, tab.source[1],
+        rand.pick(tab.replacers))
+    end
+
     -- LLM temperature variation, later maps have crazier names
     local pick_tmp
     if #GAME.levels > 4 and epi_lev.along then
-      pick_tmp = map_value(epi_lev.along, 0, 1, 0.25, 1.2)
+      pick_tmp = map_value(epi_lev.along, 0, 1, 1.0, 2.0)
     end
 
     -- name length
@@ -3316,7 +3834,7 @@ level_data
     end
 
     -- refer to name history to avoid name re-use
-    prompt = prompt .. "The following names are already used. Avoid re-using them, but feel free to use them as basis for something more distinct:\n"
+    prompt = prompt .. "The following names are already used. Avoid re-using them and already-used words, but feel free to use them as basis for something more distinct:\n"
     if #LLM_NAME.history > 0 then
       for _, name in ipairs(LLM_NAME.history) do
         prompt = prompt .. "* " .. name .. "\n"
@@ -3362,6 +3880,7 @@ level_data
   end
 
 
+  -- main story generator prompt assembler
   local function generate_story()
 
     local prompt =
@@ -3378,20 +3897,30 @@ I need the story to be properly formatted. Do not provide any explanation.
 
 Rules:
 - narrate in second person
-- Doom/Doom 2016/Doom Eternal style
-- slightly grounded more towards a sci-fi military plot
+- visceral Doom-style military-industrial horror action
+- engaging story with a non-mythic, military-style, viscerally action-packed plot
 - pure fictional non real-world location
 - absolutely avoid any use of italics, bold, or any Markdown formatting
 - no explanations, no commentary, no follow-up questions
-- no Warhammer 40k, no Lovecraft, no Blizzard Entertainment
-- no threats bigger than Hell - instead, make Hell threatening on its own
+- Hell is always the ultimate enemy and its demons are the immediate mission threat but be a person, faction, archive, ritual, weapon shipment, infestation, command post, collaborator, or cover-up may interfere
+- the selected Story Plot controls the actual objective and resolution
 - if the acronym UAC is used, it means "Union Aerospace Corporation"
-- avoid names with a hard consonant starts such as "Kh", "Kae", "Kr", "Vex", etc.
+- please do not mention: the smell of ozone, nexus points, junctions, or sub-levels, structural integrity
+- avoid inventing a larger hidden crisis to make the ending feel more important
+- do not invent a larger hidden portal, reactor, core, energy-source, breach, or anomaly plot
+- do not mention Earth, it is only for locational context
 
-The silent marine protagonist is the Doomslayer and needs no introduction, forever fighting an eternal war with hell and answers to no one.
-Hell continues to be humanity's problem and the Doomslayer's exploits brings them to the current location where every step is toward the destruction of Hell and its forces.
+The silent marine protagonist is the Doomslayer and needs no introduction, forever fighting an eternal war with hell and answers to no one. 
+Hell continues to be humanity's problem and the Doomslayer's exploits bring him to the current location. Every step denies Hell something concrete: bodies, weapons, territory, command, records, rituals, collaborators, supplies, or time.
 The Doomslayer always emerges victorious in this current story but there will always be a new story, another battle with Hell elsewhere.
-Please avoid cliffhangers or "to be continued" endings. The current arc ends but there is always more to do.
+Please avoid cliffhangers or "to be continued" endings.
+
+Plot Discipline:
+- treat Story Plot as mandatory, not inspirational
+- the Objective in Story Plot must be the objective that gets resolved
+- the Twist in Story Plot must complicate that objective, not replace it
+- do not invent a plot not covered by the Story Plot, Objective, and Twist
+- the ending must resolve the stated objective directly
 
 Protagonist Notes:
 - the protagonist will never choose to work with Hell
@@ -3403,10 +3932,11 @@ _ENTITIES_
 _FORMAT_
 ]]
     -- flavor injection
-    local story_flavor = rand.pick(LLM_NAME.story_components.flavors)
+    local story_flavor = rand.pick(LLM_NAME.story_components.flavors) .. "\n"
+    story_flavor = story_flavor .. "The Objective: " .. rand.pick(LLM_NAME.story_components.objectives) .. "\n"
+
     -- sometimes add a twist
-    if rand.odds(66) then
-      story_flavor = story_flavor .. "\n"
+    if rand.odds(75) then
       story_flavor = story_flavor .. "The Twist: " .. rand.pick(LLM_NAME.story_components.story_twists) .. "\n"
     end
     prompt = string.gsub(prompt,
@@ -3447,32 +3977,44 @@ _FORMAT_
         story_characters = story_characters .. LLM_NAME.stylize_name_prompt()
       end
     else]]
+    local char_count = rand.pick({1,2,3})
     if character_mode == "pregen" then
       story_characters = "The following appear in the story:\n"
-      local count = rand.pick({1,2,3})
-      for i = 1, count do
+      for i = 1, char_count do
         story_characters = story_characters .. rand.pick(LLM_NAME.story_components.actors).. "\n"
       end
 
       -- sometimes add a McGuffin
-      if (count == 2 and rand.odds(30))
-      or (count == 1 and rand.odds(60)) then
+      if (char_count == 2 and rand.odds(30))
+      or (char_count == 1 and rand.odds(60)) then
         story_characters = story_characters ..  "Found a bit later in this story:\n"
         story_characters = story_characters .. "* " .. rand.pick(LLM_NAME.story_components.mcguffins) .."\n"
       end
 
       -- maybe change up our pregen names too!
-      if rand.odds(33) then
+      --[[if rand.odds(33) then
         story_characters = story_characters .. LLM_NAME.stylize_name_prompt()
-      end
+      end]]
     else
       story_characters = "There are no other characters in the story - the Doomslayer explores this quest on their own. Please do not name any new entities unless specified.\n"
-      story_characters = story_characters .. LLM_NAME.stylize_name_prompt()
+      --[[story_characters = story_characters .. LLM_NAME.stylize_name_prompt()]]
 
       -- sometimes add a McGuffin
       if rand.odds(50) then
-        story_characters = story_characters ..  "Involved in this story:\n"
+        story_characters = story_characters ..  "Found later in the story:\n"
         story_characters = story_characters .. "* " .. rand.pick(LLM_NAME.story_components.mcguffins) .."\n"
+      end
+    end
+
+    -- higher chance to involve a McGuffin if there are no characters in the story
+    if character_mode == "none" then
+      if rand.odds(66) then
+        story_characters = story_characters ..  "Found later in the story:\n"
+        story_characters = story_characters .. "* " .. rand.pick(LLM_NAME.story_components.mcguffins) .."\n"
+        -- a small chance to add a second McGuffin
+        if rand.odds(33) then
+          story_characters = story_characters .. "* " .. rand.pick(LLM_NAME.story_components.mcguffins) .."\n"
+        end
       end
     end
     prompt = string.gsub(prompt,
@@ -3485,6 +4027,13 @@ _FORMAT_
     else
       story_format = LLM_NAME.story_components.length.epi
     end
+
+    -- word count substitution
+    story_format = string.gsub(story_format,
+    "_WORD_COUNT_",
+    math.round(PARAM.float_story_word_count) or 130)
+
+    -- final format rule lines merge
     prompt = string.gsub(prompt,
     "_FORMAT_",
     story_format)
@@ -3494,9 +4043,9 @@ _FORMAT_
     -- temperature
     local temp = rand.pick
     {
-      0.85,
-      0.90,
-      0.95
+      1.0,
+      1.05,
+      1.1
     }
 
     -- prompt structure
@@ -3515,7 +4064,7 @@ _FORMAT_
     end
 
     local story_tab = {}
-    gui.debugf("\n" .. story_chunks .. " <- RAW\n\n")
+    gui.printf("\n" .. story_chunks .. " <- RAW\n\n")
     story_tab = parse_story_chunks(story_chunks)
 
     for s_pos = 1, #story_tab do
@@ -3542,7 +4091,7 @@ _FORMAT_
 
   end
 
-
+  -- level name generator loop
   if PARAM.bool_llm_namer == 1 then
 
     -- level name generator
@@ -3560,7 +4109,18 @@ _FORMAT_
           local noun_replacers = {}
           for _,N in ipairs(LLM_NAME.story_components.replacers) do
             noun_replacers[N] = namelib.generate_unique_noun("exotic")
+            assert(name, "Received no answer from Ollama instance! " ..
+            "Is it on? Why does life have to be this way?!")
             name = string.gsub(name, N, noun_replacers[N])
+          end
+
+          -- direct replacers
+          if rand.odds(90) then
+            for replacee,choices in pairs(LLM_NAME.naming_novelty.replacers) do
+              if string.gmatch(name, replacee) then
+                name = string.gsub(name, replacee, rand.pick(choices))
+              end
+            end
           end
 
           if name then
@@ -3597,7 +4157,7 @@ OB_MODULES["llm_namer"] =
   where = "experimental",
   priority = 5,
 
-  tooltip = _("Genarates level names using an LLM."),
+  tooltip = _("Generates level names using an LLM."),
 
   hooks =
   {
@@ -3613,7 +4173,7 @@ OB_MODULES["llm_namer"] =
       label=_("LLM Level Name Generator"),
       valuator = "button",
       default = 1,
-      tooltip = _("Genarates a context-aware level name via LLM."),
+      tooltip = _("Generates a context-aware level name via LLM."),
       longtip = _("Uses Ollama to generate a name for a level by sending level metadata to Ollama. " ..
         "Default model is llama3.1:8b. Using a different model or LLM platform requires modification of the script. " ..
         "To use this, just download Ollama and llama3.1:8b and keep it running all at default settings.\n\n" ..
@@ -3651,6 +4211,20 @@ OB_MODULES["llm_namer"] =
       "ZDoom Specials must be turned on or intermission will be ignored without MAPINFO structs.\n\n"..
       "Not guaranteed to make authentic stories and will totally hallu"),
       priority = 97,
+    },
+
+    {
+      name = "float_story_word_count",
+      label = _("Story Word Count"),
+      valuator = "slider",
+      units = " Words",
+      default = 130,
+      min = 50,
+      max = 130,
+      increment = 5,
+      tooltip = _("Change the rough number of words per intermission screen."),
+      priority = 96,
+
       gap = 1
     },
 
@@ -3661,7 +4235,7 @@ OB_MODULES["llm_namer"] =
       default = 1,
       tooltip = _("Enables or disables Ollama instance check before level generation begins for speed. " ..
       "When turning this off, be absolutely sure Ollama is running or you may get end errors, wasting your generated level."),
-      priority = 96,
+      priority = 95,
     }
   }
 }

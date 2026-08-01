@@ -70,3 +70,11 @@ PREFABS.Decor_urban_mall_island_with_seats_EPIC =
     O_CARVE = 3
   }
 }
+
+PREFABS.Decor_urban_mall_light_fountain =
+{
+  template = "Decor_urban_mall_light_island_1",
+  map = "MAP04",
+
+  size = 128
+}

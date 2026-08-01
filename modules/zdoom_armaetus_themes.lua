@@ -3760,6 +3760,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "white"
   },
 
   light_TLITE5_2 =
@@ -3771,6 +3773,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "beige"
   },
 
   light_TLITE5_3 =
@@ -3782,6 +3786,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "white"
   },
 
   light_TLITE65B =
@@ -3793,6 +3799,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "blue"
   },
 
   light_TLITE65G =
@@ -3804,6 +3812,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "green"
   },
 
   light_TLITE65O =
@@ -3815,6 +3825,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "orange"
   },
 
   light_TLITE65W =
@@ -3826,6 +3838,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "white"
   },
 
   light_TLITE65Y =
@@ -3837,6 +3851,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "yellow"
   },
 
   light_LIGHTS1 =
@@ -3848,6 +3864,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   light_LIGHTS2 =
@@ -3859,6 +3877,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "green"
   },
 
   light_LIGHTS3 =
@@ -3870,6 +3890,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "white"
   },
 
   light_LIGHTS4 =
@@ -3881,6 +3903,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "blue"
   },
 
   light_GLITE01 =
@@ -3892,6 +3916,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   light_GLITE02 =
@@ -3903,6 +3929,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   light_GLITE03 =
@@ -3914,6 +3942,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   light_GLITE04 =
@@ -3925,6 +3955,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   light_GLITE05 =
@@ -3936,6 +3968,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "orange"
   },
 
   --
@@ -3948,6 +3982,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "blue"
   },
 
   light_GLITE05_GREEN =
@@ -3959,6 +3995,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "green"
   },
 
   light_GLITE05_RED =
@@ -3970,6 +4008,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   light_GLITE05_WHITE =
@@ -3981,6 +4021,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "white"
   },
 
   light_GLITE05_YELLOW =
@@ -3992,6 +4034,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "yellow"
   },
   --
 
@@ -4004,6 +4048,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   light_GLITE07 =
@@ -4015,6 +4061,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "green"
   },
 
   light_GLITE08 =
@@ -4026,6 +4074,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "white"
   },
 
   light_GLITE09 =
@@ -4037,6 +4087,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL",
     trim_dz  = -5,
     trim_light = 16,
+
+    light_color = "blue"
   },
 
   light_COLLITE1 = -- green
@@ -4048,6 +4100,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "COLLITE1",
     trim_dz = -2,
     trim_light = 24,
+
+    light_color = "green"
   },
 
   light_COLLITE2 = -- orange
@@ -4059,6 +4113,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "COLLITE2",
     trim_dz = -2,
     trim_light = 24,
+
+    light_color = "orange"
   },
 
   light_COLLITE3 = -- blue
@@ -4070,6 +4126,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "COLLITE3",
     trim_dz = -2,
     trim_light = 24,
+
+    light_color = "blue"
   },
 
   light_RDWAL01 = -- red
@@ -4081,6 +4139,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "RDWAL01",
     trim_dz = -2,
     trim_light = 24,
+
+    light_color = "red"
   },
 
   ceiling_sink_TEKWALL8 = -- red
@@ -4092,6 +4152,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL7",
     trim_dz = -8,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   ceiling_sink_TEKWALL9 = -- green
@@ -4103,6 +4165,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL7",
     trim_dz = -8,
     trim_light = 16,
+
+    light_color = "green"
   },
 
   ceiling_sink_TEKWALLA = -- purple
@@ -4114,6 +4178,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL7",
     trim_dz = -8,
     trim_light = 16,
+
+    light_color = "purple"
   },
 
   ceiling_sink_TEKWALLB = -- blue
@@ -4125,6 +4191,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL7",
     trim_dz = -8,
     trim_light = 16,
+
+    light_color = "blue"
   },
 
   ceiling_sink_TEKWALLC = -- pink
@@ -4136,6 +4204,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL7",
     trim_dz = -8,
     trim_light = 16,
+
+    light_color = "pink"
   },
 
   ceiling_sink_TEKWALLD = -- cyan
@@ -4147,6 +4217,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL7",
     trim_dz = -8,
     trim_light = 16,
+
+    light_color = "blue"
   },
 
   ceiling_sink_TEKWALLE = -- orange
@@ -4158,6 +4230,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "METAL7",
     trim_dz = -8,
     trim_light = 16,
+
+    light_color = "orange"
   },
 
   ceiling_sink_SILVER2R = -- silver lights red
@@ -4169,6 +4243,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "SILVER2R",
     trim_dz = -16,
     trim_light = 16,
+
+    light_color = "red"
   },
 
   ceiling_sink_SILVER2O = -- silver lights orange
@@ -4180,6 +4256,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "SILVER2O",
     trim_dz = -16,
     trim_light = 16,
+
+    light_color = "orange"
   },
 
   ceiling_sink_SILVER2Y = -- silver lights yellow
@@ -4191,6 +4269,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "SILVER2Y",
     trim_dz = -16,
     trim_light = 16,
+
+    light_color = "yellow"
   },
 
   ceiling_sink_SILVER2W = -- silver lights white
@@ -4202,6 +4282,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "SILVER2W",
     trim_dz = -16,
     trim_light = 16,
+
+    light_color = "white"
   },
 
   ceiling_sink_SILVER2G = -- silver lights green
@@ -4213,6 +4295,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
     trim_mat = "SILVER2G",
     trim_dz = -16,
     trim_light = 16,
+
+    light_color = "green"
   },
 
   -- hell cielings
@@ -4570,6 +4654,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
 
     trim_mat = "LITE5",
     trim_dz  = 0,
+
+    light_color = "red"
   },
 
   light_side1_yellow =
@@ -4580,6 +4666,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
 
     trim_mat = "LITE5",
     trim_dz  = 0,
+
+    light_color = "yellow"
   },
 
   light_side1_green =
@@ -4590,6 +4678,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
 
     trim_mat = "LITE5",
     trim_dz  = 0,
+
+    light_color = "green"
   },
 
   light_side1_purple =
@@ -4600,6 +4690,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
 
     trim_mat = "LITE5",
     trim_dz  = 0,
+
+    light_color = "purple"
   },
 
   light_lite5_red =
@@ -4610,6 +4702,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
 
     trim_mat = "T_VSLTER",
     trim_dz  = 0,
+
+    light_color = "red"
   },
 
   light_lite5_orange =
@@ -4620,6 +4714,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
 
     trim_mat = "T_VSLTEO",
     trim_dz  = 0,
+
+    light_color = "orange"
   },
 
   light_lite5_yellow =
@@ -4630,6 +4726,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
 
     trim_mat = "T_VSLTEY",
     trim_dz  = 0,
+
+    light_color = "yellow"
   },
 
   light_lite5_green =
@@ -4640,6 +4738,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
 
     trim_mat = "T_VSLTEG",
     trim_dz  = 0,
+
+    light_color = "green"
   },
 
   light_lite5_purple =
@@ -4650,6 +4750,8 @@ OBS_RESOURCE_PACK_SINK_DEFS =
 
     trim_mat = "T_VSLTEP",
     trim_dz  = 0,
+
+    light_color = "purple"
   },
 
   -- more weird ceiling liquids for hell
@@ -4934,6 +5036,7 @@ OBS_RESOURCE_PACK_THEMES =
       gtd_wall_server_room2 = 50,
       --
       gtd_storage_shawn = 50,
+      gtd_storage_wood = 10,
       --
       gtd_wall_cafeteria_set = 50,
       --
@@ -5412,6 +5515,7 @@ OBS_RESOURCE_PACK_THEMES =
       gtd_wall_cafeteria_set = 50,
       --
       gtd_storage_shawn = 50,
+      gtd_storage_wood = 50,
       --
       gtd_tall_glass_epic_yellow = 8,
       gtd_tall_glass_epic_orange = 8,

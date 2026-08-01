@@ -570,6 +570,9 @@ class UI_OptionsWin : public Fl_Window
 //
 UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, label), want_quit(false)
 {
+    const float mul_leftindent = 0.27f;
+    const float mul_listwidth  = (1 - mul_leftindent) / 2.0;
+
     // non-resizable
     size_range(W, H, W, H);
 
@@ -583,9 +586,9 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
     int cx = x() + KromulentWidth(24);
     int cy = y() + (y_step * 3);
 
-    int listwidth = KromulentWidth(160);
+    int listwidth = KromulentWidth(int(floor(W * mul_listwidth)));
 
-    opt_language = new UI_CustomMenu(cx + W * .38, cy, listwidth, KromulentHeight(24), "");
+    opt_language = new UI_CustomMenu(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), "");
     opt_language->copy_label(_("Language: "));
     opt_language->align(FL_ALIGN_LEFT);
     opt_language->callback(callback_Language, this);
@@ -598,7 +601,7 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
 
     cy += opt_language->h() + y_step;
 
-    opt_filename_prefix = new UI_CustomMenu(cx + W * .38, cy, listwidth, KromulentHeight(24), "");
+    opt_filename_prefix = new UI_CustomMenu(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), "");
     opt_filename_prefix->copy_label(_("Filename Prefix: "));
     opt_filename_prefix->align(FL_ALIGN_LEFT);
     opt_filename_prefix->callback(callback_FilenamePrefix, this);
@@ -614,7 +617,7 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
 
     cy += opt_filename_prefix->h() + y_step;
 
-    opt_custom_prefix = new Fl_Button(cx + W * .38, cy, listwidth, KromulentHeight(24), _("Set Custom Prefix..."));
+    opt_custom_prefix = new Fl_Button(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), _("Set Custom Prefix..."));
     opt_custom_prefix->box(button_style);
     opt_custom_prefix->align(FL_ALIGN_INSIDE | FL_ALIGN_CLIP);
     opt_custom_prefix->visible_focus(0);
@@ -624,14 +627,14 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
     opt_custom_prefix->labelcolor(FONT2_COLOR);
 
     custom_prefix_help =
-        new UI_HelpLink(cx + W * .38 + this->opt_custom_prefix->w(), cy, W * 0.10, KromulentHeight(24));
+        new UI_HelpLink(cx + W * mul_leftindent + this->opt_custom_prefix->w(), cy, W * 0.10, KromulentHeight(24));
     custom_prefix_help->labelfont(font_style);
     custom_prefix_help->callback(callback_PrefixHelp, this);
 
     cy += opt_custom_prefix->h() + y_step;
 
     opt_default_output_path =
-        new Fl_Button(cx + W * .38, cy, listwidth, KromulentHeight(24), _("Set Default Output Path"));
+        new Fl_Button(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), _("Set Default Output Path"));
     opt_default_output_path->box(button_style);
     opt_default_output_path->align(FL_ALIGN_INSIDE | FL_ALIGN_CLIP);
     opt_default_output_path->visible_focus(0);
@@ -654,7 +657,7 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
 
     cy += opt_current_output_path->h() + y_step;
 
-    opt_password_mode = new UI_CustomCheckBox(cx + W * .38, cy, listwidth, KromulentHeight(24), "");
+    opt_password_mode = new UI_CustomCheckBox(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), "");
     opt_password_mode->copy_label(_(" Password Mode"));
     opt_password_mode->value(password_mode ? 1 : 0);
     opt_password_mode->callback(callback_Password_Mode, this);
@@ -663,13 +666,13 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
     opt_password_mode->down_box(button_style);
 
     password_mode_help =
-        new UI_HelpLink(cx + W * .38 + this->opt_filename_prefix->w(), cy, W * 0.10, KromulentHeight(24));
+        new UI_HelpLink(cx + W * mul_leftindent + this->opt_filename_prefix->w(), cy, W * 0.10, KromulentHeight(24));
     password_mode_help->labelfont(font_style);
     password_mode_help->callback(callback_PasswordModeHelp, this);
 
     cy += opt_password_mode->h() + y_step * .5;
 
-    opt_mature_words = new UI_CustomCheckBox(cx + W * .38, cy, listwidth, KromulentHeight(24), "");
+    opt_mature_words = new UI_CustomCheckBox(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), "");
     opt_mature_words->copy_label(_(" Use Mature Wordlists"));
     opt_mature_words->value(mature_word_lists ? 1 : 0);
     opt_mature_words->callback(callback_MatureWords, this);
@@ -678,13 +681,13 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
     opt_mature_words->down_box(button_style);
 
     mature_words_help =
-        new UI_HelpLink(cx + W * .38 + this->opt_filename_prefix->w(), cy, W * 0.10, KromulentHeight(24));
+        new UI_HelpLink(cx + W * mul_leftindent + this->opt_filename_prefix->w(), cy, W * 0.10, KromulentHeight(24));
     mature_words_help->labelfont(font_style);
     mature_words_help->callback(callback_MatureWordsHelp, this);
 
     cy += opt_mature_words->h() + y_step * .5;
 
-    opt_backups = new UI_CustomCheckBox(cx + W * .38, cy, listwidth, KromulentHeight(24), "");
+    opt_backups = new UI_CustomCheckBox(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), "");
     opt_backups->copy_label(_(" Create Backups"));
     opt_backups->value(create_backups ? 1 : 0);
     opt_backups->callback(callback_Backups, this);
@@ -694,7 +697,7 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
 
     cy += opt_backups->h() + y_step * .5;
 
-    opt_overwrite = new UI_CustomCheckBox(cx + W * .38, cy, listwidth, KromulentHeight(24), "");
+    opt_overwrite = new UI_CustomCheckBox(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), "");
     opt_overwrite->copy_label(_(" Overwrite File Warning"));
     opt_overwrite->value(overwrite_warning ? 1 : 0);
     opt_overwrite->callback(callback_Overwrite, this);
@@ -704,7 +707,7 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
 
     cy += opt_overwrite->h() + y_step * .5;
 
-    opt_debug = new UI_CustomCheckBox(cx + W * .38, cy, listwidth, KromulentHeight(24), "");
+    opt_debug = new UI_CustomCheckBox(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), "");
     opt_debug->copy_label(_(" Debugging Messages"));
     opt_debug->value(debug_messages ? 1 : 0);
     opt_debug->callback(callback_Debug, this);
@@ -714,7 +717,7 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
 
     cy += opt_debug->h() + y_step * .5;
 
-    opt_limit_break = new UI_CustomCheckBox(cx + W * .38, cy, listwidth, KromulentHeight(24), "");
+    opt_limit_break = new UI_CustomCheckBox(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), "");
     opt_limit_break->copy_label(_(" Ignore Slider Limits"));
     opt_limit_break->value(limit_break ? 1 : 0);
     opt_limit_break->callback(callback_LimitBreak, this);
@@ -724,7 +727,7 @@ UI_OptionsWin::UI_OptionsWin(int W, int H, const char *label) : Fl_Window(W, H, 
 
     cy += opt_limit_break->h() + y_step * .5;
 
-    opt_collapse_disabled = new UI_CustomCheckBox(cx + W * .38, cy, listwidth, KromulentHeight(24), "");
+    opt_collapse_disabled = new UI_CustomCheckBox(cx + W * mul_leftindent, cy, listwidth, KromulentHeight(24), "");
     opt_collapse_disabled->copy_label(_(" Collapse Disabled Modules"));
     opt_collapse_disabled->value(collapse_disabled_modules ? 1 : 0);
     opt_collapse_disabled->callback(callback_CollapseDisabled, this);
@@ -789,7 +792,7 @@ int UI_OptionsWin::handle(int event)
 
 void DLG_OptionsEditor(void)
 {
-    int opt_w = KromulentWidth(550);
+    int opt_w = KromulentWidth(600);
     int opt_h = KromulentHeight(475);
 
     UI_OptionsWin *option_window = new UI_OptionsWin(opt_w, opt_h, _("OBSIDIAN Misc Options"));

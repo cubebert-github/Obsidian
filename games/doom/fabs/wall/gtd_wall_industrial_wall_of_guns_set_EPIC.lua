@@ -37,14 +37,3 @@ PREFABS.Wall_of_guns_set_diag =
 
   where = "diagonal"
 }
-
---
-
-PREFABS.Wall_of_guns_set_any =
-{
-  template = "Wall_of_guns_set_straight",
-
-  prob = 15,
-
-  stop_group = "yes",
-}

@@ -22,7 +22,8 @@ MARINE_CLOSET_TUNE.TECH =
   "high",    _("High Tech"),
   "rng",    _("Mix It Up"),
   "prog",    _("Progressive"),
-  "bfg",    _("BFG Fiesta"),
+  "prog_no_bfg", _("Progressive, no BFG"),
+  "bfg",    _("BFG Fiesta")
 }
 
 MARINE_CLOSET_TUNE.WAKER =
@@ -1338,18 +1339,18 @@ MarAI12 = "112:127=224:231"
 
 MARINE_CLOSET_TUNE.TECHWPN =
 {
-[1] = { 31001 },
-[2] = { 31003, 31001, 31001, 31001, 31001, 31001, 31001, 31001, 31002, 31002, 31001 },
-[3] = { 31003, 31002, 31001, 31001, 31001, 31001, 31001, 31001, 31003, 31002, 31001 },
-[4] = { 31003, 31002, 31001, 31001 },
-[5] = { 31003, 31002, 31002, 31003, 31002, 31003, 31002, 31004, 31003, 31005, 31006, 31004, 31003, 31001 },
-[6] = { 31003, 31002, 31002, 31003, 31002, 31005, 31003, 31002, 31006, 31004, 31004, 31003, 31002, 31001 },
-[7] = { 31003, 31002, 31003, 31004, 31002, 31005, 31006, 31004, 31003, 31003, 31002, 31002, 31002, 31001 },
-[8] = { 31004, 31004, 31002, 31004, 31005, 31005, 31006, 31002, 31005, 31006 },
-[9] = { 31005, 31005, 31005, 31005, 31006, 31006, 31006, 31004, 31007, 31002 },
-[10] = { 31002, 31003, 31004, 31005, 31006, 31007 },
-[66] = { 31007 },
-[99] = { 31001, 31003, 31003, 31003, 31003, 31002, 31002, 31002, 31004, 31004, 31004, 31005, 31005, 31006, 31006, 31007 },
+  [1] = { 31001 },
+  [2] = { 31003, 31001, 31001, 31001, 31001, 31001, 31001, 31001, 31002, 31002, 31001 },
+  [3] = { 31003, 31002, 31001, 31001, 31001, 31001, 31001, 31001, 31003, 31002, 31001 },
+  [4] = { 31003, 31002, 31001, 31001 },
+  [5] = { 31003, 31002, 31002, 31003, 31002, 31003, 31002, 31004, 31003, 31005, 31006, 31004, 31003, 31001 },
+  [6] = { 31003, 31002, 31002, 31003, 31002, 31005, 31003, 31002, 31006, 31004, 31004, 31003, 31002, 31001 },
+  [7] = { 31003, 31002, 31003, 31004, 31002, 31005, 31006, 31004, 31003, 31003, 31002, 31002, 31002, 31001 },
+  [8] = { 31004, 31004, 31002, 31004, 31005, 31005, 31006, 31002, 31005, 31006 },
+  [9] = { 31005, 31005, 31005, 31005, 31006, 31006, 31006, 31004, 31007, 31002 },
+  [10] = { 31002, 31003, 31004, 31005, 31006, 31007 },
+  [66] = { 31007 },
+  [99] = { 31001, 31003, 31003, 31003, 31003, 31002, 31002, 31002, 31004, 31004, 31004, 31005, 31005, 31006, 31006, 31007 },
 }
 
 -- MSSP: Man, who hurt me, huh?
@@ -1441,16 +1442,18 @@ function MARINE_CLOSET_TUNE.calc_closets(self, LEVEL)
     rngmin = math.min(PARAM.float_m_c_min,PARAM.float_m_c_max)
     rngmax = math.max(PARAM.float_m_c_min,PARAM.float_m_c_max)
 
+    -- slight jitter so marine and closet counts don't ever always fall exactly
+    -- on predictable level counts e.g. the difference between 1 or 2 marines always
+    -- landing on exactly MAP15 and so on
+    local game_along_jitter = LEVEL.game_along + rand.range(0.2, -0.2)
+    local ep_along_jitter = LEVEL.ep_along + rand.range(0.2, -0.2)
+    
     if PARAM.m_c_type == "default" then
       PARAM.marine_closets = rand.irange(rngmin,rngmax)
-    elseif PARAM.m_c_type == "prog" then
-      PARAM.marine_closets = rngmin + math.round((rngmax - rngmin) * LEVEL.game_along)
-    elseif PARAM.m_c_type == "reg" then
-      PARAM.marine_closets = rngmax - math.round((rngmax - rngmin) * LEVEL.game_along)
-    elseif PARAM.m_c_type == "epi" then
-      PARAM.marine_closets = rngmin + math.round((rngmax - rngmin) * LEVEL.ep_along)
-    elseif PARAM.m_c_type == "epi2" then
-      PARAM.marine_closets = rngmax - math.round((rngmax - rngmin) * LEVEL.ep_along)
+    elseif PARAM.m_c_type == "prog" or PARAM.m_c_type == "reg" then
+      PARAM.marine_closets = rngmin + math.round((rngmax - rngmin) * game_along_jitter)
+    elseif PARAM.m_c_type == "epi" or PARAM.m_c_type == "epi2" then
+      PARAM.marine_closets = rngmax - math.round((rngmax - rngmin) * ep_along_jitter)
     end
 
     rngmin = math.min(PARAM.float_m_c_m_min,PARAM.float_m_c_m_max)
@@ -1458,14 +1461,10 @@ function MARINE_CLOSET_TUNE.calc_closets(self, LEVEL)
 
     if PARAM.m_c_m_type == "default" then
       PARAM.marine_marines = rand.irange(rngmin,rngmax)
-    elseif PARAM.m_c_m_type == "prog" then
-      PARAM.marine_marines = rngmin + math.round((rngmax - rngmin) * LEVEL.game_along)
-    elseif PARAM.m_c_m_type == "reg" then
-      PARAM.marine_marines = rngmax - math.round((rngmax - rngmin) * LEVEL.game_along)
-    elseif PARAM.m_c_m_type == "epi" then
-      PARAM.marine_marines = rngmin + math.round((rngmax - rngmin) * LEVEL.ep_along)
-    elseif PARAM.m_c_m_type == "epi2" then
-      PARAM.marine_marines = rngmax - math.round((rngmax - rngmin) * LEVEL.ep_along)
+    elseif PARAM.m_c_m_type == "prog" or PARAM.m_c_m_type == "reg" then
+      PARAM.marine_marines = rngmin + math.round((rngmax - rngmin) * game_along_jitter)
+    elseif PARAM.m_c_m_type == "epi" or PARAM.m_c_m_type == "epi2" then
+      PARAM.marine_marines = rngmin + math.round((rngmax - rngmin) * ep_along_jitter)
     end
 
     if PARAM.m_c_tech == "vlow" then
@@ -1480,7 +1479,8 @@ function MARINE_CLOSET_TUNE.calc_closets(self, LEVEL)
       PARAM.marine_tech = 99
     elseif PARAM.m_c_tech == "bfg" then
       PARAM.marine_tech = 66
-    elseif PARAM.m_c_tech == "prog" then
+    elseif PARAM.m_c_tech == "prog"
+    or PARAM.m_c_tech == "prog_no_bfg" then
       if LEVEL.game_along < 1.0 then
         PARAM.marine_tech = math.ceil(LEVEL.game_along * 10)
       else
@@ -1512,7 +1512,13 @@ function MARINE_CLOSET_TUNE.calc_closets(self, LEVEL)
 end
 
 function MARINE_CLOSET_TUNE.grab_type()
-  return rand.pick(MARINE_CLOSET_TUNE.TECHWPN[PARAM.marine_tech])
+  local tech_level = table.copy(MARINE_CLOSET_TUNE.TECHWPN)
+  if PARAM.m_c_tech == "prog_no_bfg" then
+    tech_level[9] = { 31005, 31005, 31005, 31005, 31006, 31006, 31006, 31004, 31002 }
+    tech_level[10] = { 31002, 31003, 31004, 31005, 31006 }
+  end
+
+  return rand.pick(tech_level[PARAM.marine_tech])
 end
 
 function MARINE_CLOSET_TUNE.randomize_count()
@@ -1532,7 +1538,16 @@ function MARINE_CLOSET_TUNE.all_done()
     else
       scripty = scripty .. MARINE_CLOSET_TUNE.TEMPLATES.MGSTRN
     end
-  else
+
+    scripty = string.gsub(scripty,
+"        Painchance 168;",
+"        Painchance 168;\n" ..
+"        PainThreshold 25;")
+
+    scripty = string.gsub(scripty,
+"        Height 56;",
+"        Height 16;")
+else
     if PARAM.m_c_sprites == "no" then
       scripty = scripty .. MARINE_CLOSET_TUNE.TEMPLATES.MWEAK
     else
@@ -1805,7 +1820,15 @@ OB_MODULES["gzdoom_marine_closets"] =
       priority = 91,
       choices = MARINE_CLOSET_TUNE.TECH,
       default = "mid",
-      tooltip = _("Influences weapons that marines spawn with:\n\nVery Low tech: Clearing demonic invasion with nothing but pistols and harsh language\nLow tech: Pistols, with some rare chainguns and shotguns\nMid tech: Shotguns/Chainguns with some rare pistols, super shotguns, rocket launchers and plasma rifles\nHigh tech: Rocket launchers/Plasma rifles with some rare BFGs, super shotguns and chainguns\nMix it up: Any weapon goes, let the dice decide!\nBFG Fiesta: BFG only, cyberdemons beware!\nProgressive: Marines start with pistols and get more powerful weapons through episode/megawad"),
+      tooltip = 
+      _("Influences weapons that marines spawn with:\n\n"..
+      "Very Low tech: Clearing demonic invasion with nothing but pistols and harsh language\n"..
+      "Low tech: Pistols, with some rare chainguns and shotguns\n"..
+      "Mid tech: Shotguns/Chainguns with some rare pistols, super shotguns, rocket launchers and plasma rifles\n"..
+      "High tech: Rocket launchers/Plasma rifles with some rare BFGs, super shotguns and chainguns\n"..
+      "Mix it up: Any weapon goes, let the dice decide!\n"..
+      "BFG Fiesta: BFG only, cyberdemons beware!\n"..
+      "Progressive: Marines start with pistols and get more powerful weapons through the WAD"),
       randomize_group = "monsters"
     },
 

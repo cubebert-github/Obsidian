@@ -888,7 +888,6 @@ PREFABS.Item_dem_bunker_closetP =
     imp = 50,
     gunner = 20,
   }
-
 }
 
 
@@ -922,7 +921,7 @@ PREFABS.Item_dem_yard_closet1 =
   style = "traps",
   filter = "crushers",
 
-  prob   = 10000,
+  prob   = 5000,
 
   theme  = "urban",
 
@@ -960,7 +959,6 @@ PREFABS.Item_dem_yard_closet1 =
   },
 
   can_flip = true,
-
 }
 
 PREFABS.Item_dem_yard_closet2 =
@@ -970,7 +968,6 @@ PREFABS.Item_dem_yard_closet2 =
   map = "MAP28",
 
   jump_crouch = true,
-
 }
 
 PREFABS.Item_dem_yard_closet3 =
@@ -979,13 +976,12 @@ PREFABS.Item_dem_yard_closet3 =
 
   map = "MAP29",
 
-  prob   = 12000,
+  prob   = 7500,
 
   jump_crouch = true,
 
   seed_w = 4,
   seed_h = 2,
-
 }
 
 PREFABS.Item_dem_yard_closet4 =
@@ -994,7 +990,7 @@ PREFABS.Item_dem_yard_closet4 =
 
   map = "MAP30",
 
-  prob   = 12000,
+  prob   = 7500,
 
   seed_w = 4,
   seed_h = 2,
@@ -1021,6 +1017,4 @@ PREFABS.Item_dem_yard_closet4 =
 	CEMENT7=50,
 	CEMENT9=50,
     },
-
 }
-

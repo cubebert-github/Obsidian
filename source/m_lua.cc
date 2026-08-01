@@ -1282,7 +1282,9 @@ int gui_minimap_disable(lua_State *L)
         SYS_ASSERT(genny);
         // clang-format off
         main_win->build_box->alt_disp->copy_label(std::format("{} {} -\n{}", 
-            _("Using"), genny, _("Preview Not Available")).c_str());
+            _("Using"),
+            genny,
+            _("Preview Not Available")).c_str());
         // clang-format on
     }
 #endif
