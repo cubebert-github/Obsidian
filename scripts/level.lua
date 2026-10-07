@@ -2376,6 +2376,21 @@ function Level_choose_misc(LEVEL)
 
   LEVEL.room_height_style = PARAM.room_heights or "mixed"
 
+  if PARAM.room_height_limit == "mixed" then
+    LEVEL.room_height_limit = rand.pick({128,192,256,EXTREME_H})
+  elseif PARAM.room_height_limit == "short" then
+    LEVEL.room_height_limit = rand.key_by_probs({
+      [128] = 32,
+      [192] = 12,
+      [256] = 4,
+      [EXTREME_H] = 1
+    })
+  elseif PARAM.room_height_limit == "none" then
+    LEVEL.room_height_limit = EXTREME_H
+  else
+    LEVEL.room_height_limit = PARAM.room_height_limit
+  end
+
   if rand.odds(style_sel("outdoors", 0, 33, 66, 100)) then
     LEVEL.has_outdoors = true
 
@@ -2728,20 +2743,11 @@ function Level_make_level(LEV)
 
   if res ~= "runt" or not LEVEL.is_dead then
     if not SHAPE_GRAMMAR.ignore_coverage then
-      if LEVEL.cur_coverage < coverage_target then
+      if LEVEL.cur_coverage < coverage_target and not LEVEL.is_procedural_gotcha then
+        LEVEL.dead_reason = "is_dead > Coverage target not met.\n"
         res = "runt"
       end
     end
-
-    if LEVEL.is_procedural_gotcha then
-      local exit_R = LEVEL.exit_room
-      local start_R = LEVEL.start_room
-
-      if exit_R ~= start_R and start_R.svolume > exit_R.svolume then
-        res = "runt"
-      end
-    end
-
   end
 
   if LEVEL.is_dead or res == "runt" then
@@ -2752,6 +2758,7 @@ function Level_make_level(LEV)
     gui.printf("STUNTED LEVEL!\nCOVERAGE: " .. (LEVEL.cur_coverage or "NIL")
     .. "\nMIN COVERAGE: " .. coverage_target .. "\nROOMS: "
     .. #LEVEL.rooms .. "\nMIN ROOMS: " .. LEVEL.min_rooms .. "\n")
+    gui.printf(LEVEL.dead_reason)
   end
 
   if res ~= "ok" then

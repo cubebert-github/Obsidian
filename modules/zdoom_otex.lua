@@ -970,10 +970,17 @@ function OTEX_PROC_MODULE.setup(self)
   PARAM.OTEX_module_activated = true
   module_param_up(self)
   OTEX_PROC_MODULE.synthesize_procedural_themes()
+
+  gui.printf("--== OTEX Module: Merging Themes ==--\n\n")
+  table.deep_merge(GAME.MATERIALS, OTEX_MATERIALS, 2)
+  table.deep_merge(GAME.ROOM_THEMES, OTEX_ROOM_THEMES, 2)
+  table.deep_merge(GAME.THEMES, OTEX_THEMES, 3)
 end
 
 
 function OTEX_PROC_MODULE.synthesize_procedural_themes()
+  gui.printf("--== OTEX Module Activated: Synthesizing OTEX Themes ==--\n\n")
+
   local resource_tab = {}
 
   local function otex_match_theme(comp_theme, base_theme)
@@ -1503,13 +1510,6 @@ function OTEX_PROC_MODULE.synthesize_procedural_themes()
 end
 
 
-function OTEX_PROC_MODULE.get_levels_after_themes()
-  table.deep_merge(GAME.MATERIALS, OTEX_MATERIALS, 2)
-  table.deep_merge(GAME.ROOM_THEMES, OTEX_ROOM_THEMES, 2)
-  table.deep_merge(GAME.THEMES, OTEX_THEMES, 3)
-end
-
-
 function OTEX_PROC_MODULE.all_done()
   GAME.RESOURCES.GLOWING_FLATS_GLDEFS = string.gsub(
     GAME.RESOURCES.GLOWING_FLATS_GLDEFS,
@@ -1537,7 +1537,6 @@ OB_MODULES["otex_proc_module"] =
   hooks =
   {
     setup = OTEX_PROC_MODULE.setup,
-    get_levels_after_themes = OTEX_PROC_MODULE.get_levels_after_themes,
     all_done = OTEX_PROC_MODULE.all_done
   },
 

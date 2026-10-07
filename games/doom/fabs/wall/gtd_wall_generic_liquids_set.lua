@@ -86,7 +86,7 @@ PREFABS.Wall_gtd_generic_lavafall =
   bound_z2 = 96,
 
   z_fit = { 26,28 },
-  
+
   tex_FENCE2 = "MIDGRATE"
 }
 
@@ -125,4 +125,92 @@ PREFABS.Wall_gtd_generic_lavafall_diag_vanilla =
   map    = "MAP11",
 
   where = "diagonal"
+}
+
+--#
+
+PREFABS.Wall_gtd_lusting_for_the_sun =
+{
+  file   = "wall/gtd_wall_generic_liquids_set.wad",
+  map    = "MAP15",
+
+  rank = 1,
+  prob = 50,
+  group = "gtd_lusting_for_the_sun",
+
+  texture_pack = "armaetus",
+
+  where  = "edge",
+  height = 96,
+  deep   = 16,
+
+  bound_z1 = 0,
+  bound_z2 = 96,
+
+  z_fit = "top"
+}
+
+PREFABS.Wall_gtd_lusting_for_the_sun_tall =
+{
+  template = "Wall_gtd_lusting_for_the_sun",
+  map    = "MAP16",
+
+  prob = 7,
+
+  z_fit = {81,82}
+}
+
+PREFABS.Wall_gtd_lusting_for_the_sun_diag =
+{
+  template = "Wall_gtd_lusting_for_the_sun",
+  map = "MAP17",
+
+  where  = "diagonal",
+}
+
+-- compat
+
+PREFABS.Wall_gtd_lusting_for_the_sun_compat =
+{
+  file   = "wall/gtd_wall_generic_liquids_set.wad",
+  map    = "MAP15",
+
+  prob = 50,
+  group = "gtd_lusting_for_the_sun",
+
+  where  = "edge",
+  height = 96,
+  deep   = 16,
+
+  bound_z1 = 0,
+  bound_z2 = 96,
+
+  z_fit = "top",
+
+  tex_T_GHFLY = "FIRELAVA",
+  tex_BRONZE6 = "BRONZE1"
+}
+
+PREFABS.Wall_gtd_lusting_for_the_sun_tall_compat =
+{
+  template = "Wall_gtd_lusting_for_the_sun_compat",
+  map    = "MAP16",
+
+  prob = 7,
+
+  tex_T_GHFLY = "FIRELAVA",
+  tex_BRONZE6 = "BRONZE1",
+
+  z_fit = {81,82}
+}
+
+PREFABS.Wall_gtd_lusting_for_the_sun_diag_compat =
+{
+  template = "Wall_gtd_lusting_for_the_sun_compat",
+  map = "MAP17",
+
+  where = "diagonal",
+
+  tex_T_GHFLY = "FIRELAVA",
+  tex_BRONZE6 = "BRONZE1"
 }

@@ -54,12 +54,29 @@ PREFABS.Wall_frame_light_band =
 
   group = "gtd_generic_frame_light_band",
 
+  rank = 1,
   theme = "!hell",
 
+  z_fit = "top"
+}
+
+PREFABS.Wall_frame_light_band_hell =
+{
+  template = "Wall_generic_artsy_bedazzled",
+  map = "MAP05",
+
+  group = "gtd_generic_frame_light_band",
+
+  theme = "hell",
+
   z_fit = "top",
+
+  tex_BRONZE4 = "BFALL1",
+  tex_DOORSTOP = "SUPPORT3"
 }
 
 --
+
 PREFABS.Wall_generic_artsy_frame_metal =
 {
   template = "Wall_generic_artsy_bedazzled",
@@ -381,6 +398,7 @@ PREFABS.Wall_generic_small_lite_urban =
   bound_z2 = 96,
 
   tex_LITEBLU4 = "LITE3",
+  tex_SHAWN2 = "METAL",
   flat_CEIL4_3 = "TLITE6_4"
 }
 
@@ -399,6 +417,7 @@ PREFABS.Wall_generic_small_lite_urban_diag =
   bound_z2 = 96,
 
   tex_LITEBLU4 = "LITE3",
+  tex_SHAWN2 = "METAL",
   flat_CEIL4_3 = "TLITE6_4"
 }
 
@@ -418,6 +437,7 @@ PREFABS.Wall_generic_small_lite_hell =
   bound_z2 = 96,
 
   tex_LITEBLU4 = "CRACKLE2",
+  tex_SHAWN2 = "METAL",
   flat_CEIL4_3 = "FLOOR1_7"
 }
 
@@ -438,6 +458,7 @@ PREFABS.Wall_generic_small_lite_hell_diag =
   bound_z2 = 96,
 
   tex_LITEBLU4 = "CRACKLE2",
+  tex_SHAWN2 = "METAL",
   flat_CEIL4_3 = "FLOOR1_7"
 }
 
@@ -497,4 +518,157 @@ PREFABS.Wall_generic_artsy_chequered_diag =
   bound_z2 = 96,
 
   z_fit = "stretch"
+}
+
+--
+
+PREFABS.Wall_artsy_corpo_art =
+{
+  template = "Wall_generic_artsy_bedazzled",
+  map = "MAP40",
+
+  group = "gtd_generic_artsy_corpo_art",
+
+  height = 96,
+
+  bound_z2 = 96,
+
+  z_fit = "top"
+}
+
+PREFABS.Wall_artsy_corpo_art_diag =
+{
+  template = "Wall_generic_artsy_bedazzled",
+  map = "MAP41",
+
+  group = "gtd_generic_artsy_corpo_art",
+
+  height = 96,
+  where = "diagonal",
+
+  bound_z2 = 96,
+
+  z_fit = "top"
+}
+
+--
+
+--[[PREFABS.Wall_generic_artsy_bedazzled =
+{
+  file = "wall/gtd_wall_generic_artsy_set.wad",
+  map = "MAP01",
+
+  prob = 50,
+
+  group = "gtd_generic_artsy_bedazzled",
+
+  where = "edge",
+  deep = 16,
+  height = 128,
+
+  bound_z1 = 0,
+  bound_z2 = 128,
+
+  z_fit = "top",
+}]]
+
+PREFABS.Wall_artsy_metal_top_n_bottom =
+{
+  template = "Wall_generic_artsy_bedazzled",
+  map = "MAP42",
+
+  group = "gtd_generic_metal_top_n_bottom",
+
+  height = 96,
+
+  bound_z2 = 96,
+
+  z_fit = {32,33}
+}
+
+PREFABS.Wall_artsy_corpo_art_diag =
+{
+  template = "Wall_generic_artsy_bedazzled",
+  map = "MAP43",
+
+  group = "gtd_generic_metal_top_n_bottom",
+
+  height = 96,
+  where = "diagonal",
+
+  bound_z2 = 96,
+
+  z_fit = {32,33}
+}
+
+--
+
+PREFABS.Wall_artsy_lite_box_3d_inset =
+{
+  template = "Wall_generic_artsy_bedazzled",
+  map = "MAP44",
+
+  rank = 2,
+  theme = "!hell",
+  group = "gtd_generic_lite_box_3d_inset",
+
+  height = 96,
+
+  bound_z2 = 96,
+  z_fit = {79,80}
+}
+
+PREFABS.Wall_artsy_lite_box_3d_inset_compat =
+{
+  template = "Wall_generic_artsy_bedazzled",
+  map = "MAP44",
+
+  rank = 1,
+  port = "!zdoom",
+  theme = "!hell",
+  group = "gtd_generic_lite_box_3d_inset",
+
+  height = 96,
+
+  bound_z2 = 96,
+  z_fit = {79,80},
+
+  line_400 = 0
+}
+
+PREFABS.Wall_artsy_lite_box_3d_inset_hell =
+{
+  template = "Wall_generic_artsy_bedazzled",
+  map = "MAP44",
+
+  theme = "hell",
+  rank = 2,
+  group = "gtd_generic_lite_box_3d_inset",
+
+  height = 96,
+
+  bound_z2 = 96,
+  z_fit = {79,80},
+
+  tex_LITE5 = "BFALL1"
+}
+
+PREFABS.Wall_artsy_lite_box_3d_inset_compat_hell =
+{
+  template = "Wall_generic_artsy_bedazzled",
+  map = "MAP44",
+
+  rank = 1,
+  theme = "hell",
+  port = "!zdoom",
+  group = "gtd_generic_lite_box_3d_inset",
+
+  height = 96,
+
+  bound_z2 = 96,
+  z_fit = {79,80},
+
+  line_400 = 0,
+
+  tex_LITE5 = "BFALL1"
 }

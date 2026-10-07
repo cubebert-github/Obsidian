@@ -23,6 +23,7 @@ MARINE_CLOSET_TUNE.TECH =
   "rng",    _("Mix It Up"),
   "prog",    _("Progressive"),
   "prog_no_bfg", _("Progressive, no BFG"),
+  "prog_no_bfg_no_pistol", _("Progressive, no Pistol nor BFG"),
   "bfg",    _("BFG Fiesta")
 }
 
@@ -1480,7 +1481,8 @@ function MARINE_CLOSET_TUNE.calc_closets(self, LEVEL)
     elseif PARAM.m_c_tech == "bfg" then
       PARAM.marine_tech = 66
     elseif PARAM.m_c_tech == "prog"
-    or PARAM.m_c_tech == "prog_no_bfg" then
+    or PARAM.m_c_tech == "prog_no_bfg"
+    or PARAM.m_c_tech == "prog_no_bfg_no_pistol" then
       if LEVEL.game_along < 1.0 then
         PARAM.marine_tech = math.ceil(LEVEL.game_along * 10)
       else
@@ -1513,9 +1515,19 @@ end
 
 function MARINE_CLOSET_TUNE.grab_type()
   local tech_level = table.copy(MARINE_CLOSET_TUNE.TECHWPN)
-  if PARAM.m_c_tech == "prog_no_bfg" then
+  if PARAM.m_c_tech == "prog_no_bfg" or PARAM.m_c_tech == "prog_no_bfg_no_pistol" then
     tech_level[9] = { 31005, 31005, 31005, 31005, 31006, 31006, 31006, 31004, 31002 }
     tech_level[10] = { 31002, 31003, 31004, 31005, 31006 }
+  end
+
+  if PARAM.m_c_tech == "prog_no_bfg_no_pistol" then
+    tech_level[1] = { 31002 }
+    tech_level[2] = { 31003, 31002, 31002 }
+    tech_level[3] = { 31003, 31002, 31003, 31002 }
+    tech_level[4] = { 31003, 31002 }
+    tech_level[5] = { 31003, 31002, 31002, 31003, 31002, 31003, 31002, 31004, 31003, 31005, 31006, 31004, 31003 }
+    tech_level[6] = { 31003, 31002, 31002, 31003, 31002, 31005, 31003, 31002, 31006, 31004, 31004, 31003, 31002 }
+    tech_level[7] = { 31003, 31002, 31003, 31004, 31002, 31005, 31006, 31004, 31003, 31003, 31002, 31002, 31002 }
   end
 
   return rand.pick(tech_level[PARAM.marine_tech])

@@ -1888,10 +1888,10 @@ void CloseMap()
     {
         delete tip;
     }
-    for (linedef_c *exfl : all_ex_floors)
-    {
-        delete exfl;
-    }
+    //for (linedef_c *exfl : all_ex_floors)
+    //{
+    //    delete exfl;
+    //}
     all_vertices.clear();
     all_linedefs.clear();
     all_sidedefs.clear();

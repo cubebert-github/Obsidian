@@ -10,6 +10,7 @@ PREFABS.Pic_gothic_winglass =
   where  = "seeds",
 
   height = 224,
+  deep = 16,
 
   seed_w = 2,
   seed_h = 1,

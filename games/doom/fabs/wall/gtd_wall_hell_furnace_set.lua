@@ -15,7 +15,11 @@ PREFABS.Wall_gtd_furnace_1 =
   bound_z1 = 0,
   bound_z2 = 128,
 
-  z_fit = "top"
+  z_fit = "top",
+
+  tex_SHAWN2 = "METAL",
+  tex_DOORSTOP = "METAL",
+  flat_FLAT23 = "CEIL5_2"
 }
 
 PREFABS.Wall_gtd_furnace_diag_1 =
@@ -56,7 +60,11 @@ PREFABS.Wall_gtd_hell_aqueduct_1 =
   group = "gtd_furnace_water",
 
   tex_FIRELAVA = "XFWATER",
-  tex_MIDGRATE = "MIDSPACE"
+  tex_MIDGRATE = "MIDSPACE",
+
+  tex_SHAWN2 = "METAL",
+  tex_DOORSTOP = "METAL",
+  flat_FLAT23 = "CEIL5_2"
 }
 
 PREFABS.Wall_gtd_hell_aqueduct_diagonal =
@@ -68,5 +76,9 @@ PREFABS.Wall_gtd_hell_aqueduct_diagonal =
   group = "gtd_furnace_water",
 
   tex_FIRELAVA = "XFWATER",
-  tex_MIDGRATE = "MIDSPACE"
+  tex_MIDGRATE = "MIDSPACE",
+
+  tex_SHAWN2 = "METAL",
+  tex_DOORSTOP = "METAL",
+  flat_FLAT23 = "CEIL5_2"
 }

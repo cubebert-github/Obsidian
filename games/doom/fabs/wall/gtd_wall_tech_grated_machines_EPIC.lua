@@ -11,10 +11,10 @@ PREFABS.Wall_tech_grated_machines_epic_plain_1 =
 
   where = "edge",
   deep = 16,
-  height = 128,
+  height = 104,
 
   bound_z1 = 0,
-  bound_z2 = 128,
+  bound_z2 = 104,
 
   z_fit = "top",
 }

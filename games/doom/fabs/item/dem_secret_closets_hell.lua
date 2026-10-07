@@ -10,7 +10,7 @@ PREFABS.Item_secret_NIN_closet =
 
   env   = "building",
 
-  prob  = 100,
+  prob  = 40,
 
   key   = "secret",
 
@@ -406,5 +406,4 @@ PREFABS.Item_infestation_evil_shrine_eye_secret =
     potion = 50,
     helmet = 50,
   }
-
 }

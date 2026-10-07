@@ -8,8 +8,6 @@ PREFABS.Wall_modquake_set_industrial =
 
   port = "zdoom",
 
-  theme  = "!hell",
-
   group = "gtd_modquake_set",
 
   prob   = 50,
@@ -43,8 +41,6 @@ PREFABS.Wall_modquake_set_industrial_boom =
 {
   template = "Wall_modquake_set_industrial",
 
-  
-
   rank = 2,
 
   line_342 = 0
@@ -56,7 +52,6 @@ PREFABS.Wall_modquake_set_hell_boom =
 
   theme = "hell",
 
-  
   rank = 1,
 
   line_342 = 0,
@@ -86,8 +81,6 @@ PREFABS.Wall_modquake_set_jawlike_boom =
   template = "Wall_modquake_set_industrial",
   map = "MAP02",
 
-  
-
   theme = "any",
   rank = 1,
 
@@ -105,6 +98,8 @@ PREFABS.Wall_modquake_top_heavy_brace_set =
   template = "Wall_modquake_set_industrial",
   map = "MAP03",
 
+  theme = "any",
+
   rank = 2,
 
   group = "gtd_modquake_top_heavy_brace",
@@ -119,7 +114,7 @@ PREFABS.Wall_modquake_top_heavy_brace_set_limit =
   template = "Wall_modquake_set_industrial",
   map = "MAP03",
 
-  
+  theme = "any",
 
   rank = 1,
 
@@ -152,8 +147,6 @@ PREFABS.Wall_modquake_tek_slope_brace_limit =
   template = "Wall_modquake_set_industrial",
   map = "MAP04",
 
-  
-
   rank = 1,
 
   deep = 32,
@@ -178,6 +171,18 @@ PREFABS.Wall_modquake_ex_light_slope_brace =
   group = "gtd_modquake_ex_light_slope_brace"
 }
 
+PREFABS.Wall_modquake_ex_light_slope_brace =
+{
+  template = "Wall_modquake_set_industrial",
+  map = "MAP08",
+
+  rank = 1,
+
+  deep = 16,
+
+  group = "gtd_modquake_ex_light_slope_brace"
+}
+
 -- LIMIT-SAFE:
 
 PREFABS.Wall_modquake_ex_light_slope_brace_limit =
@@ -185,14 +190,26 @@ PREFABS.Wall_modquake_ex_light_slope_brace_limit =
   template = "Wall_modquake_set_industrial",
   map = "MAP05",
 
-  
-
   rank = 1,
 
   deep = 20,
 
   group = "gtd_modquake_ex_light_slope_brace",
 
+  line_342 = 0,
+  line_341 = 0
+}
+
+PREFABS.Wall_modquake_ex_light_slope_brace_limit =
+{
+  template = "Wall_modquake_set_industrial",
+  map = "MAP08",
+
+  deep = 16,
+
+  group = "gtd_modquake_ex_light_slope_brace",
+
+  line_342 = 0,
   line_341 = 0
 }
 
@@ -204,11 +221,27 @@ PREFABS.Wall_modquake_round_braced_lit_pillar_industrial =
   template = "Wall_modquake_set_industrial",
   map = "MAP06",
 
+  rank = 1,
   theme = "!hell",
 
-  rank = 2,
-
   deep = 20,
+
+  group = "gtd_modquake_round_braced_lit_pillar",
+
+  flat_CEIL5_2 = "FLAT23",
+  tex_METAL = "SHAWN2",
+  tex_SUPPORT3 = "SUPPORT2"
+}
+
+PREFABS.Wall_modquake_round_braced_lit_pillar_industrial_thin =
+{
+  template = "Wall_modquake_set_industrial",
+  map = "MAP16",
+
+  rank = 1,
+  theme = "!hell",
+
+  deep = 16,
 
   group = "gtd_modquake_round_braced_lit_pillar",
 
@@ -222,11 +255,26 @@ PREFABS.Wall_modquake_round_braced_lit_pillar_hell =
   template = "Wall_modquake_set_industrial",
   map = "MAP06",
 
+  rank = 2,
   theme = "hell",
 
-  rank = 3,
-
   deep = 20,
+
+  group = "gtd_modquake_round_braced_lit_pillar",
+
+  tex_LITEBLU1 = "FIREWALA",
+  tex_LITEBLU4 = "FIREMAG1"
+}
+
+PREFABS.Wall_modquake_round_braced_lit_pillar_industrial_thin =
+{
+  template = "Wall_modquake_set_industrial",
+  map = "MAP06",
+
+  rank = 2,
+  theme = "!hell",
+
+  deep = 16,
 
   group = "gtd_modquake_round_braced_lit_pillar",
 
@@ -250,6 +298,18 @@ PREFABS.Wall_modquake_round_braced_lit_pillar_limit =
   group = "gtd_modquake_round_braced_lit_pillar",
 
   line_342 = 0
+}
+
+PREFABS.Wall_modquake_round_braced_lit_pillar_limit_thin =
+{
+  template = "Wall_modquake_set_industrial",
+  map = "MAP16",
+
+  theme = "any",
+
+  deep = 16,
+
+  group = "gtd_modquake_round_braced_lit_pillar"
 }
 
 -- hexagonal wall inset with a brace inside and a light
@@ -321,4 +381,99 @@ PREFABS.Wall_modquake_hexagon_inset_braced_hell_limit =
   tex_DOORSTOP = "METAL",
   tex_EXITDOOR = "FIREMAG1",
   tex_METAL3 = "METAL2"
+}
+
+--
+
+PREFABS.Wall_modquake_thick_brace =
+{
+  file = "wall/gtd_wall_generic_modquake_set.wad",
+  map = "MAP20",
+
+  texture_pack = "armaetus",
+  group = "gtd_modquake_thick_brace_set",
+
+  prob = 50,
+  rank = 4,
+
+  where = "edge",
+  height = 96,
+  deep = 64,
+
+  bound_z1 = 0,
+  bound_z2 = 96,
+
+  z_fit = {24,25}
+}
+
+PREFABS.Wall_modquake_thick_brace_16 =
+{
+  template = "Wall_modquake_thick_brace",
+  map = "MAP21",
+
+  rank = 3,
+
+  deep = 16
+}
+
+PREFABS.Wall_modquake_thick_brace_16_diag =
+{
+  template = "Wall_modquake_thick_brace",
+  map = "MAP22",
+
+  where = "diagonal",
+
+  rank = 3,
+
+  deep = 16
+}
+
+--
+
+PREFABS.Wall_modquake_thick_brace_compat =
+{
+  file = "wall/gtd_wall_generic_modquake_set.wad",
+  map = "MAP20",
+
+  group = "gtd_modquake_thick_brace_set",
+
+  prob = 50,
+  rank = 2,
+
+  where = "edge",
+  height = 96,
+  deep = 64,
+
+  bound_z1 = 0,
+  bound_z2 = 96,
+
+  z_fit = {24,25},
+
+  tex_T_GHFLB = "COMPBLUE"
+}
+
+PREFABS.Wall_modquake_thick_brace_16_compat =
+{
+  template = "Wall_modquake_thick_brace",
+  map = "MAP21",
+
+  rank = 1,
+
+  deep = 16,
+
+  tex_T_GHFLB = "COMPBLUE"
+}
+
+PREFABS.Wall_modquake_thick_brace_16_diag_compat =
+{
+  template = "Wall_modquake_thick_brace",
+  map = "MAP22",
+
+  where = "diagonal",
+
+  rank = 1,
+
+  deep = 16,
+
+  tex_T_GHFLB = "COMPBLUE"
 }

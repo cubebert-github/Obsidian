@@ -885,7 +885,7 @@ function DOOM.make_cool_gfx()
   gui.set_colormap(5, DOOM.RESOURCES.LEVEL_GFX_COLORS.black)
 
   -- flats
-  gui.wad_logo_gfx("O_PILL",   "f", "PILL",   64,64, 1)
+  gui.wad_logo_gfx("O_PILL",   "p", "PILL",   128,32, 1)
   gui.wad_logo_gfx("O_BOLT",   "f", "BOLT",   64,64, 2)
   gui.wad_logo_gfx("O_RELIEF", "f", "RELIEF", 64,64, 3)
   gui.wad_logo_gfx("O_CARVE",  "f", "CARVE",  64,64, 4)

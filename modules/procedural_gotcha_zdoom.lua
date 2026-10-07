@@ -1865,7 +1865,6 @@ OB_MODULES["procedural_gotcha_zdoom"] =
       randomize_group="monsters",
     },
 
-
     {
       name="gotcha_map_size",
       label=_("Map Size"),
@@ -1874,7 +1873,15 @@ OB_MODULES["procedural_gotcha_zdoom"] =
       tooltip = _("Size of the procedural gotcha. Start and arena room sizes are relative to map size as well."),
       priority = 102,
       randomize_group="monsters",
-      gap = 1
+    },
+
+    {
+      name="bool_proc_gotcha_open_start",
+      label=_("Open Start"),
+      valuator="button",
+      default=1,
+      tooltip=_("Whether the start room connector is a completely open doorless connector, allowing monsters to pool into the start room."),
+      priority=101.5
     },
 
     {

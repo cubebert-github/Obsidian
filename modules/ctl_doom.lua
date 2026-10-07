@@ -354,7 +354,9 @@ function CTL_DOOM.weapon_setup(self)
       W.pref     = W.add_prob * 0.28 + 1 -- Complete guesswork right now - Dasho
 
       -- loosen some of the normal restrictions
-      W.level = 1
+      if PARAM.bool_disable_weapon_level == 1 then
+        W.level = 1
+      end
     end
 
     ::skip::
@@ -500,6 +502,17 @@ OB_MODULES["doom_weapon_control"] =
       tooltip=_("Alters selection of weapons that are prefered to show up depending on enemy palette for a chosen map.\n\nNormal: Monsters have weapon preferences. Stronger weapons and ammo are more likely to appear directly with stronger enemies.\n\nVanilla: Vanilla Oblige-style preferences. Reduces rocket launchers if the map has more pain elementals, lost souls, demons/specters while increases BFG's for cyberdemons and spider masterminds. No other weapon preferences.\n\nNONE: No preferences at all. For those who like to live life dangerously with lost souls and only rockets."),
       default="normal",
     },
+
+     {
+      name = "bool_disable_weapon_level",
+      label = _("Change Disables Item Level"),
+      valuator = "button",
+      default = 1,
+      tooltip = _("Affects whether sliders with non-1.0 values disables weapon level restrictions. " ..
+        "Keeping level restrictions means weapons will still follow their progression appearance-over-time but quantity of munitions will be at selected preference values. " ..
+        "For example, keeping a BFG at 10.0 with this option checked means BFG's will still appear later in the game, but at massive quantities."),
+      priority = 67,
+     }
   },
 }
 

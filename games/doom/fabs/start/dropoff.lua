@@ -9,8 +9,6 @@ PREFABS.Start_Dropoff =
   prob   = 80,
   theme  = "tech",
 
-  
-
   where  = "seeds",
 
   seed_w = 2,
@@ -28,9 +26,8 @@ PREFABS.Start_Dropoff =
   {
    mercury_lamp = 50,
    mercury_small = 50,
-   lamp       = 50,
-  },
-
+   lamp = 50
+  }
 }
 
 PREFABS.Start_Dropoff_hell =
@@ -41,15 +38,14 @@ PREFABS.Start_Dropoff_hell =
   theme  = "hell",
 
   thing_45 =
- {
-  blue_torch = 50,
-  green_torch = 50,
-  red_torch = 50,
-  candelabra = 50,
- },
+  {
+    blue_torch = 50,
+    green_torch = 50,
+    red_torch = 50,
+    candelabra = 50
+  },
 
- tex_METAL4 = "SUPPORT3",
-
+  tex_METAL4 = "SUPPORT3"
 }
 
 PREFABS.Start_Dropoff_urban =
@@ -60,13 +56,12 @@ PREFABS.Start_Dropoff_urban =
   theme  = "urban",
 
   thing_45 =
- {
-  blue_torch = 50,
-  green_torch = 50,
-  red_torch = 50,
- },
+  {
+    blue_torch = 50,
+    green_torch = 50,
+    red_torch = 50
+  },
 
- tex_METAL4 = "WOOD4",
- flat_CEIL5_2 = "FLAT5_2",
-
+  tex_METAL4 = "WOOD4",
+  flat_CEIL5_2 = "FLAT5_2"
 }

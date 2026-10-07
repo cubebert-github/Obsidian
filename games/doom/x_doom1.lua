@@ -996,6 +996,12 @@ ULTDOOM.THEMES =
     ceil_light_prob = 60,
 
     streets_friendly = false,
+
+    entity_remap =
+    {
+      mercury_lamp = "lamp",
+      mercury_small = "lamp"
+    }
   },
 
 
@@ -1102,11 +1108,14 @@ ULTDOOM.THEMES =
       gtd_writhing_mass = 10,
       gtd_wall_octagon_insets = 50,
       gtd_wall_grated_machines = 50,
+      gtd_wall_grated_machines_damaged_wall = 40,
       --
       gtd_wall_quakish_insets = 25,
       gtd_wall_quakish_insets_2 = 25,
-      gtd_wall_quakish_insets_horizon = 10,
-      gtd_wall_quakish_insets_horizon_mid = 10,
+      --
+      gtd_wall_quakish_insets_horizon = 15,
+      gtd_wall_quakish_insets_horizon_mid = 15,
+      gtd_wall_quakish_insets_horizon_top = 15,
       --
       gtd_ribbed_lights = 18,
       gtd_ribbed_lights_no3d = 18,
@@ -1115,6 +1124,7 @@ ULTDOOM.THEMES =
       gtd_ribbed_lights_tekmachine = 9,
       gtd_ribbed_lights_tekmachine_alt = 9,
       gtd_ribbed_lights_very_blue = 18,
+      gtd_ribbed_lights_ribbed_steps = 18,
       --
       gtd_wall_high_gap_set = 12,
       gtd_wall_high_gap_alt_set = 12,
@@ -1161,6 +1171,7 @@ ULTDOOM.THEMES =
       gtd_generic_small_lite = 20,
       gtd_generic_artsy_lite_box = 20,
       gtd_generic_artsy_chequered = 20,
+      gtd_generic_artsy_corpo_art = 20,
       --
       gtd_ind_modwall_1 = 20,
       gtd_ind_modwall_2 = 20,
@@ -1485,6 +1496,7 @@ ULTDOOM.THEMES =
       gtd_wall_quakish_insets = 50,
       gtd_wall_quakish_insets_horizon = 40,
       gtd_wall_quakish_insets_horizon_mid = 40,
+      gtd_wall_quakish_insets_horizon_top = 40,
 
       gtd_wall_hell_ossuary = 50,
 
@@ -1541,6 +1553,7 @@ ULTDOOM.THEMES =
       gtd_generic_small_lite = 20,
       gtd_generic_artsy_lite_box = 20,
       gtd_generic_artsy_chequered = 20,
+      gtd_generic_artsy_corpo_art = 20,
 
       gtd_ind_modwall_1 = 20,
       gtd_ind_modwall_2 = 20,
@@ -1595,8 +1608,17 @@ ULTDOOM.THEMES =
 
       gtd_wall_octagon_insets = 25,
       gtd_wall_grated_machines = 20,
+      gtd_wall_grated_machines_damaged_wall = 15,
 
-      gtd_ribbed_lights = 15,
+      gtd_ribbed_lights = 18,
+      gtd_ribbed_lights_no3d = 18,
+      gtd_ribbed_lights_slump = 18,
+      gtd_ribbed_lights_slump_two_color = 18,
+      gtd_ribbed_lights_tekmachine = 9,
+      gtd_ribbed_lights_tekmachine_alt = 9,
+      gtd_ribbed_lights_very_blue = 18,
+      gtd_ribbed_lights_ribbed_steps = 18,
+
       gtd_wall_urban_cement_frame = 10,
     },
 
@@ -1922,6 +1944,7 @@ ULTDOOM.THEMES =
       gtd_wall_quakish_insets = 50,
       gtd_wall_quakish_insets_horizon = 15,
       gtd_wall_quakish_insets_horizon_mid = 15,
+      gtd_wall_quakish_insets_horizon_top = 15,
       --
       gtd_wall_hell_ossuary = 50,
       --
@@ -1978,6 +2001,7 @@ ULTDOOM.THEMES =
       gtd_generic_small_lite = 20,
       gtd_generic_artsy_lite_box = 20,
       gtd_generic_artsy_chequered = 20,
+      gtd_generic_artsy_corpo_art = 20,
       --
       gtd_ind_modwall_1 = 20,
       gtd_ind_modwall_2 = 20,
@@ -2010,6 +2034,8 @@ ULTDOOM.THEMES =
       --
       gtd_sunderfall = 25,
       gtd_sunderfall_barred = 25,
+      --
+      gtd_wall_grated_machines_damaged_wall = 50
     },
 
     outdoor_wall_groups =
@@ -2372,6 +2398,7 @@ ULTDOOM.THEMES =
       gtd_wall_quakish_insets = 50,
       gtd_wall_quakish_insets_horizon = 15,
       gtd_wall_quakish_insets_horizon_mid = 15,
+      gtd_wall_quakish_insets_horizon_top = 15,
       --
       gtd_wall_hell_ossuary = 50,
       --
@@ -2428,6 +2455,7 @@ ULTDOOM.THEMES =
       gtd_generic_small_lite = 20,
       gtd_generic_artsy_lite_box = 20,
       gtd_generic_artsy_chequered = 20,
+      gtd_generic_artsy_corpo_art = 20,
       --
       gtd_ind_modwall_1 = 20,
       gtd_ind_modwall_2 = 20,
@@ -2460,6 +2488,8 @@ ULTDOOM.THEMES =
       --
       gtd_sunderfall = 25,
       gtd_sunderfall_barred = 25,
+      --
+      gtd_wall_grated_machines_damaged_wall = 50
     },
 
     outdoor_wall_groups =

@@ -20,7 +20,6 @@ PREFABS.Ladder_128_rustic =
   bound_z1 = 0,
 
   delta_h = 128,
-  plain_ceiling = true,
 
   tex_STEPLAD1 = {STEPLAD1=50, STEP1=50, STEP3=50}
 }

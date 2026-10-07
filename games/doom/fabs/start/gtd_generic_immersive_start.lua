@@ -36,3 +36,10 @@ PREFABS.Start_generic_immersive_start_gothic =
 
   theme = "!tech"
 }
+
+PREFABS.Start_generic_immersive_start_bloodfalls =
+{
+  template = "Start_generic_immersive_start",
+
+  map = "MAP04"
+}

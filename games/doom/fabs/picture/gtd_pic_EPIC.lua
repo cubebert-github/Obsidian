@@ -17,7 +17,7 @@ PREFABS.Pic_EPIC_box_template = -- this is now a base template and is disabled.
   deep   =  16,
   over   = -16,
 
-  x_fit = "frame",
+  --x_fit = "frame",
   y_fit = "top",
 
   sector_1 = 0,
@@ -456,7 +456,7 @@ PREFABS.Pic_EPIC_box_metal_superwide =
 
   seed_w = 3,
 
-  tex_GLASS1 =
+  tex_PLAN1 =
   {
     PLAN1    = 75,
     PLAN2    = 75,
@@ -466,14 +466,8 @@ PREFABS.Pic_EPIC_box_metal_superwide =
     CONSOLEG = 50,
     SHAWCOMP = 10,
     METACOMP = 10,
-    SILVCOMP = 10,
-
-    SDMSRCP1 = 40,
-    SDMSRCP2 = 40,
-    SDMSRCP3 = 40
+    SILVCOMP = 10
   },
-
-  flat_CEIL5_2 = "FLAT20",
 
   sector_1 = { [0]=70, [1]=15 }
 }
@@ -489,13 +483,6 @@ PREFABS.Pic_EPIC_superwide_longconsole =
   theme = "tech",
 
   seed_w = 3,
-
-  tex_GLASS1 =
-  {
-   CONSOLE5 = 100
-  },
-
-  flat_CEIL5_2 = "FLAT20",
 
   sector_1 = { [0]=70, [1]=20 }
 }

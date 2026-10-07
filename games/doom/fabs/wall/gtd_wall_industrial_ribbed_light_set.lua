@@ -1,16 +1,16 @@
 PREFABS.Wall_gtd_ribbed_lights =
 {
-  file   = "wall/gtd_wall_industrial_ribbed_light_set.wad",
-  map    = "MAP01",
+  file = "wall/gtd_wall_industrial_ribbed_light_set.wad",
+  map = "MAP01",
 
   port = "zdoom",
 
-  prob   = 50,
-  group  = "gtd_ribbed_lights",
+  prob = 50,
+  group = "gtd_ribbed_lights",
 
-  where  = "edge",
+  where = "edge",
 
-  deep   = 16,
+  deep = 16,
 
   height = 128,
 
@@ -19,7 +19,7 @@ PREFABS.Wall_gtd_ribbed_lights =
 
   z_fit = "top",
 
-  sector_1  = { [0]=90, [1]=15 }
+  sector_1 = { [0]=90, [1]=15 }
 }
 
 PREFABS.Wall_gtd_ribbed_lights_diag =
@@ -197,4 +197,140 @@ PREFABS.Wall_gtd_ribbed_lights_blue_diag =
 
   height = 96,
   bound_z2 = 96
+}
+
+--
+
+PREFABS.Wall_gtd_ribbed_lights_ribbed_steps =
+{
+  template = "Wall_gtd_ribbed_lights",
+  map = "MAP14",
+
+  group = "gtd_ribbed_lights_ribbed_steps",
+
+  height = 96,
+  bound_z2 = 96,
+
+  z_fit = { 79,81 }
+}
+
+PREFABS.Wall_gtd_ribbed_lights_ribbed_steps_break =
+{
+  template = "Wall_gtd_ribbed_lights",
+  map = "MAP15",
+
+  prob = 7,
+  group = "gtd_ribbed_lights_ribbed_steps",
+
+  height = 96,
+  bound_z2 = 96,
+
+  z_fit = { 79,81 }
+}
+
+PREFABS.Wall_gtd_ribbed_lights_ribbed_steps_diag =
+{
+  template = "Wall_gtd_ribbed_lights",
+  map = "MAP16",
+
+  where = "diagonal",
+  group = "gtd_ribbed_lights_ribbed_steps",
+
+  height = 96,
+  bound_z2 = 96,
+
+  z_fit = { 79,81 }
+}
+
+--
+
+PREFABS.Wall_gtd_ribbed_lights_rdwall_short =
+{
+  file = "wall/gtd_wall_industrial_ribbed_light_set.wad",
+  map = "MAP17",
+
+  port = "zdoom",
+
+  prob = 50,
+  group = "gtd_ribbed_lights_rdwall_EPIC",
+
+  where = "edge",
+
+  deep = 16,
+
+  height = 96,
+
+  bound_z1 = 0,
+  bound_z2 = 96,
+
+  z_fit = "top",
+}
+
+PREFABS.Wall_gtd_ribbed_lights_rdwall_long =
+{
+  template = "Wall_gtd_ribbed_lights_rdwall_short",
+  map = "MAP18",
+
+  prob = 5,
+
+  height = 96,
+
+  bound_z2 = 96,
+
+  z_fit = { 74,76 , 82,84 },
+}
+
+PREFABS.Wall_gtd_ribbed_lights_rdwall_long_diagonal =
+{
+  template = "Wall_gtd_ribbed_lights_rdwall_short",
+  map = "MAP19",
+
+  where = "diagonal",
+  prob = 5,
+
+  height = 96,
+
+  bound_z2 = 96,
+
+  z_fit = { 74,76 , 82,84 },
+}
+
+--
+
+PREFABS.Wall_gtd_ribbed_vox_lights =
+{
+  file = "wall/gtd_wall_industrial_ribbed_light_set.wad",
+  map = "MAP20",
+
+  port = "zdoom",
+
+  prob = 50,
+  group = "gtd_ribbed_lights_vox_lights_EPIC",
+
+  where = "edge",
+
+  deep = 16,
+
+  height = 96,
+
+  bound_z1 = 0,
+  bound_z2 = 96,
+
+  z_fit = {87,89}
+}
+
+PREFABS.Wall_gtd_ribbed_vox_lights_pillar =
+{
+  template = "Wall_gtd_ribbed_vox_lights",
+  map = "MAP21",
+
+  prob = 5
+}
+
+PREFABS.Wall_gtd_ribbed_vox_lights_diagonal =
+{
+  template = "Wall_gtd_ribbed_vox_lights",
+  map = "MAP22",
+
+  where = "diagonal"
 }

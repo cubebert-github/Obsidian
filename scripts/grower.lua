@@ -1502,7 +1502,7 @@ gui.debugf("new room %s : env = %s : parent = %s\n", R.name, tostring(info.env),
   end
 
   if info.force_no_street then
-    R.is_street = false
+    R.is_street = nil
   end
 
   if trunk == nil then
@@ -1677,8 +1677,10 @@ function Grower_kill_room(SEEDS, LEVEL, R)
 
   gui.debugf("Killing small/ungrown room %s\n", R.name)
 
-  assert(R ~= LEVEL.start_room)
-  assert(R ~= LEVEL.exit_room)
+  -- commented these out - we actually don't need an explicit start or exit room
+  -- from grower anymore, as Quest determines it elsewhere if required
+  --assert(R ~= LEVEL.start_room)
+  --assert(R ~= LEVEL.exit_room)
 
   handle_conn()
 
@@ -2755,79 +2757,15 @@ stderrf("prelim_conn %s --> %s : S=%s dir=%d\n", c_out.R1.name, c_out.R2.name, S
   end
 
 
-  local function mark_chunk_nb_side(r, dir)
-    assert(geom.is_straight(dir))
-
-    local x1, y1 = r.sx1, r.sy1
-    local x2, y2 = r.sx2, r.sy2
-
-    if dir == 2 then y2 = y1 end
-    if dir == 8 then y1 = y2 end
-    if dir == 4 then x2 = x1 end
-    if dir == 6 then x1 = x2 end
-
-    for sx = x1, x2 do
-    for sy = y1, y2 do
-      local S = SEEDS[sx][sy]
-
-      local N = S:neighbor(dir)
-      assert(N)
-
-      N.no_assignment = true
-    end
-    end
-  end
-
-
-  local function mark_chunk_neighbors(r)  -- UNUSED ????
-    local shape = assert(r.shape)
-
-    -- the "dir" generally faces its source
-    -- [ but it won't matter when shape is "I" or "P" ]
-    assert(r.dir)
-
-    mark_chunk_nb_side(r, r.dir)
-
-    -- this handles "L" shape
-    if r.dir2 then
-      mark_chunk_nb_side(r, r.dir2)
-    end
-
-    if shape == "I" or shape == "P" then
-      mark_chunk_nb_side(r, 10 - r.dir)
-    end
-
-    if shape == "T" or shape == "P" then
-      mark_chunk_nb_side(r, geom.LEFT [r.dir])
-      mark_chunk_nb_side(r, geom.RIGHT[r.dir])
-    end
-  end
-
-
   local function pick_stair_prefab(chunk)
     local A = chunk.area
     local R = A.room
 
-    if not R.has_consistent_stairs_rolled then
-      -- should probably put this in a function for cleanliness
-      for _,P in pairs(PREFABS) do
-        if P.kind == "stairs" then
-          if P.original_rank and P.original_rank ~= 0 then
-            P.rank = P.original_rank
-            P.original_rank = nil
-          else
-            P.rank = nil
-          end
-        end
-      end
-    end
-
     if rand.odds(R.trunk.consistent_stairs)
     and not R.has_consistent_stairs_rolled then
       R.has_consistent_stairs = true
+      R.preferred_stairs = {}
     end
-
-    R.has_consistent_stairs_rolled = true
 
     local reqs = chunk:base_reqs(chunk.from_dir)
 
@@ -2852,14 +2790,22 @@ stderrf("prelim_conn %s --> %s : S=%s dir=%d\n", c_out.R1.name, c_out.R2.name, S
     local def = Fab_pick(LEVEL, reqs)
 
     if R.has_consistent_stairs then
-      if def then
-        if def.rank then
-          PREFABS[def.name].original_rank = def.rank
-        else
-          PREFABS[def.name].original_rank = 0
-        end
+      local sh = tonumber(chunk.sh)
+      local sw = tonumber(chunk.sw)
+
+      R.preferred_stairs = R.preferred_stairs or {}
+      R.preferred_stairs[sh] = R.preferred_stairs[sh] or {}
+      R.preferred_stairs[sh][sw] = R.preferred_stairs[sh][sw] or {}
+
+      if not table.empty(R.preferred_stairs[sh][sw]) then
+        def = R.preferred_stairs[sh][sw]
+      else
+        R.preferred_stairs[sh][sw] = def
       end
-      PREFABS[def.name].rank = 1
+    end
+
+    if def.plain_ceiling then
+      chunk.plain_ceiling = true
     end
 
     return def
@@ -3992,7 +3938,7 @@ function Grower_make_street(R, SEEDS, LEVEL)
   -- regular rooms
   R.areas[1]:calc_volume()
   if R.areas[1].svolume < 96 then
-    R.is_street = false
+    R.is_street = nil
     return
   end
 
@@ -4158,6 +4104,7 @@ function Grower_begin_trunks(LEVEL, SEEDS)
 
   if R.is_dead then
     LEVEL.is_dead = true
+    LEVEL.dead_reason = "is_dead > Could not add trunk.\n"
     return
   end
   assert(not R.is_dead)
@@ -4554,44 +4501,93 @@ gui.debugf("=== Coverage seeds: %d/%d  rooms: %d/%d\n",
   end
 
   -- grow barely grown rooms
-  for _,R in pairs(LEVEL.rooms) do
-    R.is_last_grown = true
-
-    for _,A in pairs(R.areas) do
-      A:calc_volume()
-      R.svolume = R.svolume + A.svolume
-    end
-
-    local tries = 1
-    while R.svolume <= 16 and tries <= 3 do
-      local str = "#" .. tries .. ": Grow barely grown rooms -> " .. R.id .. ": " .. R.svolume
-      Grower_grammatical_room(SEEDS, LEVEL, R, "grow")
-      Grower_grammatical_room(SEEDS, LEVEL, R, "decorate")
-      R.svolume = 0
-      for _,A in pairs(R.areas) do
-        A:calc_volume()
-        R.svolume = R.svolume + A.svolume
-      end
+  if not PARAM.ungrown_room_action or
+  (PARAM.ungrown_room_action and PARAM.ungrown_room_action == "grow_and_cull"
+  or PARAM.ungrown_room_action == "grow_all") then
+    for _,R in pairs(LEVEL.rooms) do
+      R.is_last_grown = true
 
       for _,A in pairs(R.areas) do
         A:calc_volume()
         R.svolume = R.svolume + A.svolume
       end
-      str = str .. "->" .. R.svolume .. " of " .. R.floor_limit
-      if R.symmetry then str = str .. " sym" end
-      gui.printf(str .. "\n")
 
-      if R.symmetry then
-        gui.printf("Symmetry disabled on this room.\n")
-        R.symmetry = {}
-        R.symmetry = nil
-        Grower_grammatical_room(SEEDS, LEVEL, R, "grow")
+      local tries = 1
+      while R.svolume <= 16 and tries <= 3 do
+        local str = "#" .. tries .. ": Grow barely grown rooms -> " .. R.id .. ": " .. R.svolume
+        Grower_grow_room(SEEDS, LEVEL, R)
         Grower_grammatical_room(SEEDS, LEVEL, R, "decorate")
+        R.svolume = 0
+        for _,A in pairs(R.areas) do
+          A:calc_volume()
+          R.svolume = R.svolume + A.svolume
+        end
+
+        for _,A in pairs(R.areas) do
+          A:calc_volume()
+          R.svolume = R.svolume + A.svolume
+        end
+        str = str .. "->" .. R.svolume .. " of " .. R.floor_limit
+        if R.symmetry then str = str .. " sym" end
+        gui.printf(str .. "\n")
+
+        if R.symmetry and R.svolume < R.floor_limit then
+          gui.printf("Symmetry disabled on this room.\n")
+          R.symmetry = {}
+          R.symmetry = nil
+          Grower_grow_room(SEEDS, LEVEL, R)
+          Grower_grammatical_room(SEEDS, LEVEL, R, "decorate")
+          tries = tries + 1
+        end
+        tries = tries + 1
       end
-      tries = tries + 1
     end
   end
-  
+
+
+  -- cull rooms that ended up ungrown still
+  -- but we will allow some if secrets style is high enough
+  local cull_threshold = style_sel("secrets", 100, 70, 30, 0)
+  if PARAM.ungrown_room_action and PARAM.ungrown_room_action == "cull_all" then
+    cull_threshold = 100
+  end
+
+  if not LEVEL.is_procedural_gotcha then
+
+    if not PARAM.ungrown_room_action or
+    (PARAM.ungrown_room_action and PARAM.ungrown_room_action == "dont_cull_secrets" or
+    PARAM.ungrown_room_action == "grow_and_cull" or PARAM.ungrown_room_action == "dont_cull_secrets"
+    or PARAM.ungrown_room_action == "cull_all") then
+
+      for _,R in pairs(LEVEL.rooms) do
+        if rand.odds(cull_threshold) then
+          if R.svolume <= 12 and R:prelim_conn_num(LEVEL) == 1 then
+
+            local hallway_neighbor
+            for _,PC in pairs(LEVEL.prelim_conns) do
+              if PC.R1 == R or PC.R2 == R then
+                local other = sel(PC.R1 == R, PC.R2, PC.R1)
+
+                if other.is_hallway then
+                  hallway_neighbor = true
+                end
+              end
+            end
+
+            if hallway_neighbor ~= true then
+              gui.printf(R.id .. " still too small: removed. \n")
+              Grower_kill_room(SEEDS, LEVEL, R)
+            end
+          end
+        else
+          gui.printf(R.id .. " still too small: not culled due to secrets style. \n")
+        end
+      end
+
+    end
+
+  end
+
 end
 
 
@@ -4958,7 +4954,6 @@ function Grower_create_rooms(LEVEL, SEEDS)
   Seed_draw_minimap(SEEDS, LEVEL)
 
   Grower_begin_trunks(LEVEL, SEEDS)
-  if LEVEL.is_dead then return end
   Grower_grow_all_rooms(SEEDS, LEVEL)
   Grower_cave_stats(LEVEL)
 
@@ -5013,8 +5008,29 @@ function Grower_create_rooms(LEVEL, SEEDS)
 
   -- sanity check for level missing a certain amount of rooms
   if #LEVEL.rooms == 1 and not LEVEL.is_procedural_gotcha then
+    LEVEL.dead_reason = "is dead > Standard level with only 1 room.\n"
     LEVEL.is_dead = true
   end
+
+  if LEVEL.is_procedural_gotcha then
+    if #LEVEL.rooms > 2 then
+      LEVEL.dead_reason = "is_dead > Proc Gotcha: more than 2 rooms.\n"
+      LEVEL.is_dead = true
+    end
+
+    for _,R in pairs(LEVEL.rooms) do
+      for _,A in pairs(R.areas) do
+        if A.mode == "floor" then
+          R.svolume = R.svolume + A.svolume
+        end
+      end
+      if R.svolume < 24 then
+        LEVEL.dead_reason = "is_dead > Proc Gotcha: Low floor area of " .. R.svolume .."\n"
+        LEVEL.is_dead = true
+      end
+    end
+  end
+  if LEVEL.is_dead == true then return end
 
   --[[if LEVEL.has_linear_start and LEVEL.start_room:prelim_conn_num(LEVEL) > 2 then
     gui.printf("Linear start info:\n" .. table.tostr(LEVEL.start_room,1))

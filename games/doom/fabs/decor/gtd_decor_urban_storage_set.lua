@@ -100,6 +100,8 @@ PREFABS.Decor_urban_storage_collection =
   map    = "MAP04",
 
   prob = 6500,
+
+  bound_z2 = nil
 }
 
 --

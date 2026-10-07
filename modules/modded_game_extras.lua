@@ -361,6 +361,10 @@ MODDED_GAME_EXTRAS.SQUAD_NAMES =
   }
 }
 
+MODDED_GAME_EXTRAS.marine_gen_actor_names_code =
+[[  if (a is "AIMarine") return true;
+]]
+
 MODDED_GAME_EXTRAS.COMPLEX_DOOM_MONS_X =
 {
   -- zombieman replacements
@@ -1870,16 +1874,16 @@ function MODDED_GAME_EXTRAS.create_hn_info(self, LEVEL)
 
     if R.conns then
       shapes_string = shapes_string .. "(Conns: " .. #R.conns .. ") "
-    end
+    end]]
 
     if R.height_profile then
       shapes_string = shapes_string .. "(HGT: " ..
-        R.height_profile .. " " .. R.height_style .. ") "
+        R.height_profile .. " " .. R.height_style .. " " .. LEVEL.room_height_limit .. ") "
     end
 
     if R.pressure then
       shapes_string = shapes_string .. "(Combat Pressure: " .. R.pressure .. ") "
-    end]]
+    end
 
     shapes_string = shapes_string ..
       "(SZE " .. R.svolume .. "/" .. math.round(R.size_limit) .. ") "
@@ -1916,13 +1920,13 @@ function MODDED_GAME_EXTRAS.create_hn_info(self, LEVEL)
       LEVEL.size_consistency .. ") "]]
 
     if LEVEL.is_absurd then
-      shapes_string = shapes_string .. "(ARUL: "
+      shapes_string = shapes_string .. "(ARUL:"
       if R.absurd_shapes and not table.empty(R.absurd_shapes) then
         for _,shape in pairs(R.absurd_shapes) do
           if shape.state == "tried" then
-            shapes_string = shapes_string .. "[N]" .. shape.name .. " "
+            shapes_string = shapes_string .. " [N]" .. shape.name
           elseif shape.state == "applied" then
-            shapes_string = shapes_string .. "[Y]" .. shape.name .. " "
+            shapes_string = shapes_string .. " [Y]" .. shape.name
           end
         end
       else
@@ -1943,7 +1947,7 @@ function MODDED_GAME_EXTRAS.create_hn_info(self, LEVEL)
 
     if R.is_flourished then
       shapes_string = shapes_string .. "(FLR) "
-    end]]
+    end
 
     shapes_string = shapes_string .. "(SPR: "
     if R.sprout_rule then
@@ -1952,7 +1956,7 @@ function MODDED_GAME_EXTRAS.create_hn_info(self, LEVEL)
     if R.emergency_sprouted then
       shapes_string = shapes_string .. "[!]"
     end
-    shapes_string = shapes_string .. ") "
+    shapes_string = shapes_string .. ") "]]
 
     return shapes_string
   end
@@ -1972,8 +1976,77 @@ function MODDED_GAME_EXTRAS.create_hn_info(self, LEVEL)
     local info = {}
     info.editor_num = PARAM.hn_thing_start_offset
 
+    for _,A in pairs(R.areas) do
+      if (A.mode == "floor" and not A.mode.chunk) then
+        info.name = "ROOM_" .. A.room.id
+
+        --[[if A.dead_end and A.cg_history then
+          info.name = info.name .. " (cg:" .. A.cg_history .. ")"
+        end
+
+        if A.ch_history then
+          info.name = info.name .. " (h:" .. A.ch_history .. ")"
+        end
+
+        if A.dead_end and not A.mode.chunk then
+          if A.l_history then
+            info.name = info.name .. " (l:" .. A.l_history .. ")"
+          end
+        end
+
+        if A.floor_h and A.ceil_h then
+          info.name = " (hgt: " .. A.ceil_h .. "-"  .. A.floor_h .. "=" .. A.ceil_h - A.floor_h ..  ")"
+        end
+
+        if A.is_porch then
+          info.name = info.name .. " is_porch"
+        elseif A.is_porch_neighbor then
+          info.name = info.name .. " is_porch_neighbor"
+        else
+          info.name = info.name .. " unknown"
+        end]]
+
+        if R.pressure_history then
+          info.name = info.name .. " (P: " .. R.pressure_history .. ")"
+        end
+
+        info.editor_num = PARAM.hn_thing_start_offset
+
+        if SCRIPTS.hn_id_table[info.name] then
+          info.editor_num = SCRIPTS.hn_id_table[info.name].id
+        elseif not SCRIPTS.hn_id_table[info.name] then
+          SCRIPTS.hn_id_table[info.name] = {}
+          SCRIPTS.hn_id_table[info.name].id = info.editor_num
+          SCRIPTS.hn_id_table[info.name].name = info.name
+          info.editor_num = PARAM.hn_thing_start_offset
+          PARAM.hn_thing_start_offset = PARAM.hn_thing_start_offset + 1
+        end
+
+        local S = A.seeds[1]
+        for _,S2 in pairs(A.seeds) do
+          if A.mode and A.mode == "floor" then
+            S = S2
+            break;
+          end
+        end
+        hn_add_entity(info, S.mid_x, S.mid_y, A.floor_h + 1)
+
+        local e = {}
+        e.id = 9029
+        e.x = S.mid_x
+        e.y = S.mid_y
+        e.z = A.floor_h + 1
+
+        gui.printf("AREA tracker placed in: " .. S.mid_x .. ", " .. S.mid_y .. "\n")
+        raw_add_entity(e)
+      end
+
+      break;
+    end
+
+    -- floor chunks
     for _,chunk in pairs(R.floor_chunks) do
-      if chunk.prefab_def then
+      if chunk.prefab_def and chunk.prefab_def.kind ~= "light" then
         info.name = "Point: " .. chunk.prefab_def.name
         info.editor_num = PARAM.hn_thing_start_offset
 
@@ -2021,8 +2094,61 @@ function MODDED_GAME_EXTRAS.create_hn_info(self, LEVEL)
         hn_add_entity(info, x + offset - 24, y, z + 1)
       end
     end
-    --for _,chunk in pairs(R.ceil_chunks ) do visit_chunk(chunk) end
 
+    -- stairs
+    for _,chunk in pairs(R.stairs) do
+      if chunk.prefab_def then
+        local C = chunk
+        info.name = "Stairs: " .. C.prefab_def.name .. " "
+        info.editor_num = PARAM.hn_thing_start_offset
+
+        --[[if C.area.ceil_group.sink then
+          info.name = info.name .. "(" .. C.area.ceil_group.sink.name .. ") "
+        end
+
+        if C.area.ceil_group then
+          info.name = info.name .. "CG_" .. C.area.ceil_group.id
+          if C.area.ceil_group.h then
+            info.name = info.name .. "^" .. C.area.ceil_group.h
+          end
+          info.name = info.name .. " "
+        end
+
+        if C.area.cg_history then
+          info.name = info.name .. "(cg: " .. C.area.cg_history .. ") "
+        end
+
+        if C.area.l_history then
+          info.name = info.name .. "(l: " .. C.area.l_history .. ") "
+        end
+
+        if R.stair_ceil_mode then
+          info.name = info.name .. "[" .. R.stair_ceil_mode .. "]"
+        end]]
+
+        if R.stair_wall_group then
+          info.name = info.name .. "(g: " .. R.stair_wall_group .. ")"
+        end
+
+        if SCRIPTS.hn_id_table[info.name] then
+          info.editor_num = SCRIPTS.hn_id_table[info.name].id
+        elseif not SCRIPTS.hn_id_table[info.name] then
+          SCRIPTS.hn_id_table[info.name] = {}
+          SCRIPTS.hn_id_table[info.name].id = info.editor_num
+          SCRIPTS.hn_id_table[info.name].name = info.name
+          info.editor_num = PARAM.hn_thing_start_offset
+          PARAM.hn_thing_start_offset = PARAM.hn_thing_start_offset + 1
+        end
+
+        local x = chunk.mx
+        local y = chunk.my
+        local z = math.max(chunk.from_area.floor_h, chunk.dest_area.floor_h)
+
+        hn_add_entity(info, x, y, z + 1)
+      end
+    end
+
+    -- closets
     info.editor_num = PARAM.hn_thing_start_offset
     for _,chunk in pairs(R.closets) do
       if chunk.prefab_def then
@@ -2074,10 +2200,15 @@ function MODDED_GAME_EXTRAS.create_hn_info(self, LEVEL)
       end
     end
 
+    -- joiners
     info.editor_num = PARAM.hn_thing_start_offset
     for _,chunk in pairs(R.joiners) do
       info.name = "Joiner: " .. chunk.prefab_def.name
       info.editor_num = PARAM.hn_thing_start_offset
+
+      if chunk.area.lighting then
+        info.name = info.name .. " (lighting: " .. chunk.area.l_history .. ")"
+      end
 
       if SCRIPTS.hn_id_table[info.name] then
         info.editor_num = SCRIPTS.hn_id_table[info.name].id
@@ -2146,10 +2277,20 @@ function MODDED_GAME_EXTRAS.create_hn_info(self, LEVEL)
 
     info.editor_num = PARAM.hn_thing_start_offset
 
-    local x_span = (R.sx2 - R.sx1) * SEED_SIZE
-    local y_span = (R.sy2 - R.sy1) * SEED_SIZE
+    local x_span
+    local y_span
+    if R.sx2 and R.sx1 then
+      x_span = (R.sx2 - R.sx1) * SEED_SIZE
+    end
+    if R.sy2 and R.sy1 then
+      y_span = (R.sy2 - R.sy1) * SEED_SIZE
+    end
 
-    info.radius = (x_span + y_span)/2
+    if x_span and y_span then
+      info.radius = (x_span + y_span)/2
+    else
+      info.radius = "NIL"
+    end
     info.env = R:get_env()
 
     PARAM.hn_thing_start_offset = PARAM.hn_thing_start_offset + 1
@@ -2308,7 +2449,7 @@ class bossNameHandler : EventHandler
 
   bool isAIMarine(Actor a)
   {
-    if (a is "AIMarine") return true;
+    MARINE_GEN
 
     return false;
   }
@@ -2479,7 +2620,7 @@ class bossNameHandler : EventHandler
             || obit.IndexOf("female", 0) > -1
             || obit.IndexOf("security", 0) > -1
             || obit.IndexOf("zsec", 0) > -1
-            || obit.IndexOf("zspec", 0) > -1
+            || obit.IndexOf("pb_zs", 0) > -1
             || obit.IndexOf("razer", 0) > -1)
             {
               mon_name = getHumanTag();
@@ -2634,6 +2775,12 @@ function MODDED_GAME_EXTRAS.generate_custom_actor_names()
   actor_name_script = string.gsub( actor_name_script, "LDEMONS_COMPAT_CHECKS", " ")
   actor_name_script = string.gsub( actor_name_script, "SDEMONS_COMPAT_CHECKS", " ")
   actor_name_script = string.gsub( actor_name_script, "GDEMONS_COMPAT_CHECKS", " ")
+
+  if PARAM.marine_gen and PARAM.marine_gen == true then
+    actor_name_script = string.gsub( actor_name_script, "MARINE_GEN", MODDED_GAME_EXTRAS.marine_gen_actor_names_code)
+  else
+    actor_name_script = string.gsub( actor_name_script, "MARINE_GEN", " ")
+  end
 
   if SCRIPTS.zscript then
     SCRIPTS.zscript = SCRIPTS.zscript .. actor_name_script

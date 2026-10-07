@@ -2470,7 +2470,7 @@ function Quest_nice_items(LEVEL)
     if R.is_secret then return end
 
     -- chance of using *any* closets in this room
-    local any_prob = style_sel("secrets", 0, 30, 60, 90)
+    local any_prob = style_sel("secrets", 0, 20, 40, 60)
     if not rand.odds(any_prob) then
       return
     end
@@ -3256,6 +3256,14 @@ function Quest_room_themes(LEVEL)
     if THEME.outdoor_wall_groups then
       LEVEL.outdoor_wall_group = rand.key_by_probs(THEME.outdoor_wall_groups)
     end
+
+    LEVEL.porch_wall_groups = {}
+    for _,T in pairs(GAME.THEMES) do
+      if T.name ~= "DEFAULTS" and T.name ~= "exclusions" then
+        LEVEL.porch_wall_groups[T.name] = {}
+        LEVEL.porch_wall_groups[T.name] = rand.key_by_probs(T.wall_groups)
+      end
+    end
   end
 
 
@@ -3480,6 +3488,10 @@ function Quest_room_themes(LEVEL)
       R.main_tex = R.zone.nature_facade
     end
 
+    if THEME.stair_wall_groups and rand.odds(50) then
+      R.stair_wall_group = rand.key_by_probs(THEME.stair_wall_groups)
+    end
+
     -- create a skin (for prefabs)
     R.skin =
     {
@@ -3654,6 +3666,8 @@ function Quest_trim_prefabs(LEVEL)
   -- required
   used_groups["natural_walls"] = 1
   used_groups["marine_closet"] = 1
+  used_groups["wall_stair_1"] = 1
+  used_groups["wall_stair_2"] = 1
 
   -- just because we have outdoors style does not mean
   -- we actually have outdoor rooms

@@ -231,6 +231,110 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
     }
   },
 
+  any_copperRust =
+  {
+    env = "building",
+    prob = 40,
+
+    walls =
+    {
+      G_OCURW1 = 25,
+      G_OCURW2 = 25,
+      G_OCURW3 = 25,
+      G_OCURW4 = 25,
+      G_OCURW5 = 25,
+      G_OCURW6 = 25,
+      G_OCURW7 = 25,
+      G_OCURW8 = 25,
+      G_OCURW9 = 25,
+      G_OCURWA = 25,
+
+      G8_BRNW1 = 10,
+      G8_BRNW2 = 10,
+      G8_BRNW3 = 10,
+
+      BRIKS31 = 10,
+      BRONZE5 = 10,
+      BRONZE6 = 10,
+
+      CEM11 = 10,
+
+      BRONZE1 = 6,
+      BRONZE2 = 6,
+      BRONZE3 = 6,
+      BROWN96 = 6,
+      SPACEW4 = 4,
+    },
+
+    floors =
+    {
+      G_OCURF1 = 25,
+      G_OCURF2 = 25,
+      G_OCURF3 = 25,
+      G_OCURF4 = 25,
+      G_OCURF5 = 25,
+      G_OCURF6 = 25,
+      G_OCURF7 = 25,
+      G_OCURF8 = 25,
+
+      G8_BRNF1 = 10,
+      G8_BRNF2 = 10,
+      G8_BRNF3 = 10,
+
+      DARKF03 = 6,
+      DARKM01 = 6,
+      GMET01 = 6,
+      GMET02 = 6,
+      GMET03 = 6,
+      GMET04 = 6,
+      GMET05 = 6,
+      GMET06 = 6,
+
+      FLOOR0_1 = 3,
+      FLOOR0_2 = 3,
+      FLOOR3_3 = 3,
+      FLOOR4_1 = 3,
+      FLOOR4_5 = 3,
+      FLOOR4_6 = 3,
+      FLOOR5_3 = 3,
+      SLIME16 = 3
+    },
+
+    ceilings =
+    {
+      G_OCURF1 = 25,
+      G_OCURF2 = 25,
+      G_OCURF3 = 25,
+      G_OCURF4 = 25,
+      G_OCURF5 = 25,
+      G_OCURF6 = 25,
+      G_OCURF7 = 25,
+      G_OCURF8 = 25,
+
+      G8_BRNF1 = 10,
+      G8_BRNF2 = 10,
+      G8_BRNF3 = 10,
+
+      DARKF03 = 6,
+      DARKM01 = 6,
+      GMET01 = 6,
+      GMET02 = 6,
+      GMET03 = 6,
+      GMET04 = 6,
+      GMET05 = 6,
+      GMET06 = 6,
+
+      FLOOR0_1 = 3,
+      FLOOR0_2 = 3,
+      FLOOR3_3 = 3,
+      FLOOR4_1 = 3,
+      FLOOR4_5 = 3,
+      FLOOR4_6 = 3,
+      FLOOR5_3 = 3,
+      SLIME16 = 3
+    }
+  },
+
 -- START OF TECH THEMES
 
   tech_GrayMet = --120
@@ -321,7 +425,22 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       OBTSVBZ1 = 20,
       OBTSVBZ2 = 20,
-      OBTSVBZ3 = 20
+      OBTSVBZ3 = 20,
+
+      G_OM_WL1 = 18,
+      G_OM_WL2 = 18,
+      G_OM_WL3 = 18,
+      G_OM_WL4 = 18,
+      G_OM_WL5 = 18,
+      G_OM_WL6 = 18,
+      G_OM_WL7 = 18,
+      G_OM_WL8 = 18,
+      G_OM_WL9 = 18,
+      G_OM_WLA = 18,
+      G_OM_WLB = 18,
+      G_OM_WLC = 18,
+      G_OM_WLD = 18,
+      G_OM_WLE = 18
     },
 
     floors =
@@ -364,7 +483,20 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       OBTSVBF1 = 20,
       OBTSVBF2 = 20,
-      OBTSVBF3 = 20
+      OBTSVBF3 = 20,
+
+      G_OM_FG1 = 30,
+      G_OM_FG2 = 30,
+      G_OM_FT1 = 30,
+      G_OM_FT2 = 30,
+      G_OM_FT3 = 30,
+      G_OM_FT4 = 30,
+      G_OM_FT5 = 30,
+      G_OM_FT6 = 30,
+      G_OM_FT7 = 30,
+      G_OM_FT8 = 30,
+      G_OM_FT9 = 30,
+      G_OM_FTA = 30
     },
 
     ceilings =
@@ -382,7 +514,20 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       FLAT4  = 20,
       FLAT23 = 5,
 
-      OBTBSFL3 = 10
+      OBTBSFL3 = 10,
+
+      G_OM_FG1 = 10,
+      G_OM_FG2 = 10,
+      G_OM_FT1 = 10,
+      G_OM_FT2 = 10,
+      G_OM_FT3 = 10,
+      G_OM_FT4 = 10,
+      G_OM_FT5 = 10,
+      G_OM_FT6 = 10,
+      G_OM_FT7 = 10,
+      G_OM_FT8 = 10,
+      G_OM_FT9 = 10,
+      G_OM_FTA = 10
     }
   },
 
@@ -411,7 +556,20 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       OBTBSFL1 = 5,
       OBTBSFL2 = 5,
-      OBTBSFL3 = 5
+      OBTBSFL3 = 5,
+
+      G_OM_FG1 = 5,
+      G_OM_FG2 = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT8 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5
     },
 
     ceilings =
@@ -425,7 +583,20 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       QFLAT09 = 5,
       GRATE3  = 5,
 
-      OBTBSFL3 = 10
+      OBTBSFL3 = 10,
+
+      G_OM_FG1 = 3,
+      G_OM_FG2 = 3,
+      G_OM_FT1 = 3,
+      G_OM_FT2 = 3,
+      G_OM_FT3 = 3,
+      G_OM_FT4 = 3,
+      G_OM_FT5 = 3,
+      G_OM_FT6 = 3,
+      G_OM_FT7 = 3,
+      G_OM_FT8 = 3,
+      G_OM_FT9 = 3,
+      G_OM_FTA = 5
     },
 
     keep_prob = 10
@@ -1055,7 +1226,22 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       OBTBCEM1 = 30,
       OBTBCEM2 = 30,
-      OBTBCEM3 = 30
+      OBTBCEM3 = 30,
+
+      G_OM_WL1 = 25,
+      G_OM_WL2 = 25,
+      G_OM_WL3 = 25,
+      G_OM_WL4 = 25,
+      G_OM_WL5 = 25,
+      G_OM_WL6 = 25,
+      G_OM_WL7 = 25,
+      G_OM_WL8 = 25,
+      G_OM_WL9 = 25,
+      G_OM_WLA = 25,
+      G_OM_WLB = 25,
+      G_OM_WLC = 25,
+      G_OM_WLD = 25,
+      G_OM_WLE = 25,
     },
 
     floors =
@@ -1156,7 +1342,16 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       G8_BRNF1 = 15,
       G8_BRNF2 = 15,
-      G8_BRNF3 = 15
+      G8_BRNF3 = 15,
+
+      G_OCURF1 = 10,
+      G_OCURF2 = 10,
+      G_OCURF3 = 10,
+      G_OCURF4 = 10,
+      G_OCURF5 = 10,
+      G_OCURF6 = 10,
+      G_OCURF7 = 10,
+      G_OCURF8 = 10
     },
 
     ceilings =
@@ -1172,7 +1367,16 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       G8_BRNF1 = 10,
       G8_BRNF2 = 10,
-      G8_BRNF3 = 10
+      G8_BRNF3 = 10,
+
+      G_OCURF1 = 10,
+      G_OCURF2 = 10,
+      G_OCURF3 = 10,
+      G_OCURF4 = 10,
+      G_OCURF5 = 10,
+      G_OCURF6 = 10,
+      G_OCURF7 = 10,
+      G_OCURF8 = 10
     },
   },
 
@@ -1226,7 +1430,17 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       GRATE7 = 5,
       GRATE8 = 5,
       QFLAT09 = 5,
-      MEM01 = 5
+      MEM01 = 5,
+
+      G_OCURF1 = 2,
+      G_OCURF2 = 2,
+      G_OCURF3 = 2,
+      G_OCURF4 = 2,
+      G_OCURF5 = 2,
+      G_OCURF6 = 2,
+      G_OCURF7 = 2,
+      G_OCURF8 = 2
+
     },
 
     ceilings =
@@ -1250,7 +1464,16 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       MEM01 = 5,
 
       SLIME14 = 5,
-      SLIME15 = 5
+      SLIME15 = 5,
+
+      G_OCURF1 = 2,
+      G_OCURF2 = 2,
+      G_OCURF3 = 2,
+      G_OCURF4 = 2,
+      G_OCURF5 = 2,
+      G_OCURF6 = 2,
+      G_OCURF7 = 2,
+      G_OCURF8 = 2
     }
   },
 
@@ -1291,7 +1514,18 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       URBAN6 = 50,
 
       ZIMMER3 = 50,
-      ZIMMER4 = 50
+      ZIMMER4 = 50,
+
+      G_OCURW1 = 10,
+      G_OCURW2 = 10,
+      G_OCURW3 = 10,
+      G_OCURW4 = 10,
+      G_OCURW5 = 10,
+      G_OCURW6 = 10,
+      G_OCURW7 = 10,
+      G_OCURW8 = 10,
+      G_OCURW9 = 10,
+      G_OCURWA = 10
     },
 
     floors =
@@ -1318,6 +1552,300 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       FLOOR0_5 = 50,
       FLOOR4_8 = 25,
       SLIME14 = 50,
+    }
+  },
+
+  tech_greenGrey = --50
+  {
+    env = "building",
+    prob = 30,
+
+    walls =
+    {
+      G_OM_WL1 = 5,
+      G_OM_WL2 = 5,
+      G_OM_WL3 = 5,
+      G_OM_WL4 = 5,
+      G_OM_WL5 = 5,
+      G_OM_WL6 = 5,
+      G_OM_WL7 = 5,
+      G_OM_WL8 = 5,
+      G_OM_WL9 = 5,
+      G_OM_WLA = 5,
+      G_OM_WLB = 5,
+      G_OM_WLC = 5,
+      G_OM_WLD = 5,
+      G_OM_WLE = 5,
+
+      G_OM_WG1 = 5,
+      G_OM_WG2 = 5,
+      G_OM_WG3 = 5,
+      G_OM_WG4 = 5,
+      G_OM_WG5 = 5,
+      G_OM_WG6 = 5,
+      G_OM_WG7 = 5,
+      G_OM_WG8 = 5
+    },
+
+    floors =
+    {
+      SLIME14 = 10,
+      SLIME15 = 10,
+      FLOOR0_3 = 10,
+      FLOOR0_5 = 10,
+      FLOOR0_6 = 10,
+      FLOOR4_8 = 10,
+      FLAT1 = 10,
+      FLAT3 = 10,
+      FLAT5_4 = 5,
+      FLAT18 = 10,
+      FLAT19 = 10,
+
+      GRATE1 = 2,
+      GRATE2 = 2,
+      GRATE3 = 2,
+      GRATE4 = 2,
+      GRATE5 = 2,
+      GRATE6 = 2,
+      GRATE7 = 2,
+      GRATE8 = 2,
+
+      G_OM_FG1 = 5,
+      G_OM_FG2 = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT8 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5
+    },
+
+    ceilings =
+    {
+      SLIME14 = 10,
+      SLIME15 = 10,
+      FLOOR0_3 = 10,
+      FLOOR0_5 = 10,
+      FLOOR0_6 = 10,
+      FLOOR4_8 = 10,
+      FLAT1 = 10,
+      FLAT3 = 10,
+      FLAT5_4 = 5,
+      FLAT18 = 10,
+      FLAT19 = 10,
+
+      G_OM_FG1 = 5,
+      G_OM_FG2 = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT8 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5
+    }
+  },
+
+  tech_bumblebee = --30
+  {
+    env = "building",
+    prob = 20,
+
+    walls =
+    {
+      G_OTBBW1 = 25,
+      G_OTBBW2 = 25,
+      G_OTBBW3 = 25,
+      G_OTBBW4 = 25,
+      G_OTBBW5 = 25,
+      G_OTBBW6 = 25,
+      G_OTBBW7 = 25,
+      G_OTBBW8 = 25,
+      G_OTBBW9 = 25,
+      G_OTBBWA = 25,
+      G_OTBBWB = 25,
+      G_OTBBWC = 25
+    },
+
+    floors =
+    {
+      OBTBSFL1 = 10,
+      OBTBSFL2 = 10,
+      OBTBSFL3 = 10,
+
+      G_OTBBF1 = 25,
+      G_OTBBF2 = 25,
+      G_OTBBF3 = 25,
+      G_OTBBF4 = 25,
+      G_OTBBF5 = 25,
+      G_OTBBF6 = 25,
+      G_OTBBF7 = 25,
+      G_OTBBF8 = 25,
+      G_OTBBF9 = 25,
+      G_OTBBFA = 25,
+      G_OTBBFB = 25,
+      G_OTBBFC = 25,
+      G_OTBBFD = 25,
+
+      FLAT1 = 5,
+      FLOOR4_8 = 5,
+      FLOOR5_1 = 5,
+      MFLR8_1 = 5,
+      SLIME14 = 5,
+
+      GRATE1 = 6,
+      GRATE6 = 6,
+      SHINY04 = 6,
+
+      G_OM_FG1 = 5,
+      G_OM_FG2 = 5,
+
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5,
+    },
+
+    ceilings =
+    {
+      OBTBSFL1 = 10,
+      OBTBSFL2 = 10,
+      OBTBSFL3 = 10,
+
+      G_OTBBF1 = 25,
+      G_OTBBF2 = 25,
+      G_OTBBF3 = 25,
+      G_OTBBF4 = 25,
+      G_OTBBF5 = 25,
+      G_OTBBF6 = 25,
+      G_OTBBF7 = 25,
+      G_OTBBF8 = 25,
+      G_OTBBF9 = 25,
+      G_OTBBFA = 25,
+      G_OTBBFB = 25,
+      G_OTBBFC = 25,
+      G_OTBBFD = 25,
+
+      GRATE1 = 6,
+      GRATE6 = 6,
+      SHINY04 = 6,
+
+      G_OM_FG1 = 5,
+      G_OM_FG2 = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5,
+
+      FLOOR4_8 = 5,
+      FLOOR5_1 = 5,
+      MFLR8_1 = 5,
+
+      FLAT1 = 6,
+      FLAT18 = 6,
+      FLAT19 = 6,
+      FLAT3 = 6,
+      FLOOR0_3 = 6,
+      FLOOR0_5 = 6,
+      SLIME14 = 6
+    }
+  },
+
+  tech_iStuff = --30
+  {
+    env = "building",
+    prob = 30,
+
+    walls =
+    {
+      G_IPHWL1 = 20,
+      G_IPHWL2 = 20,
+      G_IPHWL3 = 20,
+      G_IPHWL4 = 20,
+      G_IPHWL5 = 20,
+      G_IPHWL6 = 20,
+      G_IPHWL7 = 20,
+      G_IPHWL8 = 20,
+      G_IPHWL9 = 20,
+      G_IPHWLA = 20,
+      G_IPHWLB = 20,
+
+      BROWN2 = 5,
+      BROWN3 = 5,
+      BRIKS32 = 5,
+      CEM10 = 5,
+      GRAY6 = 5,
+      GRAY8 = 5,
+      GRAY9 = 5
+    },
+
+    floors =
+    {
+      G_IPHFT1 = 20,
+      G_IPHFT2 = 20,
+      G_IPHFT3 = 20,
+      G_IPHFT4 = 20,
+      G_IPHFT5 = 20,
+      G_IPHFT6 = 20,
+      G_IPHFT7 = 20,
+      G_IPHFT8 = 20,
+
+      OBTBSFL1 = 10,
+      OBTBSFL2 = 10,
+      OBTBSFL3 = 10,
+      OBTSVBF1 = 10,
+      OBTSVBF2 = 10,
+      OBTSVBF3 = 10,
+
+      GRATE1 = 7,
+      GRATE5 = 7,
+      GRATE6 = 7,
+      SHINY01 = 7,
+      SHINY03 = 7,
+      SHINY04 = 7,
+
+      FLAT1 = 4,
+      FLAT3 = 4,
+      FLAT18 = 4,
+      FLAT20 = 4,
+      FLOOR0_5 = 4,
+      FLOOR4_8 = 4,
+      SLIME14 = 3
+    },
+
+    ceilings =
+    {
+      G_IPHFT1 = 20,
+      G_IPHFT2 = 20,
+      G_IPHFT3 = 20,
+      G_IPHFT4 = 20,
+      G_IPHFT5 = 20,
+      G_IPHFT6 = 20,
+      G_IPHFT7 = 20,
+      G_IPHFT8 = 20,
+
+      FLAT18 = 4,
+      FLAT20 = 4,
+      FLAT3 = 4,
+      FLOOR0_5 = 4,
+      SLIME14 = 3
     }
   },
 
@@ -1504,7 +2032,43 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       OBTSBF1B = 20,
       OBTSBF2B = 20,
-      OBTSBF3B = 20
+      OBTSBF3B = 20,
+
+      G_OM_FG1 = 15,
+      G_OM_FG2 = 15,
+      G_OM_FT1 = 15,
+      G_OM_FT2 = 15,
+      G_OM_FT3 = 15,
+      G_OM_FT4 = 15,
+      G_OM_FT5 = 15,
+      G_OM_FT6 = 15,
+      G_OM_FT7 = 15,
+      G_OM_FT8 = 15,
+      G_OM_FT9 = 15,
+      G_OM_FTA = 15,
+
+      G_OTBBF1 = 15,
+      G_OTBBF2 = 15,
+      G_OTBBF3 = 15,
+      G_OTBBF4 = 15,
+      G_OTBBF5 = 15,
+      G_OTBBF6 = 15,
+      G_OTBBF7 = 15,
+      G_OTBBF8 = 15,
+      G_OTBBF9 = 15,
+      G_OTBBFA = 15,
+      G_OTBBFB = 15,
+      G_OTBBFC = 15,
+      G_OTBBFD = 15,
+
+      G_OCURF1 = 15,
+      G_OCURF2 = 15,
+      G_OCURF3 = 15,
+      G_OCURF4 = 15,
+      G_OCURF5 = 15,
+      G_OCURF6 = 15,
+      G_OCURF7 = 15,
+      G_OCURF8 = 15
     },
   },
 
@@ -2183,6 +2747,17 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       OBTSVBZ1 = 10,
       OBTSVBZ2 = 10,
       OBTSVBZ3 = 10,
+
+      G_OCURW1 = 10,
+      G_OCURW2 = 10,
+      G_OCURW3 = 10,
+      G_OCURW4 = 10,
+      G_OCURW5 = 10,
+      G_OCURW6 = 10,
+      G_OCURW7 = 10,
+      G_OCURW8 = 10,
+      G_OCURW9 = 10,
+      G_OCURWA = 10
     },
 
     floors =
@@ -2258,7 +2833,16 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       OBTSBF1B = 10,
       OBTSBF2B = 10,
-      OBTSBF3B = 10
+      OBTSBF3B = 10,
+
+      G_OCURF1 = 10,
+      G_OCURF2 = 10,
+      G_OCURF3 = 10,
+      G_OCURF4 = 10,
+      G_OCURF5 = 10,
+      G_OCURF6 = 10,
+      G_OCURF7 = 10,
+      G_OCURF8 = 10
     },
 
     ceilings =
@@ -2318,7 +2902,16 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       G8_BRNF1 = 5,
       G8_BRNF2 = 5,
-      G8_BRNF3 = 5
+      G8_BRNF3 = 5,
+
+      G_OCURF1 = 10,
+      G_OCURF2 = 10,
+      G_OCURF3 = 10,
+      G_OCURF4 = 10,
+      G_OCURF5 = 10,
+      G_OCURF6 = 10,
+      G_OCURF7 = 10,
+      G_OCURF8 = 10
     },
   },
 
@@ -2732,10 +3325,237 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       WOODTI2 = 10,
       WOODTIL = 10,
+
+      --
+
+      G_OTBBF1 = 15,
+      G_OTBBF2 = 15,
+      G_OTBBF3 = 15,
+      G_OTBBF4 = 15,
+      G_OTBBF5 = 15,
+      G_OTBBF6 = 15,
+      G_OTBBF7 = 15,
+      G_OTBBF8 = 15,
+      G_OTBBF9 = 15,
+      G_OTBBFA = 15,
+      G_OTBBFB = 15,
+      G_OTBBFC = 15,
+      G_OTBBFD = 15,
+
+      G_OCURF1 = 15,
+      G_OCURF2 = 15,
+      G_OCURF3 = 15,
+      G_OCURF4 = 15,
+      G_OCURF5 = 15,
+      G_OCURF6 = 15,
+      G_OCURF7 = 15,
+      G_OCURF8 = 15
     }
   },
 
 -- START OF URBAN THEMES
+
+  urban_Outdoors_generic =
+  {
+    env  = "outdoor",
+    prob = 50,
+
+    floors =
+    {
+      STONE = 50,
+      FLAT1 = 25,
+      FLAT3 = 5,
+      FLAT18 = 5,
+      FLAT20 = 5,
+
+      FLOOR0_1 = 10,
+      FLOOR0_2 = 10,
+      FLOOR0_3 = 10,
+
+      FLAT5_1 = 7,
+      FLAT5_2 = 15,
+
+      FLOOR3_3 = 10,
+      FLOOR4_6 = 10,
+      FLOOR5_4 = 10,
+      FLOOR7_1 = 20,
+
+      RROCK03  = 10,
+      MFLR8_3  = 10,
+      FLOOR6_2 = 5,
+
+      --
+
+      FLOOR4_7 = 10,
+      FLOOR46D = 10,
+      FLOOR46E = 10,
+
+      G04 = 10,
+      G05 = 10,
+      G06 = 10,
+      G07 = 10,
+      G08 = 10,
+      G09 = 10,
+      G10 = 10,
+      G11 = 10,
+      G12 = 10,
+      G14 = 10,
+      G15 = 10,
+      G16 = 10,
+      G17 = 10,
+      G18 = 10,
+      G19 = 10,
+      G21 = 10,
+
+      GMET01 = 10,
+      GMET02 = 10,
+      GMET03 = 10,
+      GMET04 = 10,
+      GMET05 = 10,
+      GMET06 = 10,
+
+      GSTN01 = 10,
+      GSTN02 = 10,
+      GSTN03 = 10,
+      GSTN04 = 10,
+      GSTN05 = 10,
+
+      GWOD01 = 10,
+      GWOD02 = 10,
+      GWOD03 = 10,
+      GWOD04 = 10,
+
+      MEM01 = 10,
+      QFLAT02 = 10,
+      QLFAT03 = 10,
+      QFLAT04 = 10,
+      QFLAT05 = 10,
+      QFLAT06 = 10,
+      QFLAT07 = 10,
+      QFLAT09 = 10,
+      QFLAT10 = 10,
+
+      TILES1 = 10,
+      TILES2 = 10,
+      TILES3 = 10,
+      TILES4 = 10,
+      TILES5 = 10,
+      TILES6 = 10
+    },
+
+    naturals =
+    {
+      ASHWALL2 = 50,
+      ASHWALL3 = 50,
+      FLAT10   = 40,
+      ASHWALL4 = 50,
+      ASHWALL6 = 35,
+      ASHWALL7 = 35,
+      TANROCK4 = 20,
+      TANROCK5 = 20,
+      SP_ROCK1 = 20,
+      BSTONE1  = 20,
+      BSTONE2  = 20,
+      ZIMMER1  = 15,
+      ZIMMER2  = 15,
+      ZIMMER3  = 15,
+      ZIMMER4  = 15,
+      ZIMMER5  = 15,
+      ZIMMER7  = 15,
+      ZIMMER8  = 15,
+      ROCK1    = 30,
+      ROCK2    = 20,
+      ROCK3    = 70,
+
+      GRASS1 = 70,
+      GRASS2 = 70,
+      RROCK18  = 85,
+      RROCK19  = 85,
+      RROCK17  = 70,
+    },
+
+    porch_floors =
+    {
+      CEIL3_3 = 10,
+      CEIL3_5 = 10,
+      FLAT1 = 10,
+      FLAT1_1 = 10,
+      FLAT1_2 = 10,
+      FLAT19 = 10,
+      FLAT3 = 10,
+      FLAT5 = 10,
+      FLAT5_1 = 20,
+      FLAT5_2 = 20,
+      FLAT5_5 = 20,
+      FLOOR0_1 = 10,
+      FLOOR4_6 = 10,
+      FLOOR5_3 = 10,
+      FLOOR5_4 = 10,
+      FLOOR7_1 = 20,
+      MFLR8_1 = 10,
+      RROCK14 = 10,
+      SLIME14 = 10,
+      SLIME15 = 10,
+      SLIME16 = 10,
+
+      --
+
+      FLOOR4_7 = 10,
+      FLOOR46D = 10,
+      FLOOR46E = 10,
+
+      G04 = 10,
+      G05 = 10,
+      G06 = 10,
+      G07 = 10,
+      G08 = 10,
+      G09 = 10,
+      G10 = 10,
+      G11 = 10,
+      G12 = 10,
+      G14 = 10,
+      G15 = 10,
+      G16 = 10,
+      G17 = 10,
+      G18 = 10,
+      G19 = 10,
+      G21 = 10,
+
+      GMET01 = 10,
+      GMET02 = 10,
+      GMET03 = 10,
+      GMET04 = 10,
+      GMET05 = 10,
+      GMET06 = 10,
+
+      GSTN01 = 10,
+      GSTN02 = 10,
+      GSTN03 = 10,
+      GSTN04 = 10,
+      GSTN05 = 10,
+
+      GWOD01 = 10,
+      GWOD02 = 10,
+      GWOD03 = 10,
+      GWOD04 = 10,
+
+      MEM01 = 10,
+      QFLAT02 = 10,
+      QLFAT03 = 10,
+      QFLAT04 = 10,
+      QFLAT05 = 10,
+      QFLAT06 = 10,
+      QFLAT07 = 10,
+      QFLAT09 = 10,
+
+      TILES1 = 10,
+      TILES2 = 10,
+      TILES3 = 10,
+      TILES4 = 10,
+      TILES5 = 10,
+      TILES6 = 10
+    }
+  },
 
   --  18 through 20 don't tile horizontally well so I removed them. 14 and 30 seems more like it works for exterior.
   urban_ReisalBricks = --100
@@ -3414,7 +4234,18 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
 
       MMT208 = 40,
       MMT209 = 40,
-      MMT210 = 40
+      MMT210 = 40,
+
+      G_OCURW1 = 22,
+      G_OCURW2 = 22,
+      G_OCURW3 = 22,
+      G_OCURW4 = 22,
+      G_OCURW5 = 22,
+      G_OCURW6 = 22,
+      G_OCURW7 = 22,
+      G_OCURW8 = 22,
+      G_OCURW9 = 22,
+      G_OCURWA = 22
     },
 
     floors =
@@ -3470,6 +4301,15 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       G8_BRNF1 = 35,
       G8_BRNF2 = 35,
       G8_BRNF3 = 35,
+
+      G_OCURW1 = 15,
+      G_OCURW2 = 15,
+      G_OCURW3 = 15,
+      G_OCURW4 = 15,
+      G_OCURW5 = 15,
+      G_OCURW6 = 15,
+      G_OCURW7 = 15,
+      G_OCURW8 = 15
     },
 
     ceilings =
@@ -3525,6 +4365,15 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       G8_BRNF1 = 35,
       G8_BRNF2 = 35,
       G8_BRNF3 = 35,
+
+      G_OCURW1 = 15,
+      G_OCURW2 = 15,
+      G_OCURW3 = 15,
+      G_OCURW4 = 15,
+      G_OCURW5 = 15,
+      G_OCURW6 = 15,
+      G_OCURW7 = 15,
+      G_OCURW8 = 15
     }
   },
 
@@ -3677,7 +4526,89 @@ OBS_RESOURCE_PACK_ROOM_THEMES =
       RROCK03 = 50,
       RROCK09 = 30
     }
-  }
+  },
+
+  urban_iStuff = --20
+  {
+    env = "building",
+    prob = 20,
+
+    walls =
+    {
+      G_IPHWL1 = 20,
+      G_IPHWL2 = 20,
+      G_IPHWL3 = 20,
+      G_IPHWL4 = 20,
+      G_IPHWL5 = 20,
+      G_IPHWL6 = 20,
+      G_IPHWL7 = 20,
+      G_IPHWL8 = 20,
+      G_IPHWL9 = 20,
+      G_IPHWLA = 20,
+      G_IPHWLB = 20,
+
+      BROWN2 = 5,
+      BROWN3 = 5,
+      BRIKS32 = 5,
+      CEM10 = 5,
+      GRAY6 = 5,
+      GRAY8 = 5,
+      GRAY9 = 5
+    },
+
+    floors =
+    {
+      G_IPHFT1 = 20,
+      G_IPHFT2 = 20,
+      G_IPHFT3 = 20,
+      G_IPHFT4 = 20,
+      G_IPHFT5 = 20,
+      G_IPHFT6 = 20,
+      G_IPHFT7 = 20,
+      G_IPHFT8 = 20,
+
+      OBTBSFL1 = 10,
+      OBTBSFL2 = 10,
+      OBTBSFL3 = 10,
+      OBTSVBF1 = 10,
+      OBTSVBF2 = 10,
+      OBTSVBF3 = 10,
+
+      GRATE1 = 7,
+      GRATE5 = 7,
+      GRATE6 = 7,
+      SHINY01 = 7,
+      SHINY03 = 7,
+      SHINY04 = 7,
+
+      FLAT1 = 4,
+      FLAT3 = 4,
+      FLAT18 = 4,
+      FLAT20 = 4,
+      FLOOR0_5 = 4,
+      FLOOR4_8 = 4,
+      SLIME14 = 3
+    },
+
+    ceilings =
+    {
+      G_IPHFT1 = 20,
+      G_IPHFT2 = 20,
+      G_IPHFT3 = 20,
+      G_IPHFT4 = 20,
+      G_IPHFT5 = 20,
+      G_IPHFT6 = 20,
+      G_IPHFT7 = 20,
+      G_IPHFT8 = 20,
+
+      FLAT18 = 4,
+      FLAT20 = 4,
+      FLAT3 = 4,
+      FLOOR0_5 = 4,
+      SLIME14 = 3
+    }
+  },
+
 -- END OF THEMES TABLES
 }
 
@@ -4944,7 +5875,67 @@ OBS_RESOURCE_PACK_THEMES =
 
       OBTBCEM1 = 25,
       OBTBCEM2 = 25,
-      OBTBCEM3 = 25
+      OBTBCEM3 = 25,
+
+      G_OM_WL1 = 18,
+      G_OM_WL2 = 18,
+      G_OM_WL3 = 18,
+      G_OM_WL4 = 18,
+      G_OM_WL5 = 18,
+      G_OM_WL6 = 18,
+      G_OM_WL7 = 18,
+      G_OM_WL8 = 18,
+      G_OM_WL9 = 18,
+      G_OM_WLA = 18,
+      G_OM_WLB = 18,
+      G_OM_WLC = 18,
+      G_OM_WLD = 18,
+      G_OM_WLE = 18,
+
+      G_OM_WG1 = 20,
+      G_OM_WG2 = 20,
+      G_OM_WG3 = 20,
+      G_OM_WG4 = 20,
+      G_OM_WG5 = 20,
+      G_OM_WG6 = 20,
+      G_OM_WG7 = 20,
+      G_OM_WG8 = 20,
+
+      G_OTBBW1 = 18,
+      G_OTBBW2 = 18,
+      G_OTBBW3 = 18,
+      G_OTBBW4 = 18,
+      G_OTBBW5 = 18,
+      G_OTBBW6 = 18,
+      G_OTBBW7 = 18,
+      G_OTBBW8 = 18,
+      G_OTBBW9 = 18,
+      G_OTBBWA = 18,
+      G_OTBBWB = 18,
+      G_OTBBWC = 18,
+
+      G_OCURW1 = 18,
+      G_OCURW2 = 18,
+      G_OCURW3 = 18,
+      G_OCURW4 = 18,
+      G_OCURW5 = 18,
+      G_OCURW6 = 18,
+      G_OCURW7 = 18,
+      G_OCURW8 = 18,
+      G_OCURW9 = 18,
+      G_OCURWA = 18,
+
+      G_IPHWL1 = 18,
+      G_IPHWL2 = 18,
+      G_IPHWL3 = 18,
+      G_IPHWL4 = 18,
+      G_IPHWL5 = 18,
+      G_IPHWL6 = 18,
+      G_IPHWL7 = 18,
+      G_IPHWL8 = 18,
+      G_IPHWL9 = 18,
+      G_IPHWLA = 18,
+      G_IPHWLB = 18
     },
 
     fences =
@@ -5109,7 +6100,13 @@ OBS_RESOURCE_PACK_THEMES =
       gtd_power_plant_red_set = 40,
       --
       gtd_bathwater = 30,
-      gtd_mscottpaper = 30
+      gtd_mscottpaper = 30,
+      --
+      gtd_ribbed_lights_rdwall_EPIC = 25,
+      gtd_ribbed_lights_vox_lights_EPIC = 25,
+      --
+      low_gap_EPIC = 20,
+      low_gap_EPIC_alt = 20
     },
 
     window_groups =
@@ -5344,7 +6341,67 @@ OBS_RESOURCE_PACK_THEMES =
 
       OBTBCEM1 = 25,
       OBTBCEM2 = 25,
-      OBTBCEM3 = 25
+      OBTBCEM3 = 25,
+
+      G_OM_WL1 = 12,
+      G_OM_WL2 = 12,
+      G_OM_WL3 = 12,
+      G_OM_WL4 = 12,
+      G_OM_WL5 = 12,
+      G_OM_WL6 = 12,
+      G_OM_WL7 = 12,
+      G_OM_WL8 = 12,
+      G_OM_WL9 = 12,
+      G_OM_WLA = 12,
+      G_OM_WLB = 12,
+      G_OM_WLC = 12,
+      G_OM_WLD = 12,
+      G_OM_WLE = 12,
+
+      G_OM_WG1 = 15,
+      G_OM_WG2 = 15,
+      G_OM_WG3 = 15,
+      G_OM_WG4 = 15,
+      G_OM_WG5 = 15,
+      G_OM_WG6 = 15,
+      G_OM_WG7 = 15,
+      G_OM_WG8 = 15,
+
+      G_OTBBW1 = 5,
+      G_OTBBW2 = 5,
+      G_OTBBW3 = 5,
+      G_OTBBW4 = 5,
+      G_OTBBW5 = 5,
+      G_OTBBW6 = 5,
+      G_OTBBW7 = 5,
+      G_OTBBW8 = 5,
+      G_OTBBW9 = 5,
+      G_OTBBWA = 5,
+      G_OTBBWB = 5,
+      G_OTBBWC = 5,
+
+      G_OCURW1 = 5,
+      G_OCURW2 = 5,
+      G_OCURW3 = 5,
+      G_OCURW4 = 5,
+      G_OCURW5 = 5,
+      G_OCURW6 = 5,
+      G_OCURW7 = 5,
+      G_OCURW8 = 5,
+      G_OCURW9 = 5,
+      G_OCURWA = 5,
+
+      G_IPHWL1 = 5,
+      G_IPHWL2 = 5,
+      G_IPHWL3 = 5,
+      G_IPHWL4 = 5,
+      G_IPHWL5 = 5,
+      G_IPHWL6 = 5,
+      G_IPHWL7 = 5,
+      G_IPHWL8 = 5,
+      G_IPHWL9 = 5,
+      G_IPHWLA = 5,
+      G_IPHWLB = 5
     },
 
     fences =
@@ -5582,7 +6639,13 @@ OBS_RESOURCE_PACK_THEMES =
       gtd_bathwater = 30,
       gtd_mscottpaper = 30,
       --
-      gtd_pools = 30
+      gtd_pools = 30,
+      --
+      gtd_ribbed_lights_rdwall_EPIC = 10,
+      gtd_ribbed_lights_vox_lights_EPIC = 10,
+      --
+      low_gap_EPIC = 10,
+      low_gap_EPIC_alt = 10
     },
 
     window_groups =
@@ -5823,7 +6886,18 @@ OBS_RESOURCE_PACK_THEMES =
 
       G7_GOGN1 = 25,
       G7_GOGN2 = 25,
-      G7_GOGN3 = 25
+      G7_GOGN3 = 25,
+
+      G_OCURW1 = 15,
+      G_OCURW2 = 15,
+      G_OCURW3 = 15,
+      G_OCURW4 = 15,
+      G_OCURW5 = 15,
+      G_OCURW6 = 15,
+      G_OCURW7 = 15,
+      G_OCURW8 = 15,
+      G_OCURW9 = 15,
+      G_OCURWA = 15
     },
 
     fences =
@@ -6028,7 +7102,12 @@ OBS_RESOURCE_PACK_THEMES =
       gtd_wall_candles = 50,
       --
       gtd_wall_lit_h_window_tall_collite_blue = 10,
-      gtd_wall_lit_h_window_tall_collite_orange = 10
+      gtd_wall_lit_h_window_tall_collite_orange = 10,
+      --
+      gtd_ribbed_lights_rdwall_EPIC = 25,
+      --
+      low_gap_EPIC = 20,
+      low_gap_EPIC_alt = 20
     },
 
     window_groups =

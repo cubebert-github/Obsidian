@@ -4,7 +4,7 @@ PREFABS.Joiner_control_room_secret =
   file   = "joiner/scionox_secrets_tech.wad",
   map    = "MAP01",
 
-  prob   = 25,
+  prob   = 35,
   theme  = "tech",
 
   env    = "building",
@@ -44,7 +44,7 @@ PREFABS.Joiner_wallmachines_secret =
   file   = "joiner/scionox_secrets_tech.wad",
   map    = "MAP02",
 
-  prob   = 25,
+  prob   = 10,
   theme = "!hell",
   env = "!cave",
   style  = "steepness",
@@ -82,7 +82,7 @@ PREFABS.Joiner_wallmachines_secret_3 =
   file   = "joiner/scionox_secrets_tech.wad",
   map    = "MAP03",
 
-  prob   = 25,
+  prob   = 45,
   theme = "!hell",
   env = "building",
 

@@ -167,6 +167,15 @@ OB_MODULES["procedural_gotcha_edge"] =
       randomize_group="monsters",
     },
 
+    {
+      name="bool_proc_gotcha_open_start",
+      label=_("Open Start"),
+      valuator="button",
+      default=1,
+      tooltip=_("Whether the start room connector is a completely open doorless connector, allowing monsters to pool into the start room."),
+      priority=101.5
+    },
+
 
     {
       name="gotcha_map_size",

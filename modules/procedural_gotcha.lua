@@ -40,7 +40,7 @@ PROCEDURAL_GOTCHA_FINE_TUNE.PROC_GOTCHA_CHOICES =
 }
 
 function PROCEDURAL_GOTCHA_FINE_TUNE.setup(self)
-  
+
   module_param_up(self)
 
 end
@@ -76,7 +76,7 @@ OB_MODULES["procedural_gotcha"] =
       priority = 100,
       randomize_group="monsters",
     },
-    
+
 
     {
       name="float_gotcha_qty",

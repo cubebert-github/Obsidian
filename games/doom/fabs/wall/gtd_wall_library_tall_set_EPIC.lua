@@ -1,14 +1,14 @@
 PREFABS.Wall_gtd_library_tall =
 {
-  file   = "wall/gtd_wall_library_tall_set_EPIC.wad",
-  map    = "MAP01",
+  file = "wall/gtd_wall_library_tall_set_EPIC.wad",
+  map = "MAP01",
 
-  prob   = 10,
+  prob = 10,
   group = "gtd_library_tall",
 
-  where  = "edge",
+  where = "edge",
 
-  deep   = 16,
+  deep = 16,
 
   height = 96,
 
@@ -28,4 +28,12 @@ PREFABS.Wall_gtd_library_tall_2 =
 {
   template = "Wall_gtd_library_tall",
   map = "MAP03"
+}
+
+PREFABS.Wall_gtd_library_tall_diag =
+{
+  template = "Wall_gtd_library_tall",
+  map = "MAP04",
+
+  where = "diagonal"
 }

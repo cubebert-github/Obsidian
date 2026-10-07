@@ -95,66 +95,6 @@ function Render_edge(LEVEL, E, SEEDS)
   local DIAG_DIR_MAP = { [1]=8, [9]=2, [3]=4, [7]=6 }
 
 
-  local function raw_wall_brush()
-    local S = E.S
-
-    local TK = 16
-
-    local x1, y1 = S.x1, S.y1
-    local x2, y2 = S.x2, S.y2
-
-    if dir == 2 then y2 = y1 + TK end
-    if dir == 8 then y1 = y2 - TK end
-
-    if dir == 4 then x2 = x1 + TK end
-    if dir == 6 then x1 = x2 - TK end
-
-
-    if dir == 2 or dir == 4 or dir == 6 or dir == 8 then
-      return brushlib.quad(x1, y1, x2, y2)
-
-    elseif dir == 1 then
-      return
-      {
-        { x=x1,      y=y2      },
-        { x=x2,      y=y1      },
-        { x=x2,      y=y1 + TK },
-        { x=x1 + TK, y=y2      }
-      }
-
-    elseif dir == 9 then
-      return
-      {
-        { x=x1,      y=y2      },
-        { x=x1,      y=y2 - TK },
-        { x=x2 - TK, y=y1      },
-        { x=x2,      y=y1      }
-      }
-
-    elseif dir == 3 then
-      return
-      {
-        { x=x1,      y=y1 },
-        { x=x2,      y=y2 },
-        { x=x2 - TK, y=y2 },
-        { x=x1,      y=y1 + TK }
-      }
-
-    elseif dir == 7 then
-      return
-      {
-        { x=x1,      y=y1 },
-        { x=x1 + TK, y=y1 },
-        { x=x2,      y=y2 - TK },
-        { x=x2,      y=y2 }
-      }
-
-    else
-      error("edge_wall : bad dir")
-    end
-  end
-
-
   local function pick_window_fab()
     -- find a window prefab to use
     local reqs =
@@ -264,6 +204,14 @@ function Render_edge(LEVEL, E, SEEDS)
       reqs.group = A.floor_group.wall_group
     end
 
+    if A.room and A.room:get_env() == "outdoor" and A.ceil_mat ~= "_SKY"
+    and A.svolume >= 6 then
+      reqs.group = LEVEL.porch_wall_groups[A.room.theme.theme_override or LEVEL.theme_name]
+      if A.room.is_exit and A.room.theme.theme_override then
+        reqs.group = LEVEL.porch_wall_groups[A.room.theme.theme_override or LEVEL.next_theme]
+      end
+    end
+
     if A.is_outdoor then
       reqs.group = LEVEL.outdoor_wall_group
 
@@ -276,7 +224,7 @@ function Render_edge(LEVEL, E, SEEDS)
         A.room.outdoor_wall_group = reqs.group
       end
 
-      if reqs.group == "PLAIN" or rand.odds(10) then
+      if reqs.group == "PLAIN" then
         reqs.group = nil
       end
     end
@@ -346,9 +294,24 @@ function Render_edge(LEVEL, E, SEEDS)
 
         -- never use anything other than the flat walls on stair chunks
         -- this is to prevent oddities like ZDoom slopes from being cut-off
-        if chunk.kind == "stair" and not A.dead_end then
+        if chunk.kind == "stair" then
           reqs.deep = 16
           reqs.on_stairs = "yes"
+
+          local HC = chunk:higher_stair_floor()
+          reqs.height = HC.ceil_h - A.floor_h
+
+          if HC.floor_h == chunk.area.floor_h and HC.floor_group and HC.floor_group.wall_group then
+            reqs.group = HC.floor_group.wall_group
+          else
+            if A.room.stair_wall_group and not chunk.dest_area.dead_end then
+              reqs.group = A.room.stair_wall_group
+            else
+              if A.room:get_env() == "building" and HC.floor_group and HC.floor_group.wall_group then
+                reqs.group = HC.floor_group.wall_group
+              end
+            end
+          end
         end
       end
 
@@ -552,8 +515,9 @@ function Render_edge(LEVEL, E, SEEDS)
     end
 
     if A.chunk and A.chunk.kind == "stair" then
-      z1 = math.max(A.chunk.dest_area.floor_h,
-        A.chunk.from_area.floor_h)
+      local HC = A.chunk:higher_stair_floor()
+      z1 = HC.floor_h
+      skin.floor = HC.floor_mat
     end
 
     local T
@@ -764,6 +728,11 @@ function Render_edge(LEVEL, E, SEEDS)
       def = pick_window_fab()
     else
       def = E.prefab_def
+    end
+
+    if LEVEL.is_procedural_gotcha and E.kind == "doorway"
+    and PARAM.bool_proc_gotcha_open_start and PARAM.bool_proc_gotcha_open_start == 1 then
+      def = PREFABS[rand.pick(THEME.generic_connectors.doors)]
     end
 
     assert(def)
@@ -1419,97 +1388,137 @@ stderrf("away = %s\n\n", string.bool(away))
 
     if S.diagonal == 1 then
       p1, p3, p7, p9 = true, false, false, false
+
     elseif S.diagonal == 3 then
       p1, p3, p7, p9 = false, true, false, false
+
     elseif S.diagonal == 7 then
       p1, p3, p7, p9 = false, false, true, false
+
     elseif S.diagonal == 9 then
       p1, p3, p7, p9 = false, false, false, true
-    end
 
-    if not S.diagonal then
+    else
       p1, p3, p7, p9 = true, true, true, true
+
       local A1 = S.area
       local A2, S1
 
       -- north
       S1 = SEEDS[S.sx][S.sy + 1]
       A2 = S1.area
+
       if A2 ~= A1 then
         p7, p9 = false, false
       end
-      if S1.diagonal == 9 then
-        p9 = true
-      elseif S1.diagonal == 7 then
+
+      if S1.diagonal == 7 then
         p7 = true
+      elseif S1.diagonal == 9 then
+        p9 = true
       end
+
 
       -- south
       S1 = SEEDS[S.sx][S.sy - 1]
       A2 = S1.area
+
       if A2 ~= A1 and not S1.diagonal then
         p1, p3 = false, false
       end
-      if S1.diagonal == 1 then
+
+      if S1.diagonal == 7 then
         p1 = true
-      elseif S1.diagonal == 3 then
+      elseif S1.diagonal == 9 then
         p3 = true
       end
+
 
       -- west
       S1 = SEEDS[S.sx - 1][S.sy]
       A2 = S1.area
-      if A2 ~= A1 and not S1.diagonal  then
+
+      if A2 ~= A1 and not S1.diagonal then
         p1, p7 = false, false
       end
-      if S1.diagonal == 1 then
+
+      -- IMPORTANT: west's east corners are 3 and 9
+      if S1.diagonal == 3 then
         p1 = true
-      end
-      if S1.diagonal == 7 then
+      elseif S1.diagonal == 9 then
         p7 = true
       end
+
 
       -- east
       S1 = SEEDS[S.sx + 1][S.sy]
       A2 = S1.area
-      if A2 ~= A1 and not S1.diagonal  then
+
+      if A2 ~= A1 and not S1.diagonal then
         p3, p9 = false, false
       end
-      if S1.diagonal == 3 then
+
+      if S1.diagonal == 1 then
         p3 = true
-      end
-      if S1.diagonal == 9 then
+      elseif S1.diagonal == 7 then
         p9 = true
       end
+
 
       -- SW
       S1 = SEEDS[S.sx - 1][S.sy - 1]
       A2 = S1.area
+
       if A2 ~= A1 and not S1.diagonal then
         p1 = false
       end
 
+      -- SW's NE corner is current p1
+      if S1.diagonal == 9 then
+        p1 = true
+      end
+
+
       -- SE
       S1 = SEEDS[S.sx + 1][S.sy - 1]
       A2 = S1.area
+
       if A2 ~= A1 and not S1.diagonal then
         p3 = false
       end
 
+      -- SE's NW corner is current p3
+      if S1.diagonal == 7 then
+        p3 = true
+      end
+
+
       -- NW
       S1 = SEEDS[S.sx - 1][S.sy + 1]
       A2 = S1.area
-      if A2 ~= A1 then
+
+      if A2 ~= A1 and not S1.diagonal then
         p7 = false
       end
+
+      -- NW's SE corner is current p7
+      if S1.diagonal == 3 then
+        p7 = true
+      end
+
 
       -- NE
       S1 = SEEDS[S.sx + 1][S.sy + 1]
       A2 = S1.area
-      if A2 ~= A1 then
+
+      if A2 ~= A1 and not S1.diagonal then
         p9 = false
       end
 
+      -- NE's SW corner is current p9
+      if S1.diagonal == 1 then
+        p9 = true
+      end
     end
   end
 
@@ -2626,7 +2635,8 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
   -- FIX-ME: transfer dynamic lighting code from ceiling lights to here
   -- this just disables dynamic light entities if they are used directly
   -- when Dynamic Lights is off
-  if not PARAM.bool_dynamic_lights then
+  if not PARAM.bool_dynamic_lights
+  or PARAM.bool_dynamic_lights and PARAM.bool_dynamic_lights == 0 then
     def.thing_14998 = 0
     def.thing_14997 = 0
     def.thing_14996 = 0
@@ -2671,8 +2681,8 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
     -- ensure a sky ceiling is made for this
     chunk.occupy = "floor"
 
-    A.ceil_h = assert(A.zone.sky_h)
-    A.ceil_mat = "_SKY"
+    A:set_ceil( assert(A.zone.sky_h) )
+    A:set_ceil_mat("_SKY")
 
     -- disable walls around/inside this chunk
     for _,N in pairs(A.neighbors) do
@@ -2681,7 +2691,6 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
   end
 
   if A.is_natural_park or A.is_clearing then
-
     skin.wall = A.zone.facade_mat
     if def.group == "natural_walls" or reqs.key == "secret" then
 
@@ -2696,9 +2705,15 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
       end
 
     end
-
   end
 
+
+  if LEVEL.is_procedural_gotcha and chunk.kind == "joiner"
+  and PARAM.bool_proc_gotcha_open_start and PARAM.bool_proc_gotcha_open_start == 1 then
+    if THEME.generic_connectors.joiners then
+      def = PREFABS[rand.pick(THEME.generic_connectors.joiners)]
+    end
+  end
 
   -- build the prefab --
 
@@ -2741,16 +2756,6 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
     T.mirror_x = chunk.sw * SEED_SIZE / 2
   end
 
-  -- fix outdoor lighting
-  if reqs.kind == "picture" or reqs.kind == "item"
-  and reqs.env == "outdoor" or reqs.env == "park" then
-    if not chunk.from_area.lighting then
-      gui.printf(table.tostr(chunk.from_area,2))
-    end
-    assert(chunk.from_area.lighting)
-    A.lighting = chunk.from_area.lighting
-  end
-
   Ambient_push(A.lighting)
 
   if PARAM.bool_peered_exits and PARAM.bool_peered_exits == 1 then
@@ -2759,6 +2764,7 @@ chunk.goal.action = "S1_OpenDoor"  -- FIXME IT SHOULD BE SET WHEN JOINER IS REND
       def = start_fab_override
     end
   end
+
 
   Fabricate(LEVEL, A.room, def, T, { skin })
 
@@ -3596,9 +3602,9 @@ function Render_properties_for_area(LEVEL, A)
   if A.mode == "nature" or A.mode == "scenic" then
     if not A.lighting then
       if R and R.is_cave then
-        A.lighting = A.base_light
+        A:set_lighting(A.base_light)
       else
-        A.lighting = LEVEL.sky_light
+        A:set_lighting(LEVEL.sky_light)
       end
     end
 
@@ -3607,27 +3613,31 @@ function Render_properties_for_area(LEVEL, A)
 
   -- nothing needed for void areas
   if A.mode == "void" then
-    A.lighting = 144
+    A:set_lighting(144)
     return
   end
 
 
   if not A.lighting then
-    if A.is_outdoor then
-      A.lighting = LEVEL.sky_light
+    if R then
+      if R:get_env() == "outdoor" or R:get_env() == "park" then
 
-      -- porchy worchy -- MSSP
-      if A.is_porch then
-        A.lighting = A.lighting - LEVEL.sky_shadow
+        -- this for outdoor closets
+        if not A.is_outdoor then
+          if A.chunk and A.chunk.kind == "closet" then
+            A:set_lighting(LEVEL.sky_light)
+          else
+            A:set_lighting(LEVEL.sky_light - LEVEL.sky_shadow)
+          end
+        else
+          A:set_lighting(LEVEL.sky_light--[[ - LEVEL.sky_shadow]])
+        end
+
+      else
+        A:set_lighting((A.base_light or 144) + (A.bump_light or 0))
       end
-
-    elseif A.room and A.room.is_outdoor then
-      -- this for outdoor closets
-      A.lighting = LEVEL.sky_light - LEVEL.sky_shadow
-
     else
-      A.lighting = A.base_light or 144
-      A.lighting = A.lighting + (A.bump_light or 0)
+      A:set_lighting((A.base_light or 144) + (A.bump_light or 0))
     end
   end
 
@@ -3641,20 +3651,35 @@ function Render_properties_for_area(LEVEL, A)
 ---##  A.wall_mat = assert(R.main_tex)
 
   else
-    A.floor_mat = "_ERROR"
+    A:set_floor_mat("_ERROR")
   end
 
   if A.mode == "liquid" then
-    A.floor_mat = "_LIQUID"
+    A:set_floor_mat("_LIQUID")
   end
 
   if A.is_outdoor and not A.is_porch then
-    A.ceil_mat = "_SKY"
+    A:set_ceil_mat("_SKY")
   end
 
+  if A.chunk then
+    if A.chunk.kind == "stair" then
+      if A.room.is_outdoor then
+        if R.ceil_mats[A.ceil_h] then
+          A:set_ceil_mat(R.ceil_mats[A.ceil_h])
+        elseif A.chunk.dest_area.ceil_mat ~= "_SKY" then
+          A:set_ceil_mat(A.chunk.dest_area.ceil_mat)
+        elseif A.chunk.from_area.ceil_mat ~= "_SKY" then
+          A:set_ceil_mat(A.chunk.from_area.ceil_mat)
+        end
+      end
+    end
+  end
 
-  A.floor_mat = A.floor_mat or R.main_tex
-  A.ceil_mat  = A.ceil_mat  or R.main_tex
+  if not A.is_outdoor and A.mode == "floor" then
+    A:set_floor_mat(R.floor_mats[A.floor_h] or R.main_tex)
+    A:set_ceil_mat(R.ceil_mats[A.ceil_h] or R.main_tex)
+  end
 end
 
 
@@ -3662,6 +3687,19 @@ end
 function Render_set_all_properties(LEVEL)
   for _,A in pairs(LEVEL.areas) do
     Render_properties_for_area(LEVEL, A)
+  end
+
+  -- joiners gain the average lighting between connecting areas
+  for _,R in pairs(LEVEL.rooms) do
+    for _,J in pairs(R.joiners) do
+
+      if J.kind == "joiner" then
+        local L1 = (J.from_area.lighting)
+        local L2 = (J.dest_area.lighting)
+        J.area:set_lighting((L1 + L2) / 2)
+      end
+
+    end
   end
 end
 

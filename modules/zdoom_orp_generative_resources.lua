@@ -20,59 +20,8 @@ OBS_RESOURCE_PACK_GENAI_MATERIALS =
 {
   -- STABLE DIFFUSION --
   -- all --
-  -- copper rust
-  SD_CURW1 = {t="SD_CURW1", f="SD_CURF1"},
-  SD_CURW2 = {t="SD_CURW2", f="SD_CURF2"},
-  SD_CURW3 = {t="SD_CURW3", f="SD_CURF3"},
-  SD_CURW4 = {t="SD_CURW4", f="SD_CURF4"},
-  SD_CURW5 = {t="SD_CURW5", f="SD_CURF5"},
-  SD_CURW6 = {t="SD_CURW6", f="SD_CURF6"},
-  SD_CURW7 = {t="SD_CURW7", f="SD_CURF7"},
-  SD_CURW8 = {t="SD_CURW8", f="SD_CURF8"},
-  SD_CURW9 = {t="SD_CURW9", f="SD_CURF9"},
-  SD_CURWA = {t="SD_CURWA", f="SD_CURFA"},
-  SD_CURWB = {t="SD_CURWB", f="SD_CURFB"},
-  SD_CURWC = {t="SD_CURWC", f="SD_CURFC"},
-  SD_CURWD = {t="SD_CURWD", f="SD_CURF1"},
-  -- flats
-  SD_CURF1 = {t="SD_CURW1", f="SD_CURF1"},
-  SD_CURF2 = {t="SD_CURW2", f="SD_CURF2"},
-  SD_CURF3 = {t="SD_CURW3", f="SD_CURF3"},
-  SD_CURF4 = {t="SD_CURW4", f="SD_CURF4"},
-  SD_CURF5 = {t="SD_CURW5", f="SD_CURF5"},
-  SD_CURF6 = {t="SD_CURW6", f="SD_CURF6"},
-  SD_CURF7 = {t="SD_CURW7", f="SD_CURF7"},
-  SD_CURF8 = {t="SD_CURW8", f="SD_CURF8"},
-  SD_CURF9 = {t="SD_CURW9", f="SD_CURF9"},
-  SD_CURFA = {t="SD_CURWA", f="SD_CURFA"},
-  SD_CURFB = {t="SD_CURWB", f="SD_CURFB"},
-  SD_CURFC = {t="SD_CURWC", f="SD_CURFC"},
 
   -- TECH --
-  -- techy grey walls
-  SDOM_WL1 = { t="SDOM_WL1", f="SDOM_FT1"},
-  SDOM_WL2 = { t="SDOM_WL2", f="SDOM_FT2"},
-  SDOM_WL3 = { t="SDOM_WL3", f="SDOM_FT3"},
-  SDOM_WL4 = { t="SDOM_WL4", f="SDOM_FT4"},
-  SDOM_WL5 = { t="SDOM_WL5", f="SDOM_FT5"},
-  SDOM_WL6 = { t="SDOM_WL6", f="SDOM_FT6"},
-  SDOM_WL7 = { t="SDOM_WL7", f="SDOM_FT7"},
-  SDOM_WL8 = { t="SDOM_WL8", f="SDOM_FT8"},
-  SDOM_WL9 = { t="SDOM_WL9", f="SDOM_FT9"},
-  SDOM_WLA = { t="SDOM_WLA", f="SDOM_FTA"},
-  SDOM_WLB = { t="SDOM_WLB", f="SDOM_FT1"},
-  SDOM_WLC = { t="SDOM_WLC", f="SDOM_FT2"},
-  SDOM_WLD = { t="SDOM_WLD", f="SDOM_FT3"},
-  SDOM_WLE = { t="SDOM_WLE", f="SDOM_FT4"},
-  -- green
-  SDOM_WG1 = { t="SDOM_WG1", f="SDOM_FG1"},
-  SDOM_WG2 = { t="SDOM_WG2", f="SDOM_FG2"},
-  SDOM_WG3 = { t="SDOM_WG3", f="SDOM_FT1"},
-  SDOM_WG4 = { t="SDOM_WG4", f="SDOM_FT2"},
-  SDOM_WG5 = { t="SDOM_WG5", f="SDOM_FT3"},
-  SDOM_WG6 = { t="SDOM_WG6", f="SDOM_FT4"},
-  SDOM_WG7 = { t="SDOM_WG7", f="SDOM_FG1"},
-  SDOM_WG8 = { t="SDOM_WG8", f="SDOM_FG2"},
   -- dark green
   SDSLDWL1 = { t="SDSLDWL1", f="SDSLDFT1"},
   SDSLDWL2 = { t="SDSLDWL2", f="SDSLDFT2"},
@@ -106,23 +55,23 @@ OBS_RESOURCE_PACK_GENAI_MATERIALS =
   SDSLDCL8 = { t="SDSLDWLC", f="SDSLDCL8"},
 
   -- computers 256px
-  SDMSRCP1 = { t="SDMSRCP1", f="SDOM_FT1"},
-  SDMSRCP2 = { t="SDMSRCP2", f="SDOM_FT4"},
-  SDMSRCP3 = { t="SDMSRCP3", f="SDOM_FT6"},
+  SDMSRCP1 = { t="SDMSRCP1", f="G_OM_FT1"},
+  SDMSRCP2 = { t="SDMSRCP2", f="G_OM_FT4"},
+  SDMSRCP3 = { t="SDMSRCP3", f="G_OM_FT6"},
   -- flats
-  SDOM_FT1 = { t="SDOM_WL1", f="SDOM_FT1"},
-  SDOM_FT2 = { t="SDOM_WL2", f="SDOM_FT2"},
-  SDOM_FT3 = { t="SDOM_WL3", f="SDOM_FT3"},
-  SDOM_FT4 = { t="SDOM_WL4", f="SDOM_FT4"},
-  SDOM_FT5 = { t="SDOM_WL3", f="SDOM_FT5"},
-  SDOM_FT6 = { t="SDOM_WL2", f="SDOM_FT6"},
-  SDOM_FT7 = { t="SDOM_WL1", f="SDOM_FT7"},
-  SDOM_FT8 = { t="SDOM_WL4", f="SDOM_FT8"},
-  SDOM_FT9 = { t="SDOM_WL2", f="SDOM_FT9"},
-  SDOM_FTA = { t="SDOM_WL3", f="SDOM_FTA"},
+  G_OM_FT1 = { t="G_OM_WL1", f="G_OM_FT1"},
+  G_OM_FT2 = { t="G_OM_WL2", f="G_OM_FT2"},
+  G_OM_FT3 = { t="G_OM_WL3", f="G_OM_FT3"},
+  G_OM_FT4 = { t="G_OM_WL4", f="G_OM_FT4"},
+  G_OM_FT5 = { t="G_OM_WL3", f="G_OM_FT5"},
+  G_OM_FT6 = { t="G_OM_WL2", f="G_OM_FT6"},
+  G_OM_FT7 = { t="G_OM_WL1", f="G_OM_FT7"},
+  G_OM_FT8 = { t="G_OM_WL4", f="G_OM_FT8"},
+  G_OM_FT9 = { t="G_OM_WL2", f="G_OM_FT9"},
+  G_OM_FTA = { t="G_OM_WL3", f="G_OM_FTA"},
   -- flats: green
-  SDOM_FG1 = { t="SDOM_WG1", f="SDOM_FG1"},
-  SDOM_FG2 = { t="SDOM_WG2", f="SDOM_FG2"},
+  G_OM_FG1 = { t="G_OM_WG1", f="G_OM_FG1"},
+  G_OM_FG2 = { t="G_OM_WG2", f="G_OM_FG2"},
 
   -- shipping containers with optional meme
   SDM_CTR1 = { t="SDM_CTR1", f="SDMCTRF1"},
@@ -139,12 +88,12 @@ OBS_RESOURCE_PACK_GENAI_MATERIALS =
   SD_GTHW4 = { t="SD_GTHW4", f="SD_GTHF4"},
   SD_GTHW5 = { t="SD_GTHW5", f="SD_GTHF5"},
   SD_GTHW6 = { t="SD_GTHW6", f="SD_GTHF6"},
-  SD_GTHW7 = { t="SD_GTHW7", f="SDOM_FT1"},
-  SD_GTHW8 = { t="SD_GTHW8", f="SDOM_FT3"},
+  SD_GTHW7 = { t="SD_GTHW7", f="G_OM_FT1"},
+  SD_GTHW8 = { t="SD_GTHW8", f="G_OM_FT3"},
   SD_GTHW9 = { t="SD_GTHW9", f="SD_GTHF4"},
   SD_GTHWA = { t="SD_GTHWA", f="SD_GTHF5"},
-  SD_GTHWB = { t="SD_GTHWB", f="SDOM_FT9"},
-  SD_GTHWC = { t="SD_GTHWC", f="SDOM_FTA"},
+  SD_GTHWB = { t="SD_GTHWB", f="G_OM_FT9"},
+  SD_GTHWC = { t="SD_GTHWC", f="G_OM_FTA"},
   -- flats
   SD_GTHF1 = { t="SD_GTHW1", f="SD_GTHF1"},
   SD_GTHF2 = { t="SD_GTHW2", f="SD_GTHF2"},
@@ -155,7 +104,7 @@ OBS_RESOURCE_PACK_GENAI_MATERIALS =
   SD_GTHF7 = { t="SD_GTHWB", f="SD_GTHF7"},
   SD_GTHF8 = { t="SD_GTHWC", f="SD_GTHF8"},
   -- switches
-  SDGTHSW1 = { t="SDGTHSW1", f="SD_GTHF1"}, 
+  SDGTHSW1 = { t="SDGTHSW1", f="SD_GTHF1"},
   -- light pillars, 64px
   SD_GTLW1 = { t="SD_GTLW1", f="SD_GTHF1"},
   SD_GTLW2 = { t="SD_GTLW2", f="SD_GTHF2"},
@@ -242,34 +191,6 @@ OBS_RESOURCE_PACK_GENAI_MATERIALS =
   SD_TSGFA = { t="SD_TSGWA", f="SD_TSGFA"},
   SD_TSGFB = { t="SD_TSGWB", f="SD_TSGFB"},
   SD_TSGFC = { t="SD_TSGWC", f="SD_TSGFC"},
-
-  -- bumblebee tech
-  SD_TBBW1 = { t="SD_TBBW1", f="SD_TSGFC"},
-  SD_TBBW2 = { t="SD_TBBW2", f="SD_TSGFB"},
-  SD_TBBW3 = { t="SD_TBBW3", f="SD_TSGFA"},
-  SD_TBBW4 = { t="SD_TBBW4", f="SD_TSGF9"},
-  SD_TBBW5 = { t="SD_TBBW5", f="SD_TSGF8"},
-  SD_TBBW6 = { t="SD_TBBW6", f="SD_TSGF7"},
-  SD_TBBW7 = { t="SD_TBBW7", f="SD_TSGF6"},
-  SD_TBBW8 = { t="SD_TBBW8", f="SD_TSGF5"},
-  SD_TBBW9 = { t="SD_TBBW9", f="SD_TSGF4"},
-  SD_TBBWA = { t="SD_TBBWA", f="SD_TSGF3"},
-  SD_TBBWB = { t="SD_TBBWB", f="SD_TSGF2"},
-  SD_TBBWC = { t="SD_TBBWC", f="SD_TSGF1"},
-  -- floors
-  SD_TBBF1 = { t="SD_TBBW1", f="SD_TBBF1"},
-  SD_TBBF2 = { t="SD_TBBW2", f="SD_TBBF2"},
-  SD_TBBF3 = { t="SD_TBBW3", f="SD_TBBF3"},
-  SD_TBBF4 = { t="SD_TBBW4", f="SD_TBBF4"},
-  SD_TBBF5 = { t="SD_TBBW5", f="SD_TBBF5"},
-  SD_TBBF6 = { t="SD_TBBW6", f="SD_TBBF6"},
-  SD_TBBF7 = { t="SD_TBBW7", f="SD_TBBF7"},
-  SD_TBBF8 = { t="SD_TBBW8", f="SD_TBBF8"},
-  SD_TBBF9 = { t="SD_TBBW9", f="SD_TBBF9"},
-  SD_TBBFA = { t="SD_TBBWA", f="SD_TBBFA"},
-  SD_TBBFB = { t="SD_TBBWB", f="SD_TBBFB"},
-  SD_TBBFC = { t="SD_TBBWC", f="SD_TBBFC"},
-  SD_TBBFD = { t="SD_TBBW6", f="SD_TBBFD"},
 
   -- bumblebee beige
   -- walls
@@ -526,29 +447,6 @@ OBS_RESOURCE_PACK_GENAI_MATERIALS =
   S_W2WFR7 = {t="S_W2WALC", f="S_W2WFR1"},
   S_W2WFR8 = {t="S_W2WALE", f="S_W2WFR1"},
 
-  -- iStuff theme
-  -- walls
-  SDIPHWL1 = {t="SDIPHWL1", f="SDIPHFT1"},
-  SDIPHWL2 = {t="SDIPHWL2", f="SDIPHFT1"},
-  SDIPHWL3 = {t="SDIPHWL3", f="SDIPHFT2"},
-  SDIPHWL4 = {t="SDIPHWL4", f="SDIPHFT2"},
-  SDIPHWL5 = {t="SDIPHWL5", f="SDIPHFT3"},
-  SDIPHWL6 = {t="SDIPHWL6", f="SDIPHFT4"},
-  SDIPHWL7 = {t="SDIPHWL7", f="SDIPHFT4"},
-  SDIPHWL8 = {t="SDIPHWL8", f="SDIPHFT5"},
-  SDIPHWL9 = {t="SDIPHWL9", f="SDIPHFT6"},
-  SDIPHWLA = {t="SDIPHWLA", f="SDIPHFT6"},
-  SDIPHWLB = {t="SDIPHWLB", f="SDIPHFT7"},
-  SDIPHWLC = {t="SDIPHWLC", f="SDIPHFT7"},
-  -- flats
-  SDIPHFT1 = {t="SDIPHWL1", f="SDIPHFT1"},
-  SDIPHFT2 = {t="SDIPHWL2", f="SDIPHFT2"},
-  SDIPHFT3 = {t="SDIPHWL3", f="SDIPHFT3"},
-  SDIPHFT4 = {t="SDIPHWL4", f="SDIPHFT4"},
-  SDIPHFT5 = {t="SDIPHWL5", f="SDIPHFT5"},
-  SDIPHFT6 = {t="SDIPHWL6", f="SDIPHFT6"},
-  SDIPHFT7 = {t="SDIPHWL7", f="SDIPHFT7"},
-
   -- bunker theme
   SDTBNKW1 = {t="SDTBNKW1", f="FLAT18"},
   SDTBNKW2 = {t="SDTBNKW2", f="FLAT19"},
@@ -568,122 +466,6 @@ OBS_RESOURCE_PACK_GENAI_MATERIALS =
 
 OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
 {
--- START OF HALLWAY THEMES
-
-
-  any_copperRust =
-  {
-    env = "building",
-    prob = 40,
-
-    walls =
-    {
-      SD_CURW1 = 25,
-      SD_CURW2 = 25,
-      SD_CURW3 = 25,
-      SD_CURW4 = 25,
-      SD_CURW5 = 25,
-      SD_CURW6 = 25,
-      SD_CURW7 = 25,
-      SD_CURW8 = 25,
-      SD_CURW9 = 25,
-      SD_CURWA = 25,
-      SD_CURWB = 25,
-      SD_CURWC = 25,
-      SD_CURWD = 25,
-
-      G8_BRNW1 = 10,
-      G8_BRNW2 = 10,
-      G8_BRNW3 = 10,
-
-      BRIKS31 = 10,
-      BRONZE5 = 10,
-      BRONZE6 = 10,
-
-      CEM11 = 10,
-
-      BRONZE1 = 6,
-      BRONZE2 = 6,
-      BRONZE3 = 6,
-      BROWN96 = 6,
-      SPACEW4 = 4,
-    },
-    floors =
-    {
-      SD_CURF1 = 25,
-      SD_CURF2 = 25,
-      SD_CURF3 = 25,
-      SD_CURF4 = 25,
-      SD_CURF5 = 25,
-      SD_CURF6 = 25,
-      SD_CURF7 = 25,
-      SD_CURF8 = 25,
-      SD_CURF9 = 25,
-      SD_CURFA = 25,
-      SD_CURFB = 25,
-      SD_CURFC = 25,
-
-      G8_BRNF1 = 10,
-      G8_BRNF2 = 10,
-      G8_BRNF3 = 10,
-
-      DARKF03 = 6,
-      DARKM01 = 6,
-      GMET01 = 6,
-      GMET02 = 6,
-      GMET03 = 6,
-      GMET04 = 6,
-      GMET05 = 6,
-      GMET06 = 6,
-
-      FLOOR0_1 = 3,
-      FLOOR0_2 = 3,
-      FLOOR3_3 = 3,
-      FLOOR4_1 = 3,
-      FLOOR4_5 = 3,
-      FLOOR4_6 = 3,
-      FLOOR5_3 = 3,
-      SLIME16 = 3
-    },
-    ceilings =
-    {
-      SD_CURF1 = 25,
-      SD_CURF2 = 25,
-      SD_CURF3 = 25,
-      SD_CURF4 = 25,
-      SD_CURF5 = 25,
-      SD_CURF6 = 25,
-      SD_CURF7 = 25,
-      SD_CURF8 = 25,
-      SD_CURF9 = 25,
-      SD_CURFA = 25,
-      SD_CURFB = 25,
-      SD_CURFC = 25,
-
-      G8_BRNF1 = 10,
-      G8_BRNF2 = 10,
-      G8_BRNF3 = 10,
-
-      DARKF03 = 6,
-      DARKM01 = 6,
-      GMET01 = 6,
-      GMET02 = 6,
-      GMET03 = 6,
-      GMET04 = 6,
-      GMET05 = 6,
-      GMET06 = 6,
-      
-      FLOOR0_1 = 3,
-      FLOOR0_2 = 3,
-      FLOOR3_3 = 3,
-      FLOOR4_1 = 3,
-      FLOOR4_5 = 3,
-      FLOOR4_6 = 3,
-      FLOOR5_3 = 3,
-      SLIME16 = 3
-    }
-  },
-
 -- START OF TECH THEMES
   tech_AITextures = --50
   {
@@ -694,30 +476,6 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
 
     walls =
     {
-      SDOM_WL1 = 5,
-      SDOM_WL2 = 5,
-      SDOM_WL3 = 5,
-      SDOM_WL4 = 5,
-      SDOM_WL5 = 5,
-      SDOM_WL6 = 5,
-      SDOM_WL7 = 5,
-      SDOM_WL8 = 5,
-      SDOM_WL9 = 5,
-      SDOM_WLA = 5,
-      SDOM_WLB = 5,
-      SDOM_WLC = 5,
-      SDOM_WLD = 5,
-      SDOM_WLE = 5,
-
-      SDOM_WG1 = 5,
-      SDOM_WG2 = 5,
-      SDOM_WG3 = 5,
-      SDOM_WG4 = 5,
-      SDOM_WG5 = 5,
-      SDOM_WG6 = 5,
-      SDOM_WG7 = 5,
-      SDOM_WG8 = 5,
-
       SD_GTHW1 = 2,
       SD_GTHW2 = 2,
       SD_GTHW3 = 2,
@@ -746,18 +504,17 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       S_W2WALD = 2,
       S_W2WALE = 2,
 
-      SDIPHWL1 = 4,
-      SDIPHWL2 = 4,
-      SDIPHWL3 = 4,
-      SDIPHWL4 = 4,
-      SDIPHWL5 = 4,
-      SDIPHWL6 = 4,
-      SDIPHWL7 = 4,
-      SDIPHWL8 = 4,
-      SDIPHWL9 = 4,
-      SDIPHWLA = 4,
-      SDIPHWLB = 4,
-      SDIPHWLC = 4
+      G_IPHWL1 = 4,
+      G_IPHWL2 = 4,
+      G_IPHWL3 = 4,
+      G_IPHWL4 = 4,
+      G_IPHWL5 = 4,
+      G_IPHWL6 = 4,
+      G_IPHWL7 = 4,
+      G_IPHWL8 = 4,
+      G_IPHWL9 = 4,
+      G_IPHWLA = 4,
+      G_IPHWLB = 4
     },
 
     floors =
@@ -777,18 +534,18 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       GRATE7 = 2,
       GRATE8 = 2,
 
-      SDOM_FG1 = 5,
-      SDOM_FG2 = 5,
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT8 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5,
+      G_OM_FG1 = 5,
+      G_OM_FG2 = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT8 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5,
 
       SD_GTHF1 = 1,
       SD_GTHF2 = 1,
@@ -799,13 +556,14 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       SD_GTHF7 = 1,
       SD_GTHF8 = 1,
 
-      SDIPHFT1 = 4,
-      SDIPHFT2 = 4,
-      SDIPHFT3 = 4,
-      SDIPHFT4 = 4,
-      SDIPHFT5 = 4,
-      SDIPHFT6 = 4,
-      SDIPHFT7 = 4
+      G_IPHFT1 = 4,
+      G_IPHFT2 = 4,
+      G_IPHFT3 = 4,
+      G_IPHFT4 = 4,
+      G_IPHFT5 = 4,
+      G_IPHFT6 = 4,
+      G_IPHFT7 = 4,
+      G_IPHFT8 = 4
     },
 
     ceilings =
@@ -816,26 +574,26 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       FLAT3 = 10,
       FLAT19 = 10,
 
-      SDOM_FG1 = 5,
-      SDOM_FG2 = 5,
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT8 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5,
+      G_OM_FG1 = 5,
+      G_OM_FG2 = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT8 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5,
 
-      SDIPHFT1 = 4,
-      SDIPHFT2 = 4,
-      SDIPHFT3 = 4,
-      SDIPHFT4 = 4,
-      SDIPHFT5 = 4,
-      SDIPHFT6 = 4,
-      SDIPHFT7 = 4
+      G_IPHFT1 = 4,
+      G_IPHFT2 = 4,
+      G_IPHFT3 = 4,
+      G_IPHFT4 = 4,
+      G_IPHFT5 = 4,
+      G_IPHFT6 = 4,
+      G_IPHFT7 = 4
     }
   },
 
@@ -879,18 +637,18 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       GRATE7 = 2,
       GRATE8 = 2,
 
-      SDOM_FG1 = 5,
-      SDOM_FG2 = 5,
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT8 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5,
+      G_OM_FG1 = 5,
+      G_OM_FG2 = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT8 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5,
 
       SD_GTHF1 = 18,
       SD_GTHF2 = 18,
@@ -910,18 +668,18 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       FLAT3 = 10,
       FLAT19 = 10,
 
-      SDOM_FG1 = 5,
-      SDOM_FG2 = 5,
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT8 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5,
+      G_OM_FG1 = 5,
+      G_OM_FG2 = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT8 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5,
 
       SD_GTHF1 = 18,
       SD_GTHF2 = 18,
@@ -997,7 +755,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       SDSLDCL6 = 5,
       SDSLDCL7 = 5,
       SDSLDCL8 = 5,
-      
+
       FLOOR7_2 = 1,
       SLIME13 = 1,
       SLIME14 = 1,
@@ -1206,10 +964,10 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       OBTSVBF2 = 5,
       OBTSVBF3 = 5,
 
-      SDOM_FT1 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5
+      G_OM_FT1 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5
     },
 
     ceilings =
@@ -1266,10 +1024,10 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       OBTSVBF2 = 5,
       OBTSVBF3 = 5,
 
-      SDOM_FT1 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5
+      G_OM_FT1 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5
     }
   },
 
@@ -1417,15 +1175,15 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       GRATE6 = 6,
       SHINY04 = 6,
 
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5,
 
       OBTBSFL1 = 5,
       OBTBSFL2 = 5,
@@ -1454,135 +1212,15 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       GRATE6 = 6,
       SHINY04 = 6,
 
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5,
-
-      FLAT1 = 6,
-      FLAT18 = 6,
-      FLAT19 = 6,
-      FLAT3 = 6,
-      FLOOR0_3 = 6,
-      FLOOR0_5 = 6,
-      SLIME14 = 6
-    }
-  },
-
-  tech_bumblebee = --30
-  {
-    env = "building",
-    prob = 30,
-
-    is_generative = true,
-
-    walls =
-    {
-      SD_TBBW1 = 25,
-      SD_TBBW2 = 25,
-      SD_TBBW3 = 25,
-      SD_TBBW4 = 25,
-      SD_TBBW5 = 25,
-      SD_TBBW6 = 25,
-      SD_TBBW7 = 25,
-      SD_TBBW8 = 25,
-      SD_TBBW9 = 25,
-      SD_TBBWA = 25,
-      SD_TBBWB = 25,
-      SD_TBBWC = 25
-    },
-
-    floors =
-    {
-      SD_TBBF1 = 25,
-      SD_TBBF2 = 25,
-      SD_TBBF3 = 25,
-      SD_TBBF4 = 25,
-      SD_TBBF5 = 25,
-      SD_TBBF6 = 25,
-      SD_TBBF7 = 25,
-      SD_TBBF8 = 25,
-      SD_TBBF9 = 25,
-      SD_TBBFA = 25,
-      SD_TBBFB = 25,
-      SD_TBBFC = 25,
-      SD_TBBFD = 25,
-
-      SD_TSGF1 = 20,
-      SD_TSGF2 = 20,
-      SD_TSGF3 = 20,
-      SD_TSGF4 = 20,
-      SD_TSGF5 = 20,
-      SD_TSGF6 = 20,
-      SD_TSGF7 = 20,
-      SD_TSGF8 = 20,
-      SD_TSGF9 = 20,
-      SD_TSGFA = 20,
-      SD_TSGFB = 20,
-      SD_TSGFC = 20,
-
-      GRATE1 = 6,
-      GRATE6 = 6,
-      SHINY04 = 6,
-
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5
-    },
-
-    ceilings =
-    {
-      SD_TBBF1 = 25,
-      SD_TBBF2 = 25,
-      SD_TBBF3 = 25,
-      SD_TBBF4 = 25,
-      SD_TBBF5 = 25,
-      SD_TBBF6 = 25,
-      SD_TBBF7 = 25,
-      SD_TBBF8 = 25,
-      SD_TBBF9 = 25,
-      SD_TBBFA = 25,
-      SD_TBBFB = 25,
-      SD_TBBFC = 25,
-      SD_TBBFD = 25,
-
-      SD_TSGF1 = 20,
-      SD_TSGF2 = 20,
-      SD_TSGF3 = 20,
-      SD_TSGF4 = 20,
-      SD_TSGF5 = 20,
-      SD_TSGF6 = 20,
-      SD_TSGF7 = 20,
-      SD_TSGF8 = 20,
-      SD_TSGF9 = 20,
-      SD_TSGFA = 20,
-      SD_TSGFB = 20,
-      SD_TSGFC = 20,
-
-      GRATE1 = 6,
-      GRATE6 = 6,
-      SHINY04 = 6,
-
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5,
 
       FLAT1 = 6,
       FLAT18 = 6,
@@ -1742,7 +1380,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       S_W2WFR7 = 50,
       S_W2WFR8 = 50,
 
-      
+
       CEIL3_5 = 25,
       FLAT1 = 25,
       MFLR8_1 = 25,
@@ -1767,82 +1405,11 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
     }
   },
 
-  tech_iStuff = --30
-  {
-    env = "building",
-    prob = 30,
-
-    is_generative = true,
-
-    walls =
-    {
-      SDIPHWL1 = 20,
-      SDIPHWL2 = 20,
-      SDIPHWL3 = 20,
-      SDIPHWL4 = 20,
-      SDIPHWL5 = 20,
-      SDIPHWL6 = 20,
-      SDIPHWL7 = 20,
-      SDIPHWL8 = 20,
-      SDIPHWL9 = 20,
-      SDIPHWLA = 20,
-      SDIPHWLB = 20,
-      SDIPHWLC = 20,
-
-      BROWN2 = 5,
-      BROWN3 = 5,
-      BRIKS32 = 5,
-      CEM10 = 5,
-      GRAY6 = 5,
-      GRAY8 = 5,
-      GRAY9 = 5
-    },
-
-    floors =
-    {
-      SDIPHFT1 = 20,
-      SDIPHFT2 = 20,
-      SDIPHFT3 = 20,
-      SDIPHFT4 = 20,
-      SDIPHFT5 = 20,
-      SDIPHFT6 = 20,
-      SDIPHFT7 = 20,
-
-      SD_TSGF3 = 5,
-      SD_TSGF9 = 5,
-      SD_TSGFA = 5,
-      SD_TSGFC = 5,
-
-      FLAT18 = 4,
-      FLAT20 = 4,
-      FLAT3 = 4,
-      FLOOR0_5 = 4,
-      SLIME14 = 3
-    },
-
-    ceilings =
-    {
-      SDIPHFT1 = 20,
-      SDIPHFT2 = 20,
-      SDIPHFT3 = 20,
-      SDIPHFT4 = 20,
-      SDIPHFT5 = 20,
-      SDIPHFT6 = 20,
-      SDIPHFT7 = 20,
-
-      FLAT18 = 4,
-      FLAT20 = 4,
-      FLAT3 = 4,
-      FLOOR0_5 = 4,
-      SLIME14 = 3
-    }
-  },
-
   tech_bunker = --60
   {
     env = "building",
     prob = 60,
-  
+
     walls =
     {
       SDTBNKW1 = 5,
@@ -1889,17 +1456,17 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       OBTSVBF1 = 10,
       OBTSVBF2 = 10,
       OBTSVBF3 = 10,
-  
-      SDOM_FG1 = 10,
-      SDOM_FG2 = 10,
-      SDOM_FT1 = 10,
-      SDOM_FT2 = 10,
-      SDOM_FT3 = 10,
-      SDOM_FT4 = 10,
-      SDOM_FT5 = 10,
-      SDOM_FT8 = 10,
-      SDOM_FT9 = 10,
-      SDOM_FTA = 10
+
+      G_OM_FG1 = 10,
+      G_OM_FG2 = 10,
+      G_OM_FT1 = 10,
+      G_OM_FT2 = 10,
+      G_OM_FT3 = 10,
+      G_OM_FT4 = 10,
+      G_OM_FT5 = 10,
+      G_OM_FT8 = 10,
+      G_OM_FT9 = 10,
+      G_OM_FTA = 10
     },
 
     ceilings =
@@ -1934,17 +1501,17 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       OBTSVBF1 = 10,
       OBTSVBF2 = 10,
       OBTSVBF3 = 10,
-  
-      SDOM_FG1 = 10,
-      SDOM_FG2 = 10,
-      SDOM_FT1 = 10,
-      SDOM_FT2 = 10,
-      SDOM_FT3 = 10,
-      SDOM_FT4 = 10,
-      SDOM_FT5 = 10,
-      SDOM_FT8 = 10,
-      SDOM_FT9 = 10,
-      SDOM_FTA = 10
+
+      G_OM_FG1 = 10,
+      G_OM_FG2 = 10,
+      G_OM_FT1 = 10,
+      G_OM_FT2 = 10,
+      G_OM_FT3 = 10,
+      G_OM_FT4 = 10,
+      G_OM_FT5 = 10,
+      G_OM_FT8 = 10,
+      G_OM_FT9 = 10,
+      G_OM_FTA = 10
     }
   },
 
@@ -2006,7 +1573,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       MEM01 = 5,
       QFLAT06 = 5,
       QFLAT09 = 5,
-      
+
       FLAT3 = 5,
       FLOOR0_3 = 5,
       FLOOR0_5 = 5,
@@ -2047,7 +1614,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       MEM01 = 5,
       QFLAT06 = 5,
       QFLAT09 = 5,
-      
+
       FLAT3 = 5,
       FLOOR0_3 = 5,
       FLOOR0_5 = 5,
@@ -2063,19 +1630,19 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
 
     floors =
     {
-      SDOM_FT1 = 17,
-      SDOM_FT2 = 17,
-      SDOM_FT3 = 17,
-      SDOM_FT4 = 17,
-      SDOM_FT5 = 17,
-      SDOM_FT6 = 17,
-      SDOM_FT7 = 17,
-      SDOM_FT8 = 17,
-      SDOM_FT9 = 17,
-      SDOM_FTA = 17,
+      G_OM_FT1 = 17,
+      G_OM_FT2 = 17,
+      G_OM_FT3 = 17,
+      G_OM_FT4 = 17,
+      G_OM_FT5 = 17,
+      G_OM_FT6 = 17,
+      G_OM_FT7 = 17,
+      G_OM_FT8 = 17,
+      G_OM_FT9 = 17,
+      G_OM_FTA = 17,
 
-      SDOM_FG1 = 25,
-      SDOM_FG2 = 25,
+      G_OM_FG1 = 25,
+      G_OM_FG2 = 25,
 
       SDSLDFT1 = 12,
       SDSLDFT2 = 12,
@@ -2095,11 +1662,11 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       SD_TSGFB = 15,
       SD_TSGFC = 15,
 
-      SD_TBBF4 = 15,
-      SD_TBBF5 = 15,
-      SD_TBBF7 = 15,
-      SD_TBBFA = 15,
-      SD_TBBFD = 15,
+      G_OTBBF4 = 15,
+      G_OTBBF5 = 15,
+      G_OTBBF7 = 15,
+      G_OTBBFA = 15,
+      G_OTBBFD = 15,
 
       --
 
@@ -2112,22 +1679,22 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       S_W2WFR7 = 15,
       S_W2WFR8 = 15
     },
-  
+
     porch_floors =
     {
-      SDOM_FT1 = 17,
-      SDOM_FT2 = 17,
-      SDOM_FT3 = 17,
-      SDOM_FT4 = 17,
-      SDOM_FT5 = 17,
-      SDOM_FT6 = 17,
-      SDOM_FT7 = 17,
-      SDOM_FT8 = 17,
-      SDOM_FT9 = 17,
-      SDOM_FTA = 17,
+      G_OM_FT1 = 17,
+      G_OM_FT2 = 17,
+      G_OM_FT3 = 17,
+      G_OM_FT4 = 17,
+      G_OM_FT5 = 17,
+      G_OM_FT6 = 17,
+      G_OM_FT7 = 17,
+      G_OM_FT8 = 17,
+      G_OM_FT9 = 17,
+      G_OM_FTA = 17,
 
-      SDOM_FG1 = 20,
-      SDOM_FG2 = 20,
+      G_OM_FG1 = 20,
+      G_OM_FG2 = 20,
 
       SDSLDFT1 = 12,
       SDSLDFT2 = 12,
@@ -2149,19 +1716,19 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       SD_TSGFB = 15,
       SD_TSGFC = 15,
 
-      SD_TBBF1 = 12,
-      SD_TBBF2 = 12,
-      SD_TBBF3 = 12,
-      SD_TBBF4 = 12,
-      SD_TBBF5 = 12,
-      SD_TBBF6 = 12,
-      SD_TBBF7 = 12,
-      SD_TBBF8 = 12,
-      SD_TBBF9 = 12,
-      SD_TBBFA = 12,
-      SD_TBBFB = 12,
-      SD_TBBFC = 12,
-      SD_TBBFD = 12,
+      G_OTBBF1 = 12,
+      G_OTBBF2 = 12,
+      G_OTBBF3 = 12,
+      G_OTBBF4 = 12,
+      G_OTBBF5 = 12,
+      G_OTBBF6 = 12,
+      G_OTBBF7 = 12,
+      G_OTBBF8 = 12,
+      G_OTBBF9 = 12,
+      G_OTBBFA = 12,
+      G_OTBBFB = 12,
+      G_OTBBFC = 12,
+      G_OTBBFD = 12,
 
       --
 
@@ -2850,7 +2417,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       TILES1 = 6,
       TILES4 = 6,
       TILES5 = 6,
-      TILES6 = 6     
+      TILES6 = 6
     },
 
     ceilings =
@@ -3198,7 +2765,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       SD_HCCF7 = 25,
       SD_HCCF8 = 25,
 
-      
+
       FLAT18 = 3,
       FLAT3 = 3,
       FLAT5_4 = 3,
@@ -3276,7 +2843,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       MEM01 = 5,
       QFLAT06 = 5,
       QFLAT09 = 5,
-      
+
       FLAT3 = 5,
       FLOOR0_3 = 5,
       FLOOR0_5 = 5,
@@ -3317,7 +2884,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       MEM01 = 5,
       QFLAT06 = 5,
       QFLAT09 = 5,
-      
+
       FLAT3 = 5,
       FLOOR0_3 = 5,
       FLOOR0_5 = 5,
@@ -3399,29 +2966,29 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       URBAN7 = 25,
       URBAN8 = 25,
 
-      SDOM_WL1 = 22,
-      SDOM_WL2 = 22,
-      SDOM_WL3 = 22,
-      SDOM_WL4 = 22,
-      SDOM_WL5 = 22,
-      SDOM_WL6 = 22,
-      SDOM_WL7 = 22,
-      SDOM_WL8 = 22,
-      SDOM_WL9 = 22,
-      SDOM_WLA = 22,
-      SDOM_WLB = 22,
-      SDOM_WLC = 22,
-      SDOM_WLD = 22,
-      SDOM_WLE = 22,
+      G_OM_WL1 = 22,
+      G_OM_WL2 = 22,
+      G_OM_WL3 = 22,
+      G_OM_WL4 = 22,
+      G_OM_WL5 = 22,
+      G_OM_WL6 = 22,
+      G_OM_WL7 = 22,
+      G_OM_WL8 = 22,
+      G_OM_WL9 = 22,
+      G_OM_WLA = 22,
+      G_OM_WLB = 22,
+      G_OM_WLC = 22,
+      G_OM_WLD = 22,
+      G_OM_WLE = 22,
 
-      SDOM_WG1 = 25,
-      SDOM_WG2 = 25,
-      SDOM_WG3 = 25,
-      SDOM_WG4 = 25,
-      SDOM_WG5 = 25,
-      SDOM_WG6 = 25,
-      SDOM_WG7 = 25,
-      SDOM_WG8 = 25
+      G_OM_WG1 = 25,
+      G_OM_WG2 = 25,
+      G_OM_WG3 = 25,
+      G_OM_WG4 = 25,
+      G_OM_WG5 = 25,
+      G_OM_WG6 = 25,
+      G_OM_WG7 = 25,
+      G_OM_WG8 = 25
     },
 
     floors =
@@ -3536,7 +3103,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       SDSLDCL6 = 5,
       SDSLDCL7 = 5,
       SDSLDCL8 = 5,
-      
+
       FLOOR7_2 = 1,
       SLIME13 = 1,
       SLIME14 = 1,
@@ -3636,10 +3203,10 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       OBTSVBF2 = 5,
       OBTSVBF3 = 5,
 
-      SDOM_FT1 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5
+      G_OM_FT1 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5
     },
 
     ceilings =
@@ -3696,10 +3263,10 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       OBTSVBF2 = 5,
       OBTSVBF3 = 5,
 
-      SDOM_FT1 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5
+      G_OM_FT1 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5
     }
   },
 
@@ -3841,15 +3408,15 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       GRATE6 = 6,
       SHINY04 = 6,
 
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5
     },
 
     ceilings =
@@ -3865,15 +3432,15 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       GRATE6 = 6,
       SHINY04 = 6,
 
-      SDOM_FT1 = 5,
-      SDOM_FT2 = 5,
-      SDOM_FT3 = 5,
-      SDOM_FT4 = 5,
-      SDOM_FT5 = 5,
-      SDOM_FT6 = 5,
-      SDOM_FT7 = 5,
-      SDOM_FT9 = 5,
-      SDOM_FTA = 5,
+      G_OM_FT1 = 5,
+      G_OM_FT2 = 5,
+      G_OM_FT3 = 5,
+      G_OM_FT4 = 5,
+      G_OM_FT5 = 5,
+      G_OM_FT6 = 5,
+      G_OM_FT7 = 5,
+      G_OM_FT9 = 5,
+      G_OM_FTA = 5,
 
       FLAT1 = 6,
       FLAT18 = 6,
@@ -3943,7 +3510,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       TILES1 = 6,
       TILES4 = 6,
       TILES5 = 6,
-      TILES6 = 6     
+      TILES6 = 6
     },
 
     ceilings =
@@ -4413,7 +3980,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       SD_HCCF7 = 25,
       SD_HCCF8 = 25,
 
-      
+
       FLAT18 = 3,
       FLAT3 = 3,
       FLAT5_4 = 3,
@@ -4430,77 +3997,6 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       SDM_HGF1 = 8,
       SDM_HGF2 = 8,
       SDM_HGF3 = 8,
-    }
-  },
-
-  urban_iStuff = --20
-  {
-    env = "building",
-    prob = 20,
-
-    is_generative = true,
-
-    walls =
-    {
-      SDIPHWL1 = 20,
-      SDIPHWL2 = 20,
-      SDIPHWL3 = 20,
-      SDIPHWL4 = 20,
-      SDIPHWL5 = 20,
-      SDIPHWL6 = 20,
-      SDIPHWL7 = 20,
-      SDIPHWL8 = 20,
-      SDIPHWL9 = 20,
-      SDIPHWLA = 20,
-      SDIPHWLB = 20,
-      SDIPHWLC = 20,
-
-      BROWN2 = 5,
-      BROWN3 = 5,
-      BRIKS32 = 5,
-      CEM10 = 5,
-      GRAY6 = 5,
-      GRAY8 = 5,
-      GRAY9 = 5
-    },
-
-    floors =
-    {
-      SDIPHFT1 = 20,
-      SDIPHFT2 = 20,
-      SDIPHFT3 = 20,
-      SDIPHFT4 = 20,
-      SDIPHFT5 = 20,
-      SDIPHFT6 = 20,
-      SDIPHFT7 = 20,
-
-      SD_TSGF3 = 5,
-      SD_TSGF9 = 5,
-      SD_TSGFA = 5,
-      SD_TSGFC = 5,
-
-      FLAT18 = 4,
-      FLAT20 = 4,
-      FLAT3 = 4,
-      FLOOR0_5 = 4,
-      SLIME14 = 3
-    },
-
-    ceilings =
-    {
-      SDIPHFT1 = 20,
-      SDIPHFT2 = 20,
-      SDIPHFT3 = 20,
-      SDIPHFT4 = 20,
-      SDIPHFT5 = 20,
-      SDIPHFT6 = 20,
-      SDIPHFT7 = 20,
-
-      FLAT18 = 4,
-      FLAT20 = 4,
-      FLAT3 = 4,
-      FLOOR0_5 = 4,
-      SLIME14 = 3
     }
   },
 
@@ -4586,7 +4082,7 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
   {
     env = "building",
     prob = 40,
-  
+
     walls =
     {
       SDTBNKW1 = 5,
@@ -4633,17 +4129,17 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       OBTSVBF1 = 10,
       OBTSVBF2 = 10,
       OBTSVBF3 = 10,
-  
-      SDOM_FG1 = 10,
-      SDOM_FG2 = 10,
-      SDOM_FT1 = 10,
-      SDOM_FT2 = 10,
-      SDOM_FT3 = 10,
-      SDOM_FT4 = 10,
-      SDOM_FT5 = 10,
-      SDOM_FT8 = 10,
-      SDOM_FT9 = 10,
-      SDOM_FTA = 10
+
+      G_OM_FG1 = 10,
+      G_OM_FG2 = 10,
+      G_OM_FT1 = 10,
+      G_OM_FT2 = 10,
+      G_OM_FT3 = 10,
+      G_OM_FT4 = 10,
+      G_OM_FT5 = 10,
+      G_OM_FT8 = 10,
+      G_OM_FT9 = 10,
+      G_OM_FTA = 10
     },
 
     ceilings =
@@ -4678,17 +4174,17 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       OBTSVBF1 = 10,
       OBTSVBF2 = 10,
       OBTSVBF3 = 10,
-  
-      SDOM_FG1 = 10,
-      SDOM_FG2 = 10,
-      SDOM_FT1 = 10,
-      SDOM_FT2 = 10,
-      SDOM_FT3 = 10,
-      SDOM_FT4 = 10,
-      SDOM_FT5 = 10,
-      SDOM_FT8 = 10,
-      SDOM_FT9 = 10,
-      SDOM_FTA = 10
+
+      G_OM_FG1 = 10,
+      G_OM_FG2 = 10,
+      G_OM_FT1 = 10,
+      G_OM_FT2 = 10,
+      G_OM_FT3 = 10,
+      G_OM_FT4 = 10,
+      G_OM_FT5 = 10,
+      G_OM_FT8 = 10,
+      G_OM_FT9 = 10,
+      G_OM_FTA = 10
     }
   },
 
@@ -4708,17 +4204,17 @@ OBS_RESOURCE_PACK_GENAI_ROOM_THEMES =
       S_W2WFR7 = 7,
       S_W2WFR8 = 7,
 
-      SDOM_FT1 = 7,
-      SDOM_FT2 = 7,
-      SDOM_FT3 = 7,
-      SDOM_FT4 = 7,
-      SDOM_FT5 = 7,
-      SDOM_FT6 = 7,
-      SDOM_FT9 = 7,
-      SDOM_FTA = 7,
+      G_OM_FT1 = 7,
+      G_OM_FT2 = 7,
+      G_OM_FT3 = 7,
+      G_OM_FT4 = 7,
+      G_OM_FT5 = 7,
+      G_OM_FT6 = 7,
+      G_OM_FT9 = 7,
+      G_OM_FTA = 7,
 
-      SDOM_FG1 = 10,
-      SDOM_FG2 = 10
+      G_OM_FG1 = 10,
+      G_OM_FG2 = 10
     }
   },
 -- END OF THEMES TABLES
@@ -4730,30 +4226,29 @@ OBS_RESOURCE_PACK_GENAI_THEMES =
   {
     facades =
     {
+      G_OM_WL1 = 22,
+      G_OM_WL2 = 22,
+      G_OM_WL3 = 22,
+      G_OM_WL4 = 22,
+      G_OM_WL5 = 22,
+      G_OM_WL6 = 22,
+      G_OM_WL7 = 22,
+      G_OM_WL8 = 22,
+      G_OM_WL9 = 22,
+      G_OM_WLA = 22,
+      G_OM_WLB = 22,
+      G_OM_WLC = 22,
+      G_OM_WLD = 22,
+      G_OM_WLE = 22,
 
-      SDOM_WL1 = 22,
-      SDOM_WL2 = 22,
-      SDOM_WL3 = 22,
-      SDOM_WL4 = 22,
-      SDOM_WL5 = 22,
-      SDOM_WL6 = 22,
-      SDOM_WL7 = 22,
-      SDOM_WL8 = 22,
-      SDOM_WL9 = 22,
-      SDOM_WLA = 22,
-      SDOM_WLB = 22,
-      SDOM_WLC = 22,
-      SDOM_WLD = 22,
-      SDOM_WLE = 22,
-
-      SDOM_WG1 = 25,
-      SDOM_WG2 = 25,
-      SDOM_WG3 = 25,
-      SDOM_WG4 = 25,
-      SDOM_WG5 = 25,
-      SDOM_WG6 = 25,
-      SDOM_WG7 = 25,
-      SDOM_WG8 = 25,
+      G_OM_WG1 = 25,
+      G_OM_WG2 = 25,
+      G_OM_WG3 = 25,
+      G_OM_WG4 = 25,
+      G_OM_WG5 = 25,
+      G_OM_WG6 = 25,
+      G_OM_WG7 = 25,
+      G_OM_WG8 = 25,
 
       SDSLDWL1 = 15,
       SDSLDWL2 = 15,
@@ -4804,15 +4299,15 @@ OBS_RESOURCE_PACK_GENAI_THEMES =
       SD_TSGWC = 20,
       SD_TSGWD = 20,
 
-      SD_TBBW1 = 20,
-      SD_TBBW2 = 20,
-      SD_TBBW3 = 20,
-      SD_TBBW5 = 20,
-      SD_TBBW6 = 20,
-      SD_TBBW7 = 20,
-      SD_TBBW9 = 20,
-      SD_TBBWB = 20,
-      SD_TBBWC = 20,
+      G_OTBBW1 = 20,
+      G_OTBBW2 = 20,
+      G_OTBBW3 = 20,
+      G_OTBBW5 = 20,
+      G_OTBBW6 = 20,
+      G_OTBBW7 = 20,
+      G_OTBBW9 = 20,
+      G_OTBBWB = 20,
+      G_OTBBWC = 20,
 
       S_W2WAL1 = 20,
       S_W2WAL2 = 20,
@@ -4860,14 +4355,23 @@ OBS_RESOURCE_PACK_GENAI_THEMES =
   {
     facades =
     {
-      SDOM_WL4 = 25,
+      G_OM_WL4 = 25,
 
-      SDOM_WL1 = 18,
-      SDOM_WL3 = 18,
-      SDOM_WLB = 18,
-      SDOM_WLC = 18,
-      SDOM_WLD = 18,
-      SDOM_WLE = 18,
+      G_OM_WL1 = 18,
+      G_OM_WL3 = 18,
+      G_OM_WLB = 18,
+      G_OM_WLC = 18,
+      G_OM_WLD = 18,
+      G_OM_WLE = 18,
+
+      G_OM_WG1 = 10,
+      G_OM_WG2 = 10,
+      G_OM_WG3 = 10,
+      G_OM_WG4 = 10,
+      G_OM_WG5 = 10,
+      G_OM_WG6 = 10,
+      G_OM_WG7 = 10,
+      G_OM_WG8 = 10,
 
       SD_TWDW1 = 8,
       SD_TWDW2 = 8,
@@ -4899,14 +4403,14 @@ OBS_RESOURCE_PACK_GENAI_THEMES =
 
     fences =
     {
-      SDOM_WL1 = 17,
-      SDOM_WL3 = 17,
-      SDOM_WL6 = 17,
-      SDOM_WL8 = 17,
-      SDOM_WLB = 17,
-      SDOM_WLC = 17,
-      SDOM_WLD = 17,
-      SDOM_WLE = 17
+      G_OM_WL1 = 17,
+      G_OM_WL3 = 17,
+      G_OM_WL6 = 17,
+      G_OM_WL8 = 17,
+      G_OM_WLB = 17,
+      G_OM_WLC = 17,
+      G_OM_WLD = 17,
+      G_OM_WLE = 17
     },
 
     wall_groups =
@@ -4924,7 +4428,7 @@ OBS_RESOURCE_PACK_GENAI_THEMES =
       gtd_AI_boiler_control_unit = 35,
       --
       gtd_AI_corpse_inset = 20,
-    }    
+    }
   },
 
   hell =

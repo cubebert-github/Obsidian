@@ -1,6 +1,5 @@
 ---
 --- Big ruins for the exterior
---- Note: The dummy sectors will need to be removed and converted when they are finalised in --- Obsidian.
 ---
 
 --This humble home and its progenitor belong to Caligari for Hell's mass 2021
@@ -96,7 +95,6 @@ PREFABS.Decor_dem_nature_ruins2 =
 
 }
 
-
 PREFABS.Decor_dem_nature_ruins3 =
 {
   template  = "Decor_dem_nature_ruins1",
@@ -104,14 +102,12 @@ PREFABS.Decor_dem_nature_ruins3 =
 
 }
 
-
 PREFABS.Decor_dem_nature_ruins4 =
 {
   template  = "Decor_dem_nature_ruins1",
   map    = "MAP04",
 
 }
-
 
 PREFABS.Decor_dem_nature_ruins5 =
 {

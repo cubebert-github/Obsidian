@@ -280,24 +280,31 @@ PREFABS.Item_secret_yard_closet4 =
 
 PREFABS.Item_secret_hanging_vent_closet =
 {
-  template = "Item_secret_yard_closet1",
-  map      = "MAP07",
+  file = "item/dem_secret_closets_urban.wad",
+  map = "MAP07",
+
+  theme = "urban",
+  env = "outdoor",
+  port = "zdoom",
 
   in_porches = "never",
   jump_crouch = false,
 
-  prob  = 20,
+  key   = "secret",
+
+  prob = 20,
 
   seed_w = 1,
   seed_h = 1,
 
+  where = "seeds",
   height = 125,
-  deep   = 80,
+  deep = 80,
 
   bound_z1 = 0,
   bound_z2 = 125,
 
   x_fit = "frame",
   y_fit = "top",
-  z_fit = { 65,67 }
+  z_fit = { 66,67 }
 }

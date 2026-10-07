@@ -147,26 +147,44 @@ function PREFAB_CONTROL.fine_tune_filters()
   {
 
   }
+
   local new_fab_groups_multipliers =
   {
-    gtd_storage_wood = 2,
-    gtd_door_storage = 2,
-    gtd_silver_pillars_blue_computers = 4,
-    gtd_wall_quakish_insets_horizon = 12,
-    gtd_wall_quakish_insets_horizon_mid = 12
+    -- gtd_wall_grated_machines_damaged_wall =,
+    --gtd_ribbed_lights_vox_lights_EPIC =,
+    --gtd_lusting_for_the_sun =,
+    --gtd_modquake_thick_brace_set =,
+
+    tech_o_letter_Q = 6,
+    tech_o_letter_R = 6,
+
+    tech_o_letter_L2 = 6,
+    tech_o_letter_M2 = 6,
+
+    --low_gap_EPIC = 8,
+    --low_gap_EPIC_alt = 8,
+
+    --gtd_wall_redlite = 10,
+    --gtd_wall_brownlite = 10,
+    --gtd_wall_grnlite = 10
+
+    gtd_generic_metal_top_n_bottom = 8,
+    gtd_generic_lite_box_3d_inset = 8
   }
+
   local new_themes_multipliers =
   {
-    --[[tech_cableSocketCatacombs = 1,
+    tech_greenGrey = 1.5,
     tech_bumblebee = 1.5,
-    tech_aww2 = 1.5,
-    tech_iStuff = 1.5,
-    --
-    urban_beigetownTech = 1.5,
-    urban_iStuff = 1.5,
-    --
-    hell_cableSocketCatacombs = 1.25]]
+
+    any_copperRust = 2,
+
+    tech_iStuff = 5,
+    urban_iStuff = 5,
+
+    tech_wood_lab = 8
   }
+
   local themes =
   {
     "tech",
@@ -528,7 +546,6 @@ OB_MODULES["prefab_control"] =
       tooltip = _("Greatly increase probability for recent added content for testing purposes. " ..
       "Changes in content is expected and some assets will be gradually removed from this option's effects."),
       priority = 4,
-
     },
 
 

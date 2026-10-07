@@ -22,5 +22,5 @@ PREFABS.Pic_storage_shawn_EPIC =
 
   x_fit = { 72,80 , 176,184 },
   y_fit = "top",
-  z_fit = { 78,89 }
+  z_fit = { 78,80 }
 }

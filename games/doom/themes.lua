@@ -1206,6 +1206,12 @@ DOOM.THEMES =
       ceil_mix_with_w_ultratall = 25
     },
 
+    stair_wall_groups =
+    {
+      wall_stair_1 = 1,
+      wall_stair_2 = 1
+    },
+
     wall_groups =
     {
       PLAIN = 0.01,
@@ -1233,6 +1239,14 @@ DOOM.THEMES =
     },
 
     streets_friendly = false,
+
+    generic_connectors =
+    {
+      joiners =
+        {"Joiner_simplest"},
+      doors =
+        {"Arch_simplest"}
+    }
   },
 
   ------------------------------------
@@ -1431,6 +1445,9 @@ DOOM.THEMES =
       --
       lite1 = 20,
       lite2 = 20,
+      gtd_wall_redlite = 20,
+      gtd_wall_grnlite = 20,
+      gtd_wall_brownlite = 20,
       --
       torches4 = 12, --35
       torches5 = 12, --35
@@ -1468,11 +1485,13 @@ DOOM.THEMES =
       gtd_writhing_mass = 10,
       gtd_wall_octagon_insets = 50,
       gtd_wall_grated_machines = 50,
+      gtd_wall_grated_machines_damaged_wall = 40,
       --
       gtd_wall_quakish_insets = 25,
       gtd_wall_quakish_insets_2 = 25,
-      gtd_wall_quakish_insets_horizon = 10,
-      gtd_wall_quakish_insets_horizon_mid = 10,
+      gtd_wall_quakish_insets_horizon = 15,
+      gtd_wall_quakish_insets_horizon_mid = 15,
+      gtd_wall_quakish_insets_horizon_top = 15,
       --
       gtd_ribbed_lights = 18,
       gtd_ribbed_lights_no3d = 18,
@@ -1481,6 +1500,7 @@ DOOM.THEMES =
       gtd_ribbed_lights_tekmachine = 9,
       gtd_ribbed_lights_tekmachine_alt = 9,
       gtd_ribbed_lights_very_blue = 18,
+      gtd_ribbed_lights_ribbed_steps = 18,
       --
       gtd_wall_high_gap_set = 12,
       gtd_wall_high_gap_alt_set = 12,
@@ -1527,6 +1547,9 @@ DOOM.THEMES =
       gtd_generic_small_lite = 20,
       gtd_generic_artsy_lite_box = 20,
       gtd_generic_artsy_chequered = 20,
+      gtd_generic_artsy_corpo_art = 20,
+      gtd_generic_metal_top_n_bottom = 20,
+      gtd_generic_lite_box_3d_inset = 20,
       --
       gtd_ind_modwall_1 = 20,
       gtd_ind_modwall_2 = 20,
@@ -1535,13 +1558,14 @@ DOOM.THEMES =
       gtd_greywall_1 = 25,
       gtd_greytall_trim = 25,
       --
-      gtd_modquake_set = 18,
-      gtd_modquake_jawlike = 18,
-      gtd_modquake_top_heavy_brace = 18,
-      gtd_modquake_tek_slope_brace = 18,
-      gtd_modquake_ex_light_slope_brace = 18,
-      gtd_modquake_round_braced_lit_pillar = 18,
-      gtd_modquake_hexagon_inset_braced = 18,
+      gtd_modquake_set = 25,
+      gtd_modquake_jawlike = 25,
+      gtd_modquake_top_heavy_brace = 25,
+      gtd_modquake_tek_slope_brace = 25,
+      gtd_modquake_ex_light_slope_brace = 25,
+      gtd_modquake_round_braced_lit_pillar = 25,
+      gtd_modquake_hexagon_inset_braced = 25,
+      gtd_modquake_thick_brace_set = 25,
       --
       gtd_wall_lamp_stubby = 16,
       gtd_wall_lamp_thin = 16,
@@ -1550,6 +1574,7 @@ DOOM.THEMES =
       gtd_sunderfall = 13,
       gtd_sunderfall_barred = 13,
       gtd_lavafall = 13,
+      gtd_lusting_for_the_sun = 15,
       --
       cran_bunkbeds = 50,
       gtd_craneo_bank_set = 10,
@@ -1625,7 +1650,11 @@ DOOM.THEMES =
       tech_o_letter_N = 1,
       tech_o_letter_O = 1,
       tech_o_letter_P = 1,
-      tech_o_letter_Q = 1
+      tech_o_letter_Q = 1,
+      tech_o_letter_R = 1,
+
+      tech_o_letter_L2 = 1,
+      tech_o_letter_M2 = 1
     },
 
     window_groups =
@@ -1657,7 +1686,8 @@ DOOM.THEMES =
       gtd_window_lite_cross = 15,
       gtd_window_low_gap_closed = 15,
       gtd_window_half_chamfer_techy = 30,
-      gtd_window_cubby_holes = 20
+      gtd_window_cubby_holes = 20,
+      gtd_window_bunker_terrace = 20
     },
 
     fence_groups =
@@ -1968,6 +1998,10 @@ DOOM.THEMES =
       torches9 = 6, --burning barrel
       torches10 = 4, --skull rock
       --
+      gtd_wall_redlite = 8,
+      gtd_wall_grnlite = 8,
+      gtd_wall_brownlite = 8,
+      --
       gtd_wall_urban_storage = 50,
       gtd_full_storage = 50,
       --
@@ -1998,11 +2032,13 @@ DOOM.THEMES =
       gtd_writhing_mass = 20,
       gtd_library = 50,
       gtd_wall_grated_machines = 20,
+      gtd_wall_grated_machines_damaged_wall = 15,
       --
       gtd_wall_quakish_insets = 25,
       gtd_wall_quakish_insets_2 = 25,
       gtd_wall_quakish_insets_horizon = 20,
       gtd_wall_quakish_insets_horizon_mid = 20,
+      gtd_wall_quakish_insets_horizon_top = 20,
       --
       gtd_ribbed_lights = 17,
       gtd_ribbed_lights_no3d = 17,
@@ -2011,6 +2047,7 @@ DOOM.THEMES =
       gtd_ribbed_lights_tekmachine = 9,
       gtd_ribbed_lights_tekmachine_alt = 9,
       gtd_ribbed_lights_very_blue = 17,
+      gtd_ribbed_lights_ribbed_steps = 17,
       --
       gtd_wall_high_gap_set = 12,
       gtd_wall_high_gap_alt_set = 12,
@@ -2063,6 +2100,9 @@ DOOM.THEMES =
       gtd_generic_small_lite = 20,
       gtd_generic_artsy_lite_box = 20,
       gtd_generic_artsy_chequered = 20,
+      gtd_generic_artsy_corpo_art = 20,
+      gtd_generic_metal_top_n_bottom = 20,
+      gtd_generic_lite_box_3d_inset = 20,
       --
       gtd_ind_modwall_1 = 20,
       gtd_ind_modwall_2 = 20,
@@ -2071,13 +2111,14 @@ DOOM.THEMES =
       gtd_greywall_1 = 25,
       gtd_greytall_trim = 25,
       --
-      gtd_modquake_set = 11,
-      gtd_modquake_jawlike = 11,
-      gtd_modquake_top_heavy_brace = 11,
-      gtd_modquake_tek_slope_brace = 11,
-      gtd_modquake_ex_light_slope_brace = 11,
-      gtd_modquake_round_braced_lit_pillar = 11,
-      gtd_modquake_hexagon_inset_braced = 11,
+      gtd_modquake_set = 15,
+      gtd_modquake_jawlike = 15,
+      gtd_modquake_top_heavy_brace = 15,
+      gtd_modquake_tek_slope_brace = 15,
+      gtd_modquake_ex_light_slope_brace = 15,
+      gtd_modquake_round_braced_lit_pillar = 15,
+      gtd_modquake_hexagon_inset_braced = 15,
+      gtd_modquake_thick_brace_set = 15,
       --
       gtd_wall_lamp_stubby = 7,
       gtd_wall_lamp_thin = 7,
@@ -2096,6 +2137,7 @@ DOOM.THEMES =
       gtd_sunderfall = 25,
       gtd_sunderfall_barred = 25,
       gtd_lavafall = 7,
+      gtd_lusting_for_the_sun = 30,
       --
       cran_bunkbeds = 50,
       gtd_craneo_bank_set = 50,
@@ -2157,7 +2199,8 @@ DOOM.THEMES =
       gtd_window_lite_cross = 20,
       gtd_window_low_gap_closed = 10,
       gtd_window_half_chamfer_techy = 30,
-      gtd_window_cubby_holes = 20
+      gtd_window_cubby_holes = 20,
+      gtd_window_bunker_terrace = 35
     },
 
     fence_groups =
@@ -2540,6 +2583,9 @@ DOOM.THEMES =
       torches9 = 5,  --burning barrel
       torches10 = 5, --skull rock
       --
+      gtd_wall_redlite = 15,
+      gtd_wall_brownlite = 15,
+      --
       lowhell1 = 16,
       lowhell2 = 16,
       lowhell3 = 16,
@@ -2576,6 +2622,7 @@ DOOM.THEMES =
       gtd_wall_quakish_insets = 50,
       gtd_wall_quakish_insets_horizon = 25,
       gtd_wall_quakish_insets_horizon_mid = 25,
+      gtd_wall_quakish_insets_horizon_top = 25,
       --
       gtd_wall_hell_ossuary = 50,
       --
@@ -2632,18 +2679,22 @@ DOOM.THEMES =
       gtd_generic_small_lite = 20,
       gtd_generic_artsy_lite_box = 20,
       gtd_generic_artsy_chequered = 20,
+      gtd_generic_artsy_corpo_art = 20,
+      gtd_generic_metal_top_n_bottom = 20,
+      gtd_generic_lite_box_3d_inset = 20,
       --
       gtd_ind_modwall_1 = 20,
       gtd_ind_modwall_2 = 20,
       gtd_ind_modwall_3 = 20,
       --
-      gtd_modquake_set = 11,
-      gtd_modquake_jawlike = 11,
-      gtd_modquake_top_heavy_brace = 11,
-      gtd_modquake_tek_slope_brace = 11,
-      gtd_modquake_ex_light_slope_brace = 11,
-      gtd_modquake_round_braced_lit_pillar = 11,
-      gtd_modquake_hexagon_inset_braced = 11,
+      gtd_modquake_set = 20,
+      gtd_modquake_jawlike = 20,
+      gtd_modquake_top_heavy_brace = 20,
+      gtd_modquake_tek_slope_brace = 20,
+      gtd_modquake_ex_light_slope_brace = 20,
+      gtd_modquake_round_braced_lit_pillar = 20,
+      gtd_modquake_hexagon_inset_braced = 20,
+      gtd_modquake_thick_brace_set = 20,
       --
       gtd_wall_candalebra = 12,
       gtd_wall_blue_torch = 12,
@@ -2662,8 +2713,11 @@ DOOM.THEMES =
       gtd_sunderfall = 25,
       gtd_sunderfall_barred = 25,
       gtd_lavafall = 25,
+      gtd_lusting_for_the_sun = 50,
       --
-      cran_bloodtubes_set = 50
+      cran_bloodtubes_set = 50,
+      --
+      gtd_wall_grated_machines_damaged_wall = 50
     },
 
     outdoor_wall_groups =
@@ -2737,7 +2791,8 @@ DOOM.THEMES =
       gtd_window_dem = 40,
       gtd_window_lite_cross = 30,
       gtd_window_low_gap_closed = 25,
-      gtd_window_cubby_holes = 30
+      gtd_window_cubby_holes = 30,
+      gtd_window_bunker_terrace = 45
     },
 
     fence_groups =

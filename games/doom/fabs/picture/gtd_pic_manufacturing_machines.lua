@@ -25,3 +25,17 @@ PREFABS.Pic_industrial_ssg_assembler =
   x_fit = "frame",
   y_fit = "top",
 }
+
+PREFABS.Pic_industrial_medkit_filler =
+{
+  template = "Pic_industrial_ssg_assembler",
+  map = "MAP02",
+
+  prob = 3,
+
+  seed_w = 2,
+  seed_h = 1,
+
+  x_fit = "frame",
+  y_fit = "top"
+}

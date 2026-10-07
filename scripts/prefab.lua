@@ -3004,6 +3004,7 @@ function Fab_find_matches(LEVEL, reqs, match_state)
     end
 
     if (def.rank or 0) < match_state.rank then return 0 end
+    if not LEVEL.is_secret and def.secret_level_only then return 0 end
 
     prob = prob * match_requirements(def)
     prob = prob * factor

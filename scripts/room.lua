@@ -674,6 +674,10 @@ function ROOM_CLASS.get_highest_ceiling(R) --MSSP
   return h
 end
 
+function ROOM_CLASS.set_pressure(R, p)
+  R.pressure = p
+end
+
 ------------------------------------------------------------------------
 
 
@@ -926,6 +930,12 @@ function Room_pick_edge_prefab(LEVEL, C)
   -- Ok, select it --
 
   E.prefab_def = Fab_pick(LEVEL, reqs)
+
+
+  if LEVEL.is_procedural_gotcha and E.kind == "arch"
+  and PARAM.bool_proc_gotcha_open_start and PARAM.bool_proc_gotcha_open_start == 1 then
+    E.prefab_def = PREFABS[rand.pick(THEME.generic_connectors.doors)]
+  end
 
 
   if goal then
@@ -2628,11 +2638,6 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
   local TRAVERSE_H = 80
 
 
-  local function set_floor(A, h)
-    A.floor_h = h
-  end
-
-
   local function areaconn_other(IC, A)
     if IC.A1 == A then return IC.A2 end
     if IC.A2 == A then return IC.A1 end
@@ -2656,7 +2661,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
       grp = { id = alloc_id(LEVEL, "floor_group") }
     end
 
-    A.floor_group = grp
+    A:set_floor_group(grp)
 
     if not grp.volume then
       grp.volume = 0
@@ -2711,7 +2716,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
 
     for _, A in pairs(R.areas) do
       if A.floor_group == group2 then
-        A.floor_group = group1
+        A:set_floor_group(group1)
       end
     end
 
@@ -2748,7 +2753,16 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
     if group1.h ~= group2.h then return end
 
     if do_floor_groups_touch(R, group1, group2) then
-      merge_floor_groups(R, group1, group2)
+      if not R.is_street then
+        merge_floor_groups(R, group1, group2)
+      elseif R.is_street then
+        if (A1.is_road and not A2.is_road)
+        or (A2.is_road and not A1.is_road) then
+          -- don't do muffins I guess
+        else
+          merge_floor_groups(R, group1, group2)
+        end
+      end
     end
   end
 
@@ -2791,9 +2805,23 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
       end
     end
 
-    if A1.ceil_mat == "_SKY" and A2.ceil_mat ~= "_SKY"
-        or A1.ceil_mat ~= "_SKY" and A2.ceil_mat == "_SKY" then
-      return true
+    if A1:touches(A2) then
+      if R:get_env() == "outdoor" then
+        if A1.is_outdoor and not A2.is_outdoor or
+        A2.is_outdoor and not A1.is_outdoor then
+          return true
+        end
+
+        if (A1.is_porch and not A2.is_porch) or
+        (not A1.is_porch and A2.is_porch) then
+          return true
+        end
+
+        if (A1.ceil_mat == "_SKY" and A2.ceil_mat ~= "_SKY") or
+        (A1.ceil_mat ~= "_SKY" and A2.ceil_mat == "_SKY") then
+          return true
+        end
+      end
     end
 
     --[[
@@ -2814,7 +2842,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
 
     for _, A in pairs(R.areas) do
       if A.ceil_group == group2 then
-        A.ceil_group = group1
+        A:set_ceil_group(group1)
 
         A.ceil_group.volume = group1.volume + group2.volume
       end
@@ -2836,6 +2864,12 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
 
         if A1.is_outdoor and not A2.is_outdoor then return false end
         if A2.is_outdoor and not A1.is_outdoor then return false end
+
+        if A1.is_porch and not A2.is_porch then return false end
+        if not A1.is_porch and A2.is_porch then return false end
+
+        if A1.dead_end and not A2.dead_end then return false end
+        if not A1.dead_end and A2.dead_end then return false end
 
         if ceilings_must_stay_separated(R, A1, A2) then return false end
 
@@ -2887,77 +2921,48 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
 
   local function group_ceilings(R)
     for _, A in pairs(R.areas) do
-      if (A.mode == "floor" or (A.chunk and A.chunk.kind == "stair"))
+      if (A.mode == "floor")
+          or (A.chunk and A.chunk.kind == "stair" and not A.chunk.plain_ceiling)
           or (A.is_porch or A.is_porch_neighbor)
       then
-        A.ceil_group = { id = alloc_id(LEVEL, "ceil_group") }
+        A:set_ceil_group(
+        { id = alloc_id(LEVEL, "ceil_group") }
+        )
       end
     end
-
-    --[[
-    -- pick some internal connections that should BLAH BLAH
-    for _,IC in pairs(R.internal_conns) do
-      if IC.kind == "stair" or rand.odds(30) then
-        IC.same_ceiling = true
-      end
-    end
---]]
 
     for loop = 1, 1 do
       group_ceiling_pass(R)
     end
 
+    -- handle stairs
     if not R.stair_ceil_mode then
       R.stair_ceil_mode = rand.pick({ "use_dest", "use_from" })
     end
 
-    -- handle stairs
     for _, A in pairs(R.areas) do
-      if A.chunk and A.chunk.kind == "stair" and not A.chunk.prefab_def.plain_ceiling then
-        local fromA = A.chunk.from_area
-        local destA = A.chunk.dest_area
 
-        if R.stair_ceil_mode == "use_dest" then
-          A.ceil_group = destA.ceil_group
-        else
-          A.ceil_group = fromA.ceil_group
+      if A.neighbors then
+        for _,N in pairs(A.neighbors) do
+
+          if N.chunk and N.chunk.kind == "stair" then
+            if N.chunk.from_area == A and R.stair_ceil_mode == "use_dest" then
+              A:set_ceil_group(N.chunk.dest_area.ceil_group)
+            elseif N.chunk.dest_area == A and R.stair_ceil_mode == "use_from" then
+              A:set_ceil_group(N.chunk.from_area.ceil_group)
+            end
+          end
+
         end
       end
     end
-
 
     for _, A in pairs(R.areas) do
       if A.ceil_group then
         table.add_unique(R.ceil_groups, A.ceil_group)
       end
     end
-
-    for _, group in pairs(R.ceil_groups) do
-      Area_inner_points_for_group(LEVEL, R, group, "ceil", SEEDS)
-    end
   end
-
-
-  --[[local function room_add_steps(R)
-    -- NOT USED ATM [ should be done while flowing through room ]
-
-    for _,C in pairs(R.internal_conns) do
-      local A1 = C.A1
-      local A2 = C.A2
-
-      if C.kind == "stair" then goto skip end
-
-      local diff = math.abs(A1.floor_h - A2.floor_h)
-      if diff <= PARAM.jump_height then goto skip end
-
-      -- FIXME : generally build single staircases (a la V6 and earlier)
-
-      local junc = Junction_lookup(A1, A2)
-
-      Junction_make_steps(junc)
-      ::skip::
-    end
-  end]]
 
 
   local function process_room(R, entry_area)
@@ -2972,7 +2977,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
     -- compute the actual floor heights, ensuring entry_area becomes 'entry_h'
     for _, A in pairs(R.areas) do
       if A.prelim_h then
-        set_floor(A, base_h + A.prelim_h)
+        A:set_floor(base_h + A.prelim_h)
       end
 
       --    stderrf("%s %s = %s : floor_h = %s\n", R.name, A.name, tostring(A.mode), tostring(A.floor_h))
@@ -3034,7 +3039,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
       assert(A.floor_h)
 
       if A.peer and A.peer.floor_mat then
-        A.floor_mat = A.peer.floor_mat
+        A:set_floor_mat(A.peer.floor_mat)
         goto skip
       end
 
@@ -3067,19 +3072,19 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
         local tex = rand.key_by_probs(R.floor_mat_list_natural)
         R.floor_mat_list_natural[tex] = R.floor_mat_list_natural[tex] / 4
         R.floor_mats[A.floor_h] = tex
-    
+
         if not A.is_flat_clearing then
           for _, A2 in pairs(R.areas) do
             if A ~= A2 then
               if A.floor_h == A2.floor_h then
-                A2.floor_mat = tex
+                A2:set_floor_mat(tex)
               end
             end
           end
         end
       end
 
-      A.floor_mat = assert(R.floor_mats[A.floor_h])
+      A:set_floor_mat(assert(R.floor_mats[A.floor_h]))
       ::skip::
     end
   end
@@ -3100,7 +3105,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
       assert(A.ceil_h)
 
       if A.peer and A.peer.ceil_mat then
-        A.ceil_mat = A.peer.ceil_mat
+        A:set_ceil_mat(A.peer.ceil_mat)
         goto skip
       end
 
@@ -3108,7 +3113,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
         R.ceil_mats[A.ceil_h] = rand.key_by_probs(tab)
       end
 
-      A.ceil_mat = assert(R.ceil_mats[A.ceil_h])
+      A:set_ceil_mat( assert(R.ceil_mats[A.ceil_h]) )
       ::skip::
     end
   end
@@ -3132,7 +3137,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
 
     local joiner_h = math.min(entry_h, entry_h + delta_h)
 
-    set_floor(chunk.area, joiner_h)
+    chunk.area:set_floor(joiner_h)
 
     -- stderrf("  setting joiner in %s to %d\n", C.joiner_chunk.area.name, C.joiner_chunk.area.floor_h)
     -- stderrf("  loc: (%d %d)\n", C.joiner_chunk.sx1, C.joiner_chunk.sy1)
@@ -3276,10 +3281,15 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
         end
 
         A.floor_h  = N.floor_h - (THEME.pool_depth or 16)
+
+        if LEVEL.room_height_limit then
+          add_h = math.min(add_h, LEVEL.room_height_limit)
+        end
+
         A.ceil_h   = math.clamp(N2.floor_h + 96,
           N2.ceil_h + add_h,
           EXTREME_H)
-        A.ceil_mat = N2.ceil_mat
+        A:set_ceil_mat(N2.ceil_mat)
         ::skip::
       end
     end
@@ -3327,7 +3337,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
       A.mode      = N.mode
 
       A.floor_h   = N.floor_h
-      A.floor_mat = N.floor_mat
+      A:set_floor_mat(N.floor_mat or nil)
 
       A.ceil_h    = N.ceil_h
       A.ceil_mat  = N.ceil_mat
@@ -3403,8 +3413,8 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
       )
     end
 
-    A.floor_mat = assert(R.cage_mat or A.zone.cage_mat)
-    A.ceil_mat = assert(R.cage_mat or A.zone.cage_mat)
+    A:set_floor_mat(assert(R.cage_mat or A.zone.cage_mat))
+    A:set_ceil_mat(assert(R.cage_mat or A.zone.cage_mat))
 
     -- fancy cages
     if A.cage_mode then
@@ -3414,7 +3424,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
         if N.ceil_h and N.ceil_h > A.ceil_h + 96 then
           A:set_ceil(N.ceil_h)
         else
-          A.ceil_mat = A.floor_mat
+          A:set_ceil_mat(A.floor_mat)
         end
 
         add_cage_lighting(R, A)
@@ -3436,41 +3446,36 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
     -- adopt room textures on cases where flats have same
     -- heights to the neighbor
     if A.ceil_h == N.ceil_h then
-      A.ceil_mat = N.ceil_mat
+      A:set_ceil_mat(N.ceil_mat)
     end
     if A.floor_h == N.floor_h then
-      A.floor_mat = N.floor_mat
+      A:set_floor_mat(N.floor_mat)
     end
   end
 
 
   local function do_sink_mats(R)
+    gui.debugf("do_sink_mats\n")
     local picked_ceil_mat
     local picked_floor_mat
+    local best = -EXTREME_H
 
-    -- MSSP-TODO: pick the material from the largest area in the room instead (via svolume)
-    while not picked_floor_mat do
-      for _, A in pairs(R.areas) do
+    for _, A in pairs(R.areas) do
+      if A.svolume > best then
+        best = A.svolume
         if A.floor_mat then
           picked_floor_mat = A.floor_mat
         end
-      end
-      if not picked_floor_mat then picked_floor_mat = R.main_tex end
-    end
-
-    R.floor_sink_mat = picked_floor_mat
-
-    if R.is_outdoor then return end
-
-    while not picked_ceil_mat do
-      for _, A in pairs(R.areas) do
         if A.ceil_mat then
           picked_ceil_mat = A.ceil_mat
         end
       end
-      if not picked_ceil_mat then picked_ceil_mat = R.main_tex end
     end
-    R.ceil_sink_mat = picked_ceil_mat
+
+    R.floor_sink_mat = picked_floor_mat or R.main_tex
+    R.ceil_sink_mat = picked_ceil_mat or R.main_tex
+
+    if R.is_outdoor then return end
   end
 
 
@@ -3506,26 +3511,40 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
 
       -- outdoor heights are done later, get a dummy now
       if A.is_outdoor then
-        A.ceil_h = A.floor_h + R.zone.sky_add_h - 8
+        A:set_ceil(A.floor_h + R.zone.sky_add_h - 8)
         goto skip
       end
 
       local fromA = chunk.from_area
       local destA = chunk.dest_area
-      assert(fromA.ceil_h)
-      assert(destA.ceil_h)
 
-      if fromA.ceil_h < (destA.floor_h + 96) then
-        fromA:set_ceil(destA.ceil_h)
-        fromA = destA
+      local higherA = A.chunk:higher_stair_floor()
+      if higherA.ceil_h - higherA.floor_h < 96 then
+        A:set_ceil(destA.floor_h + 96)
+      end
+
+      if destA.is_outdoor and not fromA.is_outdoor then
+        A:set_ceil(fromA.ceil_group.h or fromA.ceil_h)
+        A:set_ceil_mat(fromA.ceil_mat)
+        goto skip
+      elseif fromA.is_outdoor and not destA.is_outdoor then
+        A:set_ceil(destA.ceil_group.h or destA.ceil_h)
+        A:set_ceil_mat(destA.ceil_mat)
+        goto skip
       end
 
       if R.stair_ceil_mode == "use_dest" then
-        A.ceil_h   = destA.ceil_group.h
-        A.ceil_mat = destA.ceil_mat
-      else
-        A.ceil_h   = fromA.ceil_group.h
-        A.ceil_mat = fromA.ceil_mat
+        if R:get_env() == "buiding" then
+          A:set_ceil_group(destA.ceil_group)
+        end
+        A:set_ceil(destA.ceil_group.h)
+        A:set_ceil_mat(destA.ceil_mat)
+      elseif R.stair_ceil_mode == "use_from" then
+        if R:get_env() == "building" then
+          A:set_ceil_group(fromA.ceil_group)
+        end
+        A:set_ceil(fromA.ceil_group.h)
+        A:set_ceil_mat(fromA.ceil_mat)
       end
       ::skip::
     end
@@ -3730,16 +3749,10 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
     elseif R.height_style == "tall" then
       local tall_offsets =
       {
-        [1.5] = 3,
-        [2] = 9,
-        [3] = 1,
+        [1.5] = 8,
+        [2] = 1,
+        [3] = 0.5,
       }
-
-      if group.vol > 96 then
-        tall_offsets[3] = 3
-      elseif group.vol > 64 then
-        tall_offsets[3] = 2
-      end
 
       add_h = tonumber(add_h * rand.key_by_probs(tall_offsets))
     end
@@ -3749,6 +3762,10 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
     end
 
     add_h = math.max(group.min_h, add_h)
+
+    if LEVEL.room_height_limit then
+      add_h = math.min(add_h, LEVEL.room_height_limit)
+    end
 
     group.h = group.max_floor_h + add_h
   end
@@ -3826,6 +3843,10 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
 
     rand.shuffle(groups)
 
+    for _,group in pairs(R.ceil_groups) do
+      Area_inner_points_for_group(LEVEL, R, group, "ceil", SEEDS)
+    end
+
     for _, group in pairs(groups) do
       calc_a_ceiling_height(R, group)
     end
@@ -3835,10 +3856,6 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
     if not R.is_outdoor then
       ceil_vary_group_heights(R)
     end
-
-    for _, group in pairs(R.ceil_groups) do
-      Area_inner_points_for_group(LEVEL, R, group, "ceil", SEEDS)
-    end
   end
 
 
@@ -3846,8 +3863,8 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
     local function infect_area(A, N)
       if not N.floor_h or not N.ceil_h then return end
 
-      A.is_outdoor = false
-      A.ceil_mat = N.ceil_mat
+      A.is_outdoor = nil
+      A:set_ceil_mat(N.ceil_mat)
       A.is_porch_neighbor = true
 
       if A.mode == "cage" then
@@ -3864,7 +3881,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
       if A.peer then
         A.peer.is_outdoor = false
         A.peer.is_porch_neighbor = true
-        A.peer.ceil_mat = A.ceil_mat
+        A.peer:set_ceil(A.ceil_mat)
         A:set_ceil(A.peer.ceil_group.h or A.peer.ceil_h)
       end
     end
@@ -3923,18 +3940,18 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
 
           if A2 then
             if A2.ceil_h then
-              A.ceil_group = A2.ceil_group
+              A:set_ceil_group(A2.ceil_group)
               A:set_ceil(A.ceil_group.h)
             end
 
-            A.is_outdoor = false
+            A.is_outdoor = nil
             A.is_porch_neighbor = true
             if A.peer then
-              A.peer.is_outdoor = false
+              A.peer.is_outdoor = nil
               A.peer.is_porch_neighbor = true
-              A.peer.ceil_mat = A.ceil_mat
+              A.peer:set_ceil_mat(A.ceil_mat)
               if A2.ceil_h then
-                A.peer.ceil_group = A.peer.ceil_group
+                A.peer:set_ceil_group(A.peer.ceil_group)
                 A.peer:set_ceil(A.peer.ceil_group.h)
               end
             end
@@ -3959,7 +3976,7 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
 
       -- outdoor heights are done later, get a dummy now
       if A.is_outdoor then
-        A.ceil_h = A.floor_h + R.zone.sky_add_h - 8
+        A:set_ceil(A.floor_h + R.zone.sky_add_h - 8)
         goto skip
       end
 
@@ -3989,10 +4006,13 @@ function Room_floor_ceil_heights(LEVEL, SEEDS)
     -- now pick textures
     select_ceiling_mats(R)
 
-    -- quick loop to fix remaining textures
+    --[[ quick loop to fix remaining textures
     for _, A in pairs(R.areas) do
-      A.ceil_mat = (R.ceil_mats[A.ceil_h])
-    end
+      if A.ceil_h then
+        gui.printf(table.tostr(A,1))
+        A:set_ceil_mat(R.ceil_mats[A.ceil_h])
+      end
+    end]]
   end
 
 
@@ -4044,6 +4064,10 @@ end
 
     Room_cleanup_stairs_to_nowhere(LEVEL, R)
     calc_min_max_h(R, "ceilz_with_feelz")
+
+    for _,group in pairs(R.ceil_groups) do
+      Area_inner_points_for_group(LEVEL, R, group, "ceil", SEEDS)
+    end
   end
 end
 
@@ -4296,7 +4320,8 @@ function Room_cleanup_stairs_to_nowhere(LEVEL, R)
         end
 
         N.floor_h = best_LN.floor_h - 16
-        N:set_ceil(best_LN.ceil_h)
+
+        N:set_ceil(best_LN.ceil_h or best_LN.floor_h + 96)
       end
     end
   end
@@ -4358,7 +4383,7 @@ function Room_cleanup_stairs_to_nowhere(LEVEL, R)
         if not same_level_to_outdoor_area(A) then
           A.uses_porch_floor = true
           if not A.dead_end then
-            A.floor_mat = A.porch_floor_mat
+            A:set_floor_mat(A.porch_floor_mat)
           end
         end
       end
@@ -4371,7 +4396,7 @@ function Room_cleanup_stairs_to_nowhere(LEVEL, R)
           if A1.floor_h == A2.floor_h
               and A2.is_porch then
             A1.porch_floor_infected = true
-            A2.floor_mat = A1.floor_mat
+            A2:set_floor_mat(R.floor_mats[A1.ceil_h])
           end
         end
       end
@@ -4393,7 +4418,7 @@ function Room_cleanup_stairs_to_nowhere(LEVEL, R)
         -- convert nowhere areas to just normal areas (borrow info from main area)
         A.floor_h = SAS.floor_h
 
-        A.floor_mat = R.floor_mats[SAS.floor_h] --or SAS.floor_mat
+        A:set_floor_mat(R.floor_mats[SAS.floor_h]) --or SAS.floor_mat
 
         if A.room:get_env() == "building" then
           A.is_porch = nil
@@ -4412,30 +4437,37 @@ function Room_cleanup_stairs_to_nowhere(LEVEL, R)
           if SA.is_porch_neighbor then
             SA.is_porch = true
             SA.is_porch_neighbor = nil
-            SA.is_outdoor = true
+            SA.is_outdoor = nil
+          end
+
+          if SAS.is_porch then
+            SA:set_ceil_group(SAS.ceil_group)
+            A:set_ceil_group(SAS.ceil_group)
+          elseif not SAS.is_porch then
+            SA:set_ceil_group(A.ceil_group)
           end
         elseif SA.room:get_env() == "building" then
           SA.is_porch_neighbor = nil
+
+          SA:set_ceil_group(SAS.ceil_group)
+          A:set_ceil_group(SA.ceil_group)
+          SA:set_ceil(A.ceil_group.h)
+          A:set_ceil(A.ceil_group.h)
         end
 
-        A.floor_h = SAS.floor_h
-        SA.floor_h = SAS.floor_h
+        A:set_floor(SAS.floor_h)
+        SA:set_floor(SAS.floor_h)
 
-        A.floor_mat = SAS.floor_mat
-        SA.floor_mat = SAS.floor_mat
+        A:set_floor_mat(SAS.floor_mat)
+        SA:set_floor_mat(SAS.floor_mat)
 
         -- use the floor group of the source area
-        A.floor_group = SAS.floor_group
-        SA.floor_group = SAS.floor_group
+        A:set_floor_group(SAS.floor_group)
+        SA:set_floor_group(SAS.floor_group)
 
         A.dead_end = true
         SA.dead_end = true
 
-        -- use the ceil group of the "dead end" for the stair chunk, if it remains the same height
-        SA.ceil_group = SAS.ceil_group
-        A.ceil_group = SA.ceil_group
-        SA.ceil_h = A.ceil_group.h
-        A.ceil_h = A.ceil_group.h
 
         -- affix textures
         if A.room:get_env() == "building" then
@@ -4446,8 +4478,8 @@ function Room_cleanup_stairs_to_nowhere(LEVEL, R)
             end
           end
           assert(ceil_tex, "no ceiling texture for room " .. A.room.name)
-          A.ceil_mat = ceil_tex
-          SA.ceil_mat = ceil_tex
+          A:set_ceil_mat(ceil_tex)
+          SA:set_ceil_mat(ceil_tex)
         end
 
         fixup_neighbors(A)

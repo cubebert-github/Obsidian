@@ -89,7 +89,7 @@ PREFABS.Pic_box_silver2 =
   theme = "tech",
 
   seed_w = 2,
-  height = 176,
+  height = 152,
 
   tex_PIPES = "SILVER2",
 }

@@ -55,6 +55,17 @@ MISC_STUFF.HEIGHT_CHOICES =
   "mixed",     _("Mix It Up"),
 }
 
+MISC_STUFF.HEIGHT_LIMIT_CHOICES =
+{
+  "128", _("128"),
+  "192", _("192"),
+  "256", _("256"),
+  "_", _("_"),
+  "none", _("NONE"),
+  "short", _("Short"),
+  "mixed", _("Mix It Up"),
+}
+
 MISC_STUFF.WINDOW_BLOCKING_CHOICES =
 {
   "not_on_vistas", _("Not on Vistas"),
@@ -155,13 +166,22 @@ MISC_STUFF.ROOM_AREA_MIX_FINE_TUNE_CHOICES =
   "random", _("Random")
 }
 
+MISC_STUFF.UNGROWN_ROOM_CHOICES =
+{
+  "grow_and_cull", _("Grow, Cull, Leave Secrets"),
+  "dont_cull_secrets", _("Cull and Leave Secrets"),
+  "cull_all", _("Cull Only"),
+  "grow_all", _("Grow All"),
+  "none", _("Nothing")
+}
+
 function MISC_STUFF.setup(self)
 
   module_param_up(self)
 
   --Brightness sliders
-  PARAM["wad_minimum_brightness"] = math.min(PARAM.float_minimum_brightness, PARAM.float_maximum_brightness)
-  PARAM["wad_maximum_brightness"] = math.max(PARAM.float_minimum_brightness, PARAM.float_maximum_brightness)
+  PARAM.wad_minimum_brightness = math.min(PARAM.float_minimum_brightness, PARAM.float_maximum_brightness)
+  PARAM.wad_maximum_brightness = math.max(PARAM.float_minimum_brightness, PARAM.float_maximum_brightness)
 end
 
 function MISC_STUFF.begin_level(self, LEVEL)
@@ -349,15 +369,28 @@ OB_MODULES["misc"] =
       tooltip=_("Determines if rooms should have a height limit or should exaggerate their height. Short means room areas strictly have at most 128 units of height, tall means rooms immediately have doubled heights. Normal is the default Oblige behavior."),
       default="mixed",
       priority = 87,
-      gap=1,
       randomize_group="architecture",
     },
-
+    {
+      name="room_height_limit",
+      label=_("Room Height Limit"),
+      choices=MISC_STUFF.HEIGHT_LIMIT_CHOICES,
+      tooltip=_("Determines a maximum height limit for room ceilings from the highest floor area, excluding floor and ceiling sink height differences.\n" ..
+        "Obsidian default is NONE.\n" ..
+        "Mix It Up is a random selection between 128 to NONE.\n"..
+        "Short behaves similar to Mix It Up, but biased toward lower limits.\n" ..
+        "Having no height limit does not mean endless height rooms, just no height clamping, as is original behavior."),
+      default="none",
+      priority = 86.5,
+      randomize_group="architecture",
+      gap = 1
+    },
 
     { name="parks",
-    label=_("Parks"),
-    tooltip = _("Control the number of parks."),
-    choices=STYLE_CHOICES, priority = 86, randomize_group="architecture", },
+      label=_("Parks"),
+      tooltip = _("Control the number of parks."),
+      choices=STYLE_CHOICES, priority = 86, randomize_group="architecture",
+    },
     {
       name="natural_parks",
       label=_("Natural Cliffs"),
@@ -488,7 +521,7 @@ OB_MODULES["misc"] =
       min = 0,
       max = 256,
       increment = 16,
-      default = 256,
+      default = 192,
       tooltip = _("Sets the maximum brightness for the map."),
       priority = 71,
 
@@ -588,6 +621,18 @@ OB_MODULES["misc"] =
       randomize_group="architecture",
 
     },
+    {
+      name = "ungrown_room_action",
+      label = _("Ungrown Room Action"),
+      choices = MISC_STUFF.UNGROWN_ROOM_CHOICES,
+      tooltip = _("Decides the action taken on encountering any remaining ungrown rooms as an end step. (Rooms that are smaller than 16 grid squares.)\n\n" ..
+        "Grow, Cull, Leave Secrets - Grow all ungrown rooms. If failed, cull or reserve for use as Secret rooms. Default.\n" ..
+        "Cull and Leave Secrets - Cull rooms and reserve some as Secret rooms.\n" ..
+        "Cull All - Cull all ungrown rooms.\n" ..
+        "Nothing - Do nothing, oldskool Oblige behavior."),
+      default = "grow_all",
+      priority = 58
+    }
 
 ---- PLANNED (UNFINISHED) STUFF ----
 
@@ -595,7 +640,6 @@ OB_MODULES["misc"] =
 --  { name="light_level",  label=_("Lighting"),   choices=MISC_STUFF.LIGHTINGS },
 --  { name="detail_level", label=_("Detail"),     choices=MISC_STUFF.LIGHTINGS, gap=1 },
 
---  pictures    = { label=_("Pictures"),       choices=STYLE_CHOICES },
 --  cycles      = { label=_("Multiple Paths"), choices=STYLE_CHOICES },
 --  ex_floors   = { label=_("3D Floors"),      choices=STYLE_CHOICES },
 

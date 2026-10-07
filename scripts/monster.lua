@@ -96,9 +96,9 @@ function Monster_pacing(LEVEL)
 
     for _,R in pairs(LEVEL.rooms) do
       if R.is_hallway or R.is_secret then
-        R.pressure = "low"
+        R:set_pressure("low")
         if R.is_secret and OB_CONFIG.secret_monsters == "yesyes" then
-          R.pressure = rand.sel(75, "medium", "high")
+          R:set_pressure( rand.sel(75, "medium", "high") )
         end
         goto skip
       end
@@ -140,7 +140,16 @@ function Monster_pacing(LEVEL)
       amounts[R.pressure] = amounts[R.pressure] - 1
     end
 
-    R.pressure = what
+    local info = debug.getinfo(2, "Sln")
+    local dbg = info.currentline .. "." .. info.name
+
+    if R.pressure_history then
+      R.pressure_history = R.pressure_history .. "->" .. dbg .. ":" .. what
+    elseif not R.pressure_history then
+      R.pressure_history = dbg .. ":" .. what
+    end
+    
+    R:set_pressure(what)
 
     amounts[what] = (amounts[what] or 0) + 1
   end
@@ -258,9 +267,6 @@ function Monster_pacing(LEVEL)
     -- enforce other logic
     if R.is_after_start and #LEVEL.rooms > 2 then
       tab["high"] = nil
-      if LEVEL.has_linear_start then
-        tab["medium"] = nil
-      end
     end
 
     if R.is_teleport_dest then tab["high"] = nil end
@@ -928,19 +934,23 @@ function Monster_fill_room(LEVEL, R, SEEDS)
     if tonumber(qty) then qty = tonumber(qty) end
 
     --Mix It Up
-    --if qty == gui.gettext("Mix It Up") then
     if PARAM.mons_mode == "mixed" then
       if l_range == u_range then
         qty = l_range
       end
       qty = rand.range(l_range, u_range)
     --Progressive
-    --elseif qty == gui.gettext("Progressive") then
     elseif PARAM.mons_mode == "prog" then
       if l_range > u_range then
         qty = u_range + (l_range * LEVEL.game_along)
       else
         qty = l_range + (u_range * LEVEL.game_along)
+      end
+    elseif PARAM.mons_mode == "epi" then
+      if l_range > u_range then
+        qty = u_range + (l_range * LEVEL.ep_along)
+      else
+        qty = l_range + (u_range * LEVEL.ep_along)
       end
     end
 

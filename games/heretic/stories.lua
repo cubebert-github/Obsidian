@@ -453,6 +453,7 @@ HERETIC.STORIES.EVIL_TITLES =
   Blinder=5,
   Blister=5,
   Bonesaw=5,
+  Brainrotter=5,
   Brander=5,
   Breaker=5,
   Brutal=5,

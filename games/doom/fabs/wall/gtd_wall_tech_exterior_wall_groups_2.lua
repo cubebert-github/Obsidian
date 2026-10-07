@@ -269,7 +269,7 @@ PREFABS.Wall_tech_outdoor_letter_G_compat =
 
   z_fit = "top",
 
-  tex_SDOM_WL2 = "PIPEWAL1"
+  tex_G_OM_WL2 = "PIPEWAL1"
 }
 
 PREFABS.Wall_tech_outdoor_letter_H = --#
@@ -552,4 +552,88 @@ PREFABS.Wall_tech_outdoor_letter_Q_compat =
   tex_GOTH41 = "BROWN144",
 
   line_345 = 0
+}
+
+--
+
+PREFABS.Wall_tech_outdoor_letter_L2 = --#
+{
+  template = "Wall_tech_outdoor_hex_inset",
+  map = "MAP23",
+
+  texture_pack = "armaetus",
+  rank = 2,
+  height = 96,
+  group = "tech_o_letter_L2",
+
+  bound_z2 = 96,
+
+  z_fit = {50,52}
+}
+
+PREFABS.Wall_tech_outdoor_letter_L2_compat =
+{
+  template = "Wall_tech_outdoor_hex_inset",
+  map = "MAP23",
+
+  rank = 1,
+  height = 96,
+  group = "tech_o_letter_L2",
+
+  bound_z2 = 96,
+
+  z_fit = {50,52},
+
+  tex_RDLITE01 =
+  {
+    LITE4 = "LITE3"
+  }
+}
+
+--
+
+PREFABS.Wall_tech_outdoor_letter_M2 = --#
+{
+  template = "Wall_tech_outdoor_hex_inset",
+  map = "MAP24",
+
+  height = 96,
+  group = "tech_o_letter_M2",
+
+  bound_z2 = 96,
+
+  z_fit = {70,73}
+}
+
+--
+
+PREFABS.Wall_tech_outdoor_letter_M2 = --#
+{
+  template = "Wall_tech_outdoor_hex_inset",
+  map = "MAP25",
+
+  texture_pack = "armaetus",
+  rank = 2,
+  height = 96,
+  group = "tech_o_letter_R",
+
+  bound_z2 = 96,
+
+  z_fit = {15,17 , 43,45}
+}
+
+PREFABS.Wall_tech_outdoor_letter_M2_compat = --#
+{
+  template = "Wall_tech_outdoor_hex_inset",
+  map = "MAP25",
+
+  rank = 1,
+  height = 96,
+  group = "tech_o_letter_R",
+
+  bound_z2 = 96,
+
+  z_fit = {15,17 , 43,45},
+
+  tex_RDLITE01 = "REDWALL"
 }

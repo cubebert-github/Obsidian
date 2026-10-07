@@ -442,13 +442,113 @@ function AREA_CLASS.get_fseed_coord(A)
   return ""
 end
 
+function AREA_CLASS.set_floor_mat(A, t)
+  A.floor_mat = t
+
+  local info = debug.getinfo(2, "Sln")
+
+  if A.fm_history then
+    A.fm_history = A.fm_history .. "->" .. info.name .. ":" .. (t or "NIL")
+  else
+    A.fm_history = info.name .. ":" .. (t or "NIL")
+  end
+end
+
+function AREA_CLASS.set_ceil_mat(A, t)
+  if t then
+    A.ceil_mat = t
+  else
+    t = "FAIL"
+  end
+
+  local info = debug.getinfo(2, "Sln")
+  --print(info.source, info.currentline, info.name)
+
+  if A.cm_history then
+    A.cm_history = A.cm_history .. "->" .. info.currentline .. "." .. info.name .. "=" .. t
+  elseif not A.cm_history then
+    A.cm_history = info.currentline .. "." .. info.name .. "=" .. t
+  end
+end
 
 function AREA_CLASS.set_floor(A, h)
   A.floor_h = h
 end
 
 function AREA_CLASS.set_ceil(A, h)
-  A.ceil_h = h
+  if h then
+    A.ceil_h = h
+  else
+    h = "FAIL"
+  end
+
+  local info = debug.getinfo(2, "Sln")
+  --print(info.source, info.currentline, info.name)
+
+  if A.ch_history then
+    A.ch_history = A.ch_history .. "->" .. info.currentline .. "." .. info.name .. "=" .. h
+  elseif not A.ch_history then
+    A.ch_history = info.currentline .. "." .. info.name .. "=" .. h
+  end
+end
+
+function AREA_CLASS.set_ceil_group(A, cg)
+  A.ceil_group = cg
+
+  local d_info = debug.getinfo(2, "Sln")
+  --print(info.source, info.currentline, info.name)
+
+  local low_area, high_area, info
+  if A.chunk and A.chunk.dest_area and A.chunk.dest_area.floor_h then
+    if A.chunk.from_area.floor_h > A.chunk.dest_area.floor_h then
+      high_area, low_area = A.chunk.from_area, A.chunk.dest_area
+    else
+      high_area, low_area = A.chunk.dest_area, A.chunk.from_area
+    end
+
+    if not A.cg_history then
+      A.cg_history = low_area.id .. ">" .. cg.id .. ">" .. high_area.id .. " "
+    end
+  end
+
+  if high_area and cg == high_area.ceil_group then
+    info = d_info.currentline .. "." .. d_info.name .. ":HIGH_" .. cg.id
+  elseif low_area and cg == low_area.ceil_group then
+    info = d_info.currentline .. "." .. d_info.name .. ":LOW_" .. cg.id
+  else
+    info = d_info.currentline .. "." .. d_info.name .. ":SAME_" .. cg.id
+  end
+
+  if cg.h then
+    info = info .. "^" .. cg.h
+  end
+
+  if A.cg_history then
+    A.cg_history = A.cg_history .. "->" .. info
+  elseif not A.cg_history then
+    A.cg_history = info
+  end
+end
+
+function AREA_CLASS.set_floor_group(A, fg)
+  A.floor_group = fg
+end
+
+function AREA_CLASS.set_lighting(A, l)
+  if l then
+    A.lighting = l
+  else
+    l = "FAIL"
+  end
+
+  local d_info = debug.getinfo(2, "Sln")
+  --print(info.source, info.currentline, info.name)
+
+  if A.l_history then
+    A.l_history = A.l_history .. "->" .. d_info.currentline .. "." .. d_info.name .. ":" .. l
+  else
+    A.l_history = d_info.currentline .. "." .. d_info.name .. ":" .. l
+  end
 end
 
 
@@ -638,6 +738,7 @@ function Junction_init(LEVEL, SEEDS)
     -- edge of map?
     if not (N and N.area) then
       local junc = Junction_lookup(LEVEL, A, "map_edge", "create_it")
+      assert(junc)
 
       junc.perimeter = junc.perimeter + 1
       goto skip
@@ -646,6 +747,7 @@ function Junction_init(LEVEL, SEEDS)
     if N.area == S.area then goto skip end
 
     local junc = Junction_lookup(LEVEL, A, N.area)
+    assert(junc)
 
     if dir < 5 then
       junc.perimeter = junc.perimeter + 1
@@ -1282,93 +1384,117 @@ end
 
 
 function Corner_is_at_area_corner(corner)
-  -- corner isn't at a corner when along parallel walls
+  local junctions = corner.junctions
+  local seeds     = corner.seeds
+  local areas     = corner.areas
+
+  -- no pillar when the corner is along colinear or multiple walls
   local wall_count = 0
-  for _,junc in pairs(corner.junctions) do
-    if junc.E1 then
-      if Edge_is_wallish(junc.E1) then
-        wall_count = wall_count + 1
-      end
-    end
-    if wall_count >= 2 then return false end
-  end
 
-  -- no pillars if all junctions are beams
-  local beam_count = 0
-  for _,junc in pairs(corner.junctions) do
-    if junc.E1 then
-      if junc.E1.kind == "beams" or Edge_is_wallish(junc.E1) then
-        beam_count = beam_count + 1
-      end
-    end
-    if beam_count == #corner.junctions then
-      return false
+  for _, junc in ipairs(junctions) do
+    local E = junc.E1
+
+    if E and Edge_is_wallish(E) then
+      wall_count = wall_count + 1
     end
   end
 
-  -- corner is definitely at a corner if more than two areas meet
-  if #corner.areas > 2 then return true end
+  if wall_count >= 2 then
+    return false
+  end
 
-  -- corner is between more than 1 junction
-  if #corner.junctions > 1 then return true end
+  -- no pillars if every junction is beam/wall-like
+  local beamish_count = 0
 
-  -- corner is definitely at a corner if one seed has an area
-  -- that doesn't match all the others
-  if #corner.seeds == 4 then
+  for _, junc in ipairs(junctions) do
+    local E = junc.E1
 
-    -- corner sits between diagonals that are not parallel
-    local dir_score = 0
-    local diag_count = 0
-    for _,S in pairs(corner.seeds) do
-      if S.diagonal then
-        diag_count = diag_count + 1
-        dir_score = dir_score + S.diagonal
-      end
-    end
-
-    if diag_count >= 2 and dir_score ~= 10 then
-      return true
-    end
-
-    -- compare NW
-    if corner.seeds[1].area ~= corner.seeds[2].area and
-    corner.seeds[1].area ~= corner.seeds[3].area and
-    corner.seeds[1].area ~= corner.seeds[4].area then
-      return true
-    end
-
-    -- compare NE
-    if corner.seeds[2].area ~= corner.seeds[1].area and
-    corner.seeds[2].area ~= corner.seeds[3].area and
-    corner.seeds[2].area ~= corner.seeds[4].area then
-      return true
-    end
-
-    -- compare SW
-    if corner.seeds[3].area ~= corner.seeds[1].area and
-    corner.seeds[3].area ~= corner.seeds[3].area and
-    corner.seeds[3].area ~= corner.seeds[4].area then
-      return true
-    end
-
-    -- compare SE
-    if corner.seeds[4].area ~= corner.seeds[1].area and
-    corner.seeds[4].area ~= corner.seeds[2].area and
-    corner.seeds[4].area ~= corner.seeds[3].area then
-      return true
+    if E and (E.kind == "beams" or Edge_is_wallish(E)) then
+      beamish_count = beamish_count + 1
     end
   end
 
-  -- corner is by at least one diagonal and is between two areas
-  if #corner.areas > 1 then
+  if beamish_count == #junctions then
+    return false
+  end
+
+  -- more than two areas meeting here is definitely a corner
+  if #areas > 2 then
+    return true
+  end
+
+  -- 4 surrounding seeds
+  if #seeds == 4 then
+
+    -- detect non-parallel diagonal boundaries
+    local expected_diagonal =
+    {
+      [1] = 1, -- NW
+      [2] = 7, -- SW
+      [3] = 3, -- NE
+      [4] = 9  -- SE
+    }
+
+    local diagonal_dirs = {}
+
+    for i = 1,4 do
+      local S = seeds[i]
+
+      if S.diagonal and S.diagonal == expected_diagonal[i] then
+        diagonal_dirs[#diagonal_dirs + 1] = S.diagonal
+      end
+    end
+
+    -- opposing / parallel diagonal pairs
+    local parallel_pair =
+      function(a, b)
+        return (a == 1 and b == 9) or
+               (a == 9 and b == 1) or
+               (a == 3 and b == 7) or
+               (a == 7 and b == 3)
+      end
+
+    for i = 1,#diagonal_dirs do
+      for j = i + 1,#diagonal_dirs do
+        if not parallel_pair(diagonal_dirs[i], diagonal_dirs[j]) then
+          return true
+        end
+      end
+    end
+
+    -- detect a uniquely different area
+    for i = 1,4 do
+      local unique = true
+
+      for j = 1,4 do
+        if i ~= j and seeds[i].area == seeds[j].area then
+          unique = false
+          break
+        end
+      end
+
+      if unique then
+        return true
+      end
+    end
+  end
+
+  -- corner is next to multiple areas and has exactly one
+  -- top/bottom diagonal boundary.
+  if #areas > 1 then
     local diagonal_score = 0
 
-    for _,S in pairs(corner.seeds) do
-      if S.top or S.bottom then diagonal_score = diagonal_score + 1 end
+    for _, S in ipairs(seeds) do
+      if S.top or S.bottom then
+        diagonal_score = diagonal_score + 1
+      end
     end
 
-    if diagonal_score == 1 then return true end
+    if diagonal_score == 1 then
+      return true
+    end
   end
+
 
   return false
 end
@@ -2180,8 +2306,8 @@ function Area_pick_facing_rooms(LEVEL, SEEDS)
 
   for _,A in pairs(scenics) do
     if A.zone then
-      A.ceil_h = A.zone.sky_h + 16
-      A.ceil_mat = "_SKY"
+      A:set_ceil( A.zone.sky_h + 16 )
+      A:set_ceil_mat("_SKY")
     end
 
     -- void up unset areas

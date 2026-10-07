@@ -661,6 +661,12 @@ function OBS_RESOURCE_PACK_EPIC_TEXTURES.setup(self)
   PARAM.obsidian_resource_pack_active = true
   module_param_up(self)
   OBS_RESOURCE_PACK_EPIC_TEXTURES.put_new_materials()
+  --OBS_RESOURCE_PACK_EPIC_TEXTURES.synthesize_procedural_themes()
+end
+
+
+function OBS_RESOURCE_PACK_EPIC_TEXTURES.setup2(self)
+
   OBS_RESOURCE_PACK_EPIC_TEXTURES.synthesize_procedural_themes()
 end
 
@@ -669,6 +675,8 @@ function OBS_RESOURCE_PACK_EPIC_TEXTURES.synthesize_procedural_themes()
   if PARAM.bool_orp_room_theme_synthesizer == 0 then
     return
   end
+
+  gui.printf("--== Obsidian Resource Pack: Room Theme Synthesizer ==--\n\n")
 
   local function pick_element(lev_theme, texture_type)
     local t, RT = {}, {}
@@ -722,6 +730,8 @@ function OBS_RESOURCE_PACK_EPIC_TEXTURES.synthesize_procedural_themes()
 
     t.name = name.."_"..wall_t.."_"..floor_t.."_"..ceil_t
 
+    gui.printf("Created room theme for " .. lev_theme .. ": " .. t.name .."\n")
+
     GAME.ROOM_THEMES[t.name] = t
   end
 
@@ -734,7 +744,7 @@ function OBS_RESOURCE_PACK_EPIC_TEXTURES.synthesize_procedural_themes()
     end
   end
 
-  synthesize_themes(5)
+  synthesize_themes(PARAM.float_orp_room_theme_synth_count or 5)
 end
 
 
@@ -1004,6 +1014,7 @@ end
 
 function OBS_RESOURCE_PACK_EPIC_TEXTURES.put_new_materials()
   -- MSSP-TODO - redo all this code to just use a single deep merge table operation
+  gui.printf("--== Obsidian Resource Pack Activated: Merging Themes ==--\n\n")
   if OB_CONFIG.game == "doom2" or OB_CONFIG.game == "plutonia"
   or OB_CONFIG.game == "tnt" then
 
@@ -1209,6 +1220,7 @@ OB_MODULES["armaetus_epic_textures"] =
   hooks =
   {
     setup = OBS_RESOURCE_PACK_EPIC_TEXTURES.setup,
+    setup2 = OBS_RESOURCE_PACK_EPIC_TEXTURES.setup2,
     get_levels_after_themes = OBS_RESOURCE_PACK_EPIC_TEXTURES.get_levels_after_themes,
     begin_level = OBS_RESOURCE_PACK_EPIC_TEXTURES.generate_environment_themes,
     level_layout_finished = OBS_RESOURCE_PACK_EPIC_TEXTURES.create_environment_themes,
@@ -1310,6 +1322,18 @@ OB_MODULES["armaetus_epic_textures"] =
       tooltip = _("Creates synthetic room themes by combining walls and flats from existing entries.")
     },
     {
+      name = "float_orp_room_theme_synth_count",
+      label = _("Synth Room Theme Count"),
+      valuator = "slider",
+      units="x4 Room Themes",
+      min=1,
+      max=25,
+      increment = 1,
+      default = 5,
+      tooltip = _("Amount of room themes (1 per Doom 2 theme of Tech, Urban, Hell, and Any, totaling 4 room themes per count) to synthesize, based on defaults and all Resource Packs loaded."),
+      priority = -5,
+    },
+    {
       name = "float_orp_room_theme_synth_mult",
       label = _("Synth Room Theme Multiplier"),
       valuator = "slider",
@@ -1319,7 +1343,7 @@ OB_MODULES["armaetus_epic_textures"] =
       increment = 0.1,
       default = 1,
       tooltip = _("Multiplier for all synthesized Resource Pack room themes."),
-      priority = -5,
+      priority = -6,
     }
   }
 }

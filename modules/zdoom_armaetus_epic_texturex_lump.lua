@@ -161,6 +161,15 @@ WallTexture "T_HLITEB", 128, 16
   }
 }
 
+WallTexture "T_HLITER", 128, 16
+{
+	Patch "T_HLITE1", 0, 0
+	Patch "TP_HLCRE", 4, 3
+	{
+		Translation "80:111=168:191"
+	}
+}
+
 WallTexture "T_GTHLY", 64, 128
 {
   Patch "GOTH21", 0, 0

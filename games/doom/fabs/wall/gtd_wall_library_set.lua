@@ -21,15 +21,15 @@ PREFABS.Wall_gtd_library_1 =
 PREFABS.Wall_gtd_library_wall_2 =
 {
   template = "Wall_gtd_library_1",
-  map      = "MAP02",
+  map = "MAP02",
 
-  prob     = 50,
+  prob = 50,
 }
 
 PREFABS.Wall_gtd_library_diag_1 =
 {
   template = "Wall_gtd_library_1",
-  map    = "MAP03",
+  map = "MAP03",
 
-  where  = "diagonal",
+  where = "diagonal",
 }

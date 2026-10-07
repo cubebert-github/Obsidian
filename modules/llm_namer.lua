@@ -186,6 +186,7 @@ LLM_NAME.semantics_grouping =
   gtd_generic_small_lite = "liminal_space",
   gtd_generic_artsy_lite_box = "liminal_space",
   gtd_generic_artsy_chequered = "liminal_space",
+  gtd_generic_artsy_corpo_art = "liminal_space",
   gtd_generic_ceilwall = "liminal_space",
   gtd_generic_ceilwall_2 = "liminal_space",
   gtd_generic_ceilwall_3 = "liminal_space",
@@ -1504,9 +1505,12 @@ LLM_NAME.name_theme =
     "- 2 words, in the format 'The <Non-Diciontary Adjective> <Name>'. Do not combine more than 2 dictionary words into one",
     "- 2 words, involve a non-real coined place name or 2 non-dictionary words",
     "- 3 words, involve a non-real coined place name",
+    "- 3 words, in the format '<Entity/Character>'s <Place Name> of <Adjective>', involve a non-real coined place name and non-dictionary words",
+    "- 3 words, in the format '<Adjective> <Place Name> of <Entity/Character>', involve a non-real coined place name and non-dictionary words",
+    "- 3 words, involve a non-real coined place name",
     "- 4 words, involve a non-real coined place name",
     "- 5 words, not more than 18 characters long including spaces, involve a non-real coined place name",
-    "- 6 words, not more than 18 characters long including spaces, involve a non-real coined place name",
+    "- 6 words, not more than 18 characters long including spaces, involve a non-real coined place name"
   }
 }
 
@@ -1590,7 +1594,7 @@ LLM_NAME.prompt_flavors =
 
 LLM_NAME.prompt_sub_flavors =
 {
-  action = 
+  action =
   {
     source =
     {
@@ -1606,7 +1610,7 @@ LLM_NAME.prompt_sub_flavors =
     }
   },
 
-  black_metal = 
+  black_metal =
   {
     source =
     {
@@ -1658,77 +1662,276 @@ LLM_NAME.prompt_sub_flavors =
 
 LLM_NAME.story_components =
 {
-  flavors = {
-    -- The Nature of Threat (What causes the crisis?)
-    "Incursion from adjacent dimensions.",
-    "Threat from internal military corruption.",
-    "Overwhelming alien intelligence presence.",
-    "Escalation due to failed bio-weaponry.",
-    "Contamination spreading through resources.",
-    "Enemy focused on tracking specific assets.",
-    "Parasitic entity consuming life force.",
-    "Weaponized demonic power outbreaks only.",
-    "Rival supernatural forces competing here.",
-    "The sudden mutation of native lifeforms.",
-    "External celestial body entering sector.",
+flavors = {
 
-    -- Systemic Breakdown (How is the world falling apart?)
-    "Loss of central command oversight.",
-    "Resource scarcity fueling internal strife.",
-    "Structural integrity failing everywhere.",
-    "Containment protocols breaking down sequentially.",
-    "Core life support systems failure imminent.",
-    "Time stream fluctuating erratically here.",
-    "The facility is self-destructing rapidly.",
-    "Artificial gravity fields destabilizing wildly.",
+    -- THREAT ORIGIN
 
-    -- Authority / Control Failure (Who controls the situation?)
-    "Authority vacuum; no single leader remains.",
-    "Military chains of command dissolved entirely.",
-    "Security forces turning on own allies.",
-    "Overlord AI system gone rogue.",
-    "Government failing due to external pressure.",
-    "Jurisdictional conflicts between armed groups.",
-    "Loss of governing scientific council.",
+    "A hostile force has entered the area.",
+    "A dimensional breach has opened nearby.",
+    "A previously contained entity has escaped.",
+    "An unknown hostile presence has appeared.",
+    "A dormant threat has become active.",
+    "An experimental project has failed catastrophically.",
+    "A biological contamination is spreading.",
+    "A supernatural phenomenon has appeared.",
+    "A hostile intelligence has infiltrated local systems.",
+    "An ancient structure has become active.",
+    "A powerful artifact has been disturbed.",
+    "A weapons experiment has gone wrong.",
+    "A research project has produced an unexpected threat.",
+    "A local population has been exposed to an unknown force.",
+    "A previously unknown lifeform has appeared.",
+    "A hostile force has established a presence in the area.",
+    "An existing enemy presence has suddenly intensified.",
+    "A chain reaction has begun across the installation.",
+    "A dormant system has activated without authorization.",
+    "Something from outside the known world has entered the area.",
+    "A failed experiment has altered the surrounding environment.",
+    "A hostile phenomenon is spreading beyond its point of origin.",
+    "An unknown force has begun consuming local resources.",
+    "A previously isolated threat has breached containment.",
+    "A powerful energy source has become unstable.",
+    "A large-scale invasion is already underway.",
+    "A localized outbreak has become uncontrollable.",
+    "A mysterious signal has preceded a major incident.",
+    "An ancient mechanism has begun operating again.",
+    "A hostile force has emerged from below the installation.",
 
-    -- Character and Trust Stakes (The human drama)
-    "Conflict driven by political rivalries.",
-    "Faction loyalties strained constantly now.",
-    "Opposition using widespread misinformation.",
-    "Forced alliance with dubious minor faction.",
-    "Protagonists hunted by allied forces.",
-    "Trust placed in a single questionable source.",
-    "Moral compromise unavoidable survival task.",
+    -- DEMONIC / OCCULT PRESENCE
 
-    -- Environment and Physical Hazards (The physical setting)
-    "Unstable gravity fields fluctuating wildly.",
-    "Toxicity levels reaching fatal maximums.",
-    "Extreme weather patterns causing panic.",
-    "Structural instability from dimensional stress.",
-    "Permanent radiation zones are active.",
-    "Mutagenic spores changing everything living.",
+    "Hell has established a foothold in the area.",
+    "Demonic influence is spreading through the facility.",
+    "The surrounding area is being transformed by Hell.",
+    "A Hellish presence has contaminated the installation.",
+    "Demonic forces are using the facility for an unknown purpose.",
+    "A portal to Hell has been opened.",
+    "Multiple portals are appearing throughout the area.",
+    "The boundary between worlds has become unstable.",
+    "Hellish energy is corrupting local systems.",
+    "Demonic activity is increasing throughout the region.",
+    "A supernatural infestation has spread through the installation.",
+    "The dead are no longer remaining dead.",
+    "Demonic forces have occupied an existing installation.",
+    "An area has been partially transformed into Hell.",
+    "Hell has begun manifesting through the local environment.",
+    "A supernatural force is interfering with technology.",
+    "An ancient demonic presence has awakened.",
+    "A conflict between hostile supernatural forces has erupted.",
+    "Demonic activity is concentrated around a critical facility.",
+    "Hell is attempting to establish a permanent presence.",
 
-    -- Conflict Scale and Scope (The size of the conflict)
-    "Conflict on a massive planetary scale.",
-    "Localized threat requiring immediate isolation.",
-    "Small skirmish over single object access.",
-    "Large-scale war approaching sector boundary.",
-    "Combat spanning multiple disconnected levels.",
-    "Ongoing struggle against relentless enemy flow.",
+    -- FACILITY / INSTALLATION STATE
 
-    -- Psycho-Social Stakes (The emotional core)
-    "Paranoia due to constant surveillance always.",
-    "Psychological warfare targeting personnel minds.",
-    "The weight of forbidden historical knowledge.",
-    "Secret agendas hidden in clear plain sight.",
-    "Truth is revealed at immense personal cost.",
+    "The installation has suffered catastrophic damage.",
+    "The facility is partially abandoned.",
+    "The facility has been overrun.",
+    "The installation has been placed under emergency lockdown.",
+    "Large sections of the facility are inaccessible.",
+    "Critical systems are offline.",
+    "The installation is operating under emergency power.",
+    "The facility has been evacuated.",
+    "The evacuation has failed.",
+    "Communications with the facility have been lost.",
+    "The installation has been sealed from the outside.",
+    "The facility has become isolated from the surrounding region.",
+    "Multiple systems are failing simultaneously.",
+    "Security systems are operating unpredictably.",
+    "Automated defenses remain active.",
+    "Industrial systems continue operating without supervision.",
+    "The facility has been partially converted for emergency use.",
+    "The installation is being destroyed from within.",
+    "The facility is suffering progressive structural failure.",
+    "Critical infrastructure has been compromised.",
+    "The facility's internal network has been compromised.",
+    "Large areas have been rendered hazardous.",
+    "The installation has become a battlefield.",
+    "The facility is still operating despite catastrophic damage.",
+    "Several disconnected sections of the installation remain active.",
 
-    -- Primary Governing Force (The Narrative Hook)
-    "Search for missing vital power prototype.",
-    "Rescue critical scientist from trapped area.",
-    "Investigation into ancient alien secrets.",
-    "Military necessity over civilian life mandate.",
-    "Uncovering the true nature of existence."
+    -- CONTAINMENT FAILURE
+
+    "Containment has failed.",
+    "Multiple containment systems have failed.",
+    "A containment breach is spreading.",
+    "A previously secure area has been compromised.",
+    "Emergency containment measures are failing.",
+    "Something has escaped from a restricted area.",
+    "Several restricted areas have been breached.",
+    "The containment system has become unreliable.",
+    "Security barriers have been compromised.",
+    "A sealed area is no longer secure.",
+    "A quarantine zone has been breached.",
+    "A hazardous experiment has escaped its designated area.",
+    "A containment system has begun behaving unpredictably.",
+    "The facility is attempting to contain an expanding threat.",
+    "Containment has succeeded in some areas but failed in others.",
+
+    -- SYSTEMIC BREAKDOWN
+
+    "Central command has lost control of the situation.",
+    "Communications have broken down.",
+    "Power infrastructure is failing.",
+    "Emergency systems are failing in sequence.",
+    "Life-support systems are failing.",
+    "Security systems have malfunctioned.",
+    "Automated systems are behaving unpredictably.",
+    "Industrial systems have become hazardous.",
+    "Navigation systems are unreliable.",
+    "Local infrastructure has collapsed.",
+    "The facility's internal network is unstable.",
+    "Critical systems are operating without supervision.",
+    "Emergency protocols have been activated.",
+    "Emergency protocols have failed.",
+    "The installation is operating beyond its designed limits.",
+    "Damage is spreading through connected systems.",
+    "Multiple independent failures are occurring simultaneously.",
+    "The surrounding infrastructure is becoming unusable.",
+    "The facility is becoming increasingly difficult to access.",
+    "Normal operations have completely broken down.",
+
+    -- POWER / ENERGY INSTABILITY
+
+    "A major power source is unstable.",
+    "The primary reactor is operating abnormally.",
+    "Backup power is being exhausted.",
+    "Energy systems are overloaded.",
+    "A critical energy network has become unstable.",
+    "Power is being diverted from normal operations.",
+    "An unknown energy source is interfering with local systems.",
+    "A large-scale energy discharge has damaged the facility.",
+    "Power generation has become hazardous.",
+    "Energy fluctuations are affecting the surrounding area.",
+    "A critical power system has been compromised.",
+    "Several independent power systems are failing.",
+    "An experimental energy system has become unstable.",
+    "Energy is leaking into the surrounding environment.",
+    "A major energy source is drawing power from unknown origins.",
+
+    -- ENVIRONMENTAL HAZARD
+
+    "The environment has become dangerously toxic.",
+    "Radiation levels are dangerously high.",
+    "Extreme heat is spreading through the area.",
+    "Extreme cold has compromised the installation.",
+    "The atmosphere has become hazardous.",
+    "Mutagenic contamination is spreading.",
+    "Hazardous chemicals have escaped containment.",
+    "Industrial waste has contaminated the area.",
+    "The terrain has become unstable.",
+    "Structural collapse is occurring throughout the area.",
+    "Fires are spreading through the installation.",
+    "Flooding has damaged lower areas.",
+    "Toxic gases are accumulating in enclosed areas.",
+    "Electrical hazards are spreading through damaged infrastructure.",
+    "The surrounding environment has been physically altered.",
+    "Local wildlife has become hostile or abnormal.",
+    "A hazardous substance is spreading through the facility.",
+    "Environmental conditions are changing unpredictably.",
+    "Previously safe areas have become hazardous.",
+    "Multiple environmental hazards are overlapping.",
+
+    -- DIMENSIONAL / SPATIAL INSTABILITY
+
+    "The area has become spatially unstable.",
+    "Dimensional boundaries are breaking down.",
+    "The facility is partially overlapping another location.",
+    "Sections of the installation no longer connect normally.",
+    "Localized dimensional distortions are appearing.",
+    "The surrounding space is behaving unpredictably.",
+    "Areas of the facility have become inaccessible through normal routes.",
+    "Previously separate areas have become connected.",
+    "A dimensional phenomenon is spreading through the area.",
+    "The installation is being affected by an external dimension.",
+    "The boundary between physical spaces has become unstable.",
+    "Local geometry has been altered by an unknown force.",
+    "The facility has become partially disconnected from reality.",
+    "Multiple realities are overlapping in the area.",
+    "A dimensional breach is affecting the surrounding environment.",
+
+    -- HOSTILE CONTROL
+
+    "Hostile forces control much of the area.",
+    "The installation's defenses are no longer under human control.",
+    "An unknown intelligence controls local systems.",
+    "Automated defenses are attacking unauthorized personnel.",
+    "Hostile forces have seized critical infrastructure.",
+    "The facility is being controlled remotely.",
+    "Local security forces have been compromised.",
+    "Enemy forces are using the installation's infrastructure.",
+    "A hostile intelligence is manipulating facility systems.",
+    "Several factions are competing for control of the area.",
+    "The original operators have lost control of the installation.",
+    "The facility's automated systems are treating everyone as hostile.",
+    "Hostile forces have isolated sections of the facility.",
+    "The installation is caught between competing hostile forces.",
+    "Control of the area is shifting between opposing forces.",
+
+    -- HUMAN / MILITARY DISORDER
+
+    "Personnel are fighting to survive amid the collapse.",
+    "Remaining forces are fragmented.",
+    "Surviving personnel are operating independently.",
+    "Military forces have lost coordination.",
+    "Security personnel have abandoned their posts.",
+    "Remaining personnel are defending isolated positions.",
+    "Different groups are pursuing conflicting priorities.",
+    "Emergency personnel are trapped inside the affected area.",
+    "A surviving force is attempting to hold its position.",
+    "Personnel are attempting to evacuate the area.",
+    "A military response has failed to contain the threat.",
+    "The remaining defenders are severely outmatched.",
+    "The installation has been abandoned by its original operators.",
+    "Scattered survivors remain throughout the facility.",
+    "Several groups are attempting to survive independently.",
+
+    -- SCALE
+
+    "A single facility is affected.",
+    "A complex of interconnected facilities is affected.",
+    "A major installation is affected.",
+    "A remote settlement is affected.",
+    "A large industrial region is affected.",
+    "A military installation is affected.",
+    "A research complex is affected.",
+    "An entire city is affected.",
+    "A large portion of the surrounding region is affected.",
+    "The crisis extends across multiple installations.",
+    "The crisis is spreading beyond its original location.",
+    "The entire local infrastructure is compromised.",
+    "The surrounding territory has become inaccessible.",
+    "The crisis has reached planetary scale.",
+    "The affected area continues to expand.",
+
+    -- TEMPORAL PRESSURE
+
+    "The situation is deteriorating rapidly.",
+    "The threat is continuing to spread.",
+    "Critical systems are approaching failure.",
+    "The affected area is becoming increasingly unstable.",
+    "The window for intervention is rapidly narrowing.",
+    "The crisis is escalating without intervention.",
+    "Damage is progressing faster than it can be contained.",
+    "Hostile activity is increasing throughout the area.",
+    "The situation has reached a critical stage.",
+    "The installation is approaching catastrophic failure.",
+
+    -- UNKNOWN / MYSTERIOUS CONDITIONS
+
+    "The cause of the incident is unknown.",
+    "The nature of the threat is unknown.",
+    "The extent of the incident is unknown.",
+    "Communications provide conflicting information.",
+    "Available records are incomplete.",
+    "The facility's final status is unknown.",
+    "No reliable information is coming from the affected area.",
+    "The incident does not match known threat patterns.",
+    "Local systems contain unexplained anomalies.",
+    "Evidence suggests the incident began before it was detected.",
+    "The affected area contains unexplained activity.",
+    "Something has disrupted normally reliable systems.",
+    "The original purpose of the affected area is unclear.",
+    "The scale of the incident is larger than initially reported.",
+    "The situation cannot be explained by known causes."
   },
 
   objectives = {
@@ -1843,7 +2046,7 @@ LLM_NAME.story_components =
     "Destroy defensive emplacements",
     "Disable shield generator",
     "Destroy shield emitter",
-    "Neutralize sniper nests",
+    "Neutralize Hellsurge cannons",
     "Destroy artillery battery",
     "Silence anti-air batteries",
     "Disable orbital defenses",
@@ -2283,51 +2486,55 @@ LLM_NAME.story_components =
     epi =
 [[Make it as engaging as possible.
 
-The text in each tag section must at least be _WORD_COUNT_ words, separated into paragraphs with proper spacing.
-Ensure that the tag section is properly surrounded by the proper HTML tags e.g. <S1> and enclosed with </S1>. Refer to the example provided below.
+The text in each tag section must at be around _WORD_COUNT_ words, separated into paragraphs with proper spacing.
+Abide by our word count rule as much as possible, each section content must be around _WORD_COUNT_ words.
+Ensure that the tag section is properly surrounded by the proper HTML tags e.g. <S1> and enclosed with </S1>, <S2> and </S2> for the next, and etc.
+Refer to the example provided below.
 
 SYSTEM: Please use exactly the following tagged structure and do not use any Markdown.
 Please do not add other blocks than is found in the example:
 
-<S1> 
+<S1>
 story intro here 
 </S1>
 
-<S2> 
+<S2>
 story ending here 
 </S2>]],
 
     game =
 [[There are three chapters and the story is an intro and end for each,
 making six intermissions overall. Each chapter has new twists and revalations.
-The text in each tag section must at least be _WORD_COUNT_ words, separated into paragraphs with proper spacing.
-Ensure that the tag section is properly surrounded by the proper HTML tags e.g. <S1 and <S2> Refer to the example provided below.
+The text in each tag section must be around _WORD_COUNT_ words, separated into paragraphs with proper spacing.
+Abide by our word count rule as much as possible, each section must be around _WORD_COUNT_ words.
+Ensure that the tag section is properly surrounded by the proper HTML tags e.g. <S1> and </S1>, <S2> and </S2> for the next, and etc.
+Refer to the example provided below.
 
 SYSTEM: Use the following tagged structure in the example below.
 Please do not add other blocks than is found in the example.
 The following example must absolutely be followed as there is no input validation:
 
-<S1> 
+<S1>
 chapter 1 intro here
 </S1>
 
-<S2> 
+<S2>
 chapter 1 ending here
 </S2>
 
-<S3> 
+<S3>
 chapter 2 intro here
 </S3>
 
-<S4> 
+<S4>
 chapter 2 ending here
 </S4>
 
-<S5> 
+<S5>
 chapter 3 intro here
 </S5>
 
-<S6> 
+<S6>
 chapter 3 ending here
 </S6>]]
   },
@@ -2432,13 +2639,13 @@ chapter 3 ending here
     "Command Already Knew",
     "Evacuation Never Came",
     "The Signal Was False",
-    "The Survivors Are Infected",
-    "The Portal Cannot Close",
-    "The AI Turned Hostile",
+    "The Survivors Bear the Mark",
+    "The Gate Was Never Closed",
+    "The AI Serves Hell",
     "The Blacksite Lied",
     "The Reactor Was Sabotaged",
-    "The Rescue Was a Coverup",
-    "The Enemy Is Inside",
+    "The Rescue Was Never Meant to Arrive",
+    "Hell Is Already Inside",
     "The Artifact Is Active",
     "The Colony Was Abandoned",
     "The Quarantine Failed",
@@ -2453,15 +2660,15 @@ chapter 3 ending here
     "The Facility Was Compromised",
     "The Weapon Made It Worse",
     "The Outbreak Was Intentional",
-    "The Marines Were Sacrificed",
+    "The Marines Were the Offering",
     "The Breach Is Spreading",
     "The AI Is Hiding Something",
     "The Survivors Turned on Each Other",
     "The Experiment Never Ended",
-    "The Infection Is Airborne",
-    "The Enemy Controls the Network",
+    "The Corruption Spreads",
+    "Hell Controls the Network",
     "The Reactor Is Alive",
-    "The Lower Levels Opened",
+    "The Lower Levels Were Never Empty",
     "The Fleet Has Fallen",
     "The Archives Were Erased",
     "The Invasion Already Happened",
@@ -2479,11 +2686,11 @@ chapter 3 ending here
     "The Water Is Corrupted",
     "The Colony Is Still Active",
     "The Rift Is Stabilizing",
-    "The Infection Thinks",
+    "The Corruption Learned",
     "The Portals Are Linked",
     "The Dead Retain Memory",
     "The Reactor Cannot Shut Down",
-    "The Enemy Mimics Humans",
+    "Hell Wears Human Faces",
     "The Signal Comes From Hell",
     "The Cult Controls Evacuation",
     "The Blacksite Never Closed",
@@ -2497,11 +2704,11 @@ chapter 3 ending here
     "The Demons Want the Reactor",
     "The Hell Structures Are Growing",
     "The Transit Network Is Compromised",
-    "The Infection Crossed Offworld",
+    "Hell Has Crossed the Stars",
     "The Quarantine Zone Expanded",
     "The Marines Lost Contact",
     "The Reactor Core Mutated",
-    "The Portal Reacts to Violence",
+    "The Gate Feeds on Violence",
     "The Blacksite Has Multiple Breaches",
     "The Distress Call Is Ancient",
     "The Evacuation Route Is Gone",
@@ -2510,7 +2717,196 @@ chapter 3 ending here
     "The Teleporters Remain Active",
     "The Facility Is Still Operational",
     "The Breach Reached Orbit",
-    "The End Already Started"
+    "The End Already Started",
+
+    "The Gate Was Never Closed",
+    "The Reactor Powers Hell",
+    "The Facility Is the Ritual",
+    "The Ritual Already Began",
+    "The Ritual Cannot Stop",
+    "The Priests Never Left",
+    "The Cathedral Is Alive",
+    "The Walls Are Breathing",
+    "The Blood Is Fuel",
+    "The Sky Has Opened",
+    "The Earth Is Bleeding",
+    "The Core Is Possessed",
+    "The Machines Began Praying",
+    "The Corpses Keep Working",
+    "The Flesh Covers the Machinery",
+    "The Fortress Is Growing",
+    "The Gate Learned the Way Back",
+    "The Stars Went Dark",
+    "The Last Safe Room Fell",
+    "The Lights Attract Them",
+
+    "The Catacombs Awakened",
+    "The Ancient Vault Opened",
+    "Something Was Buried Below",
+    "Below Was Never Empty",
+    "The Old Temple Opened",
+    "There Is No Surface",
+    "There Never Was a Colony",
+    "Every Exit Leads Below",
+    "The Moon Is Hollow",
+    "Hell Is Older Than Earth",
+    "Command Fed Them to Hell",
+    "Command Chose Containment",
+    "Command Opened the Gate",
+    "High Command Made the Bargain",
+    "Someone Signed the Pact",
+    "Hell Knows Your Name",
+    "Hell Speaks Through the Speakers",
+    "Hell Learned Our Voices",
+    "Hell Answers Blood",
+    "Blood Strengthens the Gate",
+
+    "Every Kill Widens the Rift",
+    "The Rift Hungers",
+    "The Gate Reacts to Violence",
+    "The Flesh Is Changing",
+    "Corruption Has Taken Root",
+    "Hell Walks Among the Living",
+    "The Mark Is Spreading",
+    "The Factory Manufactures Demons",
+    "The Forge Never Cooled",
+    "The Flesh Has Replaced Steel",
+    "The Heart Beneath the Facility Beats",
+    "The Foundation Is Flesh",
+    "The Cathedral Was Built Tomorrow",
+    "The Planet Is Becoming Hell",
+    "The Harvest Has Begun",
+    "The Titan Is Waking",
+    "The Prison Was Empty",
+    "The Prison Was Holding Hell",
+    "The Abyss Is Looking Back",
+    "The Noise Is a Prayer",
+
+    "The Choir Is Not Human",
+    "The Portal Learned Your Name",
+    "The Blood Is Calling",
+    "The Sun Never Rose",
+    "The Air Smells Like Sulfur",
+    "The Chant Never Stopped",
+    "The Dead Guard the Gate",
+    "The Sky Is Breaking",
+    "Reality Is Tearing",
+    "More Gates Are Opening",
+    "They Keep Returning",
+    "It Keeps Growing",
+    "Nobody Escaped",
+    "They Opened the Gate",
+    "Containment Was the Ritual",
+    "The Ritual Was the Experiment",
+    "The Experiment Was the Summoning",
+    "The Summoning Was Successful",
+    "The First Breach Was Deliberate",
+    "Hell Was Invited",
+
+    "The Gate Is Growing",
+    "The Gate Is Learning",
+    "The Gate Is Hungry",
+    "The Reactor Is Its Heart",
+    "The Facility Is Its Body",
+    "The Network Is Its Nervous System",
+    "The Dead Are Its Workers",
+    "The Demons Are Being Manufactured",
+    "The Hellspawn Are Multiplying",
+    "The Citadel Is Moving",
+    "The Fortress Has Awakened",
+    "The Planet Is Screaming",
+    "The Ocean Is Boiling",
+    "The Ground Is Opening",
+    "The Heavens Are Burning",
+    "The Moon Has Gone Dark",
+    "The Stars Are Disappearing",
+    "The Horizon Is Gone",
+    "The War Has Reached Earth",
+    "Hell Has Come to Stay",
+
+    "The Last Transmission Was a Warning",
+    "The Last Transmission Was a Prayer",
+    "The Last Transmission Came From Below",
+    "The Last Transmission Came From the Future",
+    "The Distress Signal Was Ours",
+    "The Distress Signal Was the Bait",
+    "The Rescue Ship Was Already Compromised",
+    "The Reinforcements Serve Hell",
+    "The Fleet Was Never Coming",
+    "The Fleet Is Coming From Hell",
+    "The Evacuation Ships Are Empty",
+    "The Evacuation Ships Are Full of Dead",
+    "The Safe Zone Has Fallen",
+    "The Safe Zone Was Never Safe",
+    "The Bunker Has Been Opened",
+    "The Bunker Is Full",
+    "The Bunker Is Feeding Them",
+    "The Door Was Locked From the Inside",
+    "The Door Was Built to Keep Something Out",
+    "Something Is Knocking",
+
+    "The Ancient Gods Were Not Dead",
+    "The Tomb Was a Prison",
+    "The Temple Was a Machine",
+    "The Relic Was a Key",
+    "The Key Was Already Turned",
+    "The Seal Was a Warning",
+    "The Seal Was Broken Long Ago",
+    "The Prophecy Was an Instruction",
+    "The Prophecy Was a Countdown",
+    "The Gods Were Waiting",
+    "The Priests Were Right",
+    "The Priests Were Wrong",
+    "The Sacrifice Was Not Human",
+    "The Sacrifice Was the Planet",
+    "The Altar Is Still Warm",
+    "The Ritual Needs One More Soul",
+    "The Ritual Needs You",
+    "The Gate Needs a Champion",
+    "The Champion Has Already Arrived",
+    "The Slayer Was Not the First",
+
+    "The Machine Found Hell",
+    "Hell Found the Machine",
+    "The Machine Opened the Gate",
+    "The Machine Is Still Running",
+    "The Machine Is Feeding Hell",
+    "The Network Became a Temple",
+    "The Factory Became a Shrine",
+    "The Reactor Became an Altar",
+    "The Station Became a Cathedral",
+    "The Colony Became a Graveyard",
+    "The City Became a Battlefield",
+    "The Planet Became a Gate",
+    "The Sky Became the Breach",
+    "The Ground Became the Enemy",
+    "The Walls Became Flesh",
+    "The Machinery Became Alive",
+    "The Dead Became Soldiers",
+    "The Soldiers Became Demons",
+    "The Demons Became the Army",
+    "The Army Is Already Here",
+
+    "Hell Has Already Won",
+    "Hell Has Not Finished",
+    "Hell Is Only Beginning",
+    "The War Has Just Begun",
+    "The First Wave Was a Test",
+    "The Second Wave Is Coming",
+    "The Horde Was Only the Advance Force",
+    "The Invasion Was a Distraction",
+    "The Real Invasion Is Below",
+    "The Real Invasion Is Above",
+    "The Breach Was the Objective",
+    "The Reactor Was the Objective",
+    "The Artifact Was the Objective",
+    "The Facility Was the Objective",
+    "You Were the Objective",
+    "They Wanted You Alive",
+    "They Wanted You Angry",
+    "They Wanted You Here",
+    "They Were Waiting for You",
+    "The Hunt Has Begun"
   },
 
   -- common proper nouns from the LLM that constantly get re-used (annoyingly)
@@ -3820,8 +4216,8 @@ level_data
 
     -- LLM temperature variation, later maps have crazier names
     local pick_tmp
-    if #GAME.levels > 4 and epi_lev.along then
-      pick_tmp = map_value(epi_lev.along, 0, 1, 1.0, 2.0)
+    if epi_lev.game_along then
+      pick_tmp = map_value(epi_lev.game_along, 0, 1, 1, 2.5)
     end
 
     -- name length
@@ -3841,12 +4237,21 @@ level_data
       end
     end
 
-    return ask(prompt,
+    local lname = ask(prompt,
     {
-      temperature = pick_tmp or 0.85,
+      temperature = pick_tmp or 1.0,
       num_predict = 20
     },
     "name")
+
+    if not lname then
+      gui.printf("Failed to acquire name. Preserving original.\n")
+      return "not_ok"
+    end
+
+    gui.printf("Replaced name of " .. epi_lev.id .. ": " .. lname .. "\n")
+
+    return lname
   end
 
 
@@ -3906,8 +4311,9 @@ Rules:
 - the selected Story Plot controls the actual objective and resolution
 - if the acronym UAC is used, it means "Union Aerospace Corporation"
 - please do not mention: the smell of ozone, nexus points, junctions, or sub-levels, structural integrity
-- avoid inventing a larger hidden crisis to make the ending feel more important
-- do not invent a larger hidden portal, reactor, core, energy-source, breach, or anomaly plot
+- do not use story writing structures such as negations e.g. "not X, just Y", "not afraid, just careful", and so on
+- no Warhammer 40k
+- keep plot legible rather than abstract
 - do not mention Earth, it is only for locational context
 
 The silent marine protagonist is the Doomslayer and needs no introduction, forever fighting an eternal war with hell and answers to no one. 
@@ -3924,6 +4330,7 @@ Plot Discipline:
 
 Protagonist Notes:
 - the protagonist will never choose to work with Hell
+- the protagonist prefers to never harm humans, only demons or possessed humans
 - the protagonist will only work with anyone if it coincides with the Doomslayer's goal of Hell's destruction
 - do not explain anything about the protagonist's identity or motivations in the story
 
@@ -3932,16 +4339,19 @@ _ENTITIES_
 _FORMAT_
 ]]
     -- flavor injection
-    local story_flavor = rand.pick(LLM_NAME.story_components.flavors) .. "\n"
-    story_flavor = story_flavor .. "The Objective: " .. rand.pick(LLM_NAME.story_components.objectives) .. "\n"
+    local story_flavor = rand.pick(LLM_NAME.story_components.flavors)
+    local story_obj = rand.pick(LLM_NAME.story_components.objectives)
+    local story_instruction = story_flavor .. "\nThe Objective: " .. story_obj .. "\n"
 
     -- sometimes add a twist
+    local story_twist
     if rand.odds(75) then
-      story_flavor = story_flavor .. "The Twist: " .. rand.pick(LLM_NAME.story_components.story_twists) .. "\n"
+      story_twist = rand.pick(LLM_NAME.story_components.story_twists)
+      story_instruction = story_instruction .. "The Twist: " .. story_twist .. "\n"
     end
     prompt = string.gsub(prompt,
     "_FLAVOR_",
-    story_flavor)
+    story_instruction)
 
     -- place injection
     -- create theme probs
@@ -4001,7 +4411,11 @@ _FORMAT_
 
       -- sometimes add a McGuffin
       if rand.odds(50) then
-        story_characters = story_characters ..  "Found later in the story:\n"
+        story_characters = story_characters ..
+          rand.pick({
+            "Found later in the story:\n",
+            "Found interacting Slayer later in the story:\n"
+          })
         story_characters = story_characters .. "* " .. rand.pick(LLM_NAME.story_components.mcguffins) .."\n"
       end
     end
@@ -4009,7 +4423,11 @@ _FORMAT_
     -- higher chance to involve a McGuffin if there are no characters in the story
     if character_mode == "none" then
       if rand.odds(66) then
-        story_characters = story_characters ..  "Found later in the story:\n"
+        story_characters = story_characters ..
+          rand.pick({
+            "Found later in the story:\n",
+            "Wielded by the Slayer's opponents in the story:\n"
+          })
         story_characters = story_characters .. "* " .. rand.pick(LLM_NAME.story_components.mcguffins) .."\n"
         -- a small chance to add a second McGuffin
         if rand.odds(33) then
@@ -4043,9 +4461,8 @@ _FORMAT_
     -- temperature
     local temp = rand.pick
     {
-      1.0,
-      1.05,
-      1.1
+      3.0,
+      3.0
     }
 
     -- prompt structure
@@ -4055,6 +4472,9 @@ _FORMAT_
       num_predict = 1800
     },
     "story")
+
+    assert(story_chunks, "LLM Namer: No story retrieved. Is Ollama on? "..
+    "Is the climate fixed? Have wages caught up with inflation? Has the authoritarian-populism fad faded? Are we doomed?")
 
     -- parse out common names from the LLM to something more unique
     local noun_replacers = {}
@@ -4077,7 +4497,19 @@ _FORMAT_
         chunk_name = "STORYEND"
       end
 
+
       table.insert(PARAM.language_lump, chunk_name .. math.ceil(s_pos/2) .. " =\n")
+      -- debug
+      if PARAM.bool_llm_namer_debug == 1 then
+        if s_pos == 1 then
+          table.insert(PARAM.language_lump,
+            '"[' .. story_flavor .. ']\\n"'
+          )
+          table.insert(PARAM.language_lump,
+            '"' .. story_obj .. " / " .. (story_twist or "No Twist") .. '\\n\\n"'
+          )
+        end
+      end
       table.insert(PARAM.language_lump,
         format_story_string(
           escape_string(
@@ -4106,30 +4538,30 @@ _FORMAT_
           local name = generate_level_name(level_data, L)
 
           -- parse out common names from the LLM to something more unique
-          local noun_replacers = {}
-          for _,N in ipairs(LLM_NAME.story_components.replacers) do
-            noun_replacers[N] = namelib.generate_unique_noun("exotic")
-            assert(name, "Received no answer from Ollama instance! " ..
-            "Is it on? Why does life have to be this way?!")
-            name = string.gsub(name, N, noun_replacers[N])
-          end
+          if name ~= "not_ok" then
+            local noun_replacers = {}
+            for _,N in ipairs(LLM_NAME.story_components.replacers) do
+              noun_replacers[N] = namelib.generate_unique_noun("exotic")
+              name = string.gsub(name, N, noun_replacers[N])
+            end
 
-          -- direct replacers
-          if rand.odds(90) then
-            for replacee,choices in pairs(LLM_NAME.naming_novelty.replacers) do
-              if string.gmatch(name, replacee) then
-                name = string.gsub(name, replacee, rand.pick(choices))
+            -- direct replacers
+            if rand.odds(90) then
+              for replacee,choices in pairs(LLM_NAME.naming_novelty.replacers) do
+                if string.gmatch(name, replacee) then
+                  name = string.gsub(name, replacee, rand.pick(choices))
+                end
               end
             end
-          end
 
-          if name then
-            gui.debugf("LLM Namer: " .. L.name .. " name '" ..
-            L.description .. "' substituted with '" .. name .. "'!\n")
+            if name then
+              gui.debugf("LLM Namer: " .. L.name .. " name '" ..
+              L.description .. "' substituted with '" .. name .. "'!\n")
 
-            L.description = name
+              L.description = name
 
-            table.insert(LLM_NAME.history , name)
+              table.insert(LLM_NAME.history , name)
+            end
           end
 
         end
@@ -4175,8 +4607,9 @@ OB_MODULES["llm_namer"] =
       default = 1,
       tooltip = _("Generates a context-aware level name via LLM."),
       longtip = _("Uses Ollama to generate a name for a level by sending level metadata to Ollama. " ..
-        "Default model is llama3.1:8b. Using a different model or LLM platform requires modification of the script. " ..
-        "To use this, just download Ollama and llama3.1:8b and keep it running all at default settings.\n\n" ..
+        "Default model is llama3.1:8b for name generation and gemma4:latest for story generation. " ..
+        "Using a different model or LLM platform requires modification of the script. (see the first lines of code in modules/llm_namer.lua)" ..
+        "To use this, just download Ollama and llama3.1:8b and gemma4:latest and keep it running all at default settings.\n\n" ..
         "This module uses Lua io.popen to access cURL, and may cause CMD to briefly appear. This is normal behavior.\n\n" ..
         "The module DOES NOT SEND DATA outside of your PC. " ..
         "This module will not work if you do not have libcurl as it communicates in RESTful API style.\n\n"),
@@ -4236,6 +4669,15 @@ OB_MODULES["llm_namer"] =
       tooltip = _("Enables or disables Ollama instance check before level generation begins for speed. " ..
       "When turning this off, be absolutely sure Ollama is running or you may get end errors, wasting your generated level."),
       priority = 95,
+    },
+
+    {
+      name = "bool_llm_namer_debug",
+      label = _("Debug Mode"),
+      valuator = "button",
+      default = 0,
+      tooltip = _("Adds some prompt information to generated text for debugging."),
+      priority = 94,
     }
   }
 }

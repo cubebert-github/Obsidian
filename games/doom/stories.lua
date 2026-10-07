@@ -2834,5 +2834,5 @@ DOOM.STORIES.QUIT_MESSAGES =
   [[The fear of blood tends to create fear for the flesh.]], -- Silent Hill
   [[...This is no time to be looking at a stupid quit message.]], -- Based on Silent Hill 2, in Brookhaven Hospital looking at a pin-up where "quit message" is "poster"
   [[If you leave now... You condemn all of humanity!]], -- Dead Space
-  [[Stick sround. I'm full of bad ideas.]] -- Dead Space 2
+  [[Stick around. I'm full of bad ideas.]] -- Dead Space 2
 }

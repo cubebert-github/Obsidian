@@ -14,7 +14,6 @@ PREFABS.Pic_park_generic_1 =
   seed_h = 1,
 
   deep = 16,
-  over = -16,
 
   bound_z1 = 0,
   bound_z2 = 128,
@@ -72,7 +71,7 @@ PREFABS.Pic_park_generic_1_liquid =
 {
   template = "Pic_park_generic_1",
 
-  prob = 15 * 20,
+  prob = 15,
 
   liquid = true,
 
@@ -87,7 +86,7 @@ PREFABS.Pic_park_generic_2_liquid =
 {
   template = "Pic_park_generic_1",
 
-  prob = 15 * 20,
+  prob = 15,
 
   liquid = true,
 
@@ -101,11 +100,50 @@ PREFABS.Pic_park_generic_3_liquid =
 {
   template = "Pic_park_generic_1",
 
-  prob = 15 * 20,
+  prob = 15,
 
   liquid = true,
 
   map = "MAP12",
 
   z_fit = { 40,120 },
+}
+
+--
+
+PREFABS.Pic_park_generic_1_open =
+{
+  file = "picture/gtd_pic_generic_park.wad",
+  map = "MAP13",
+
+  prob = 100,
+  env = "!building",
+
+  group = "natural_walls",
+
+  where  = "seeds",
+
+  seed_w = 2,
+  seed_h = 1,
+
+  deep = 16,
+
+  bound_z1 = 0,
+  bound_z2 = 128,
+
+  x_fit = "stretch",
+  y_fit = { 16,128 },
+  z_fit = "stretch"
+}
+
+PREFABS.Pic_park_generic_2_open =
+{
+  template = "Pic_park_generic_1_open",
+  map = "MAP14",
+}
+
+PREFABS.Pic_park_generic_3_open =
+{
+  template = "Pic_park_generic_1_open",
+  map = "MAP15",
 }

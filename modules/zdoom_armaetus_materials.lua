@@ -1424,6 +1424,7 @@ OBS_RESOURCE_PACK_MATERIALS = {
   T_HLITEY = { t="T_HLITEY", f="FLAT23" },
   T_HLITEG = { t="T_HLITEG", f="FLAT23" },
   T_HLITEB = { t="T_HLITEB", f="FLAT23" },
+  T_HLITER = { t="T_HLITER", f="FLAT23"},
 
   -- Recolored CEIL4_3 flats
   T_CL43R = { t="COMPRED" , f="T_CL43R" },
@@ -1464,10 +1465,10 @@ OBS_RESOURCE_PACK_MATERIALS = {
   T_GTHLP = { t="T_GTHLP", f="G04" },
 
   -- Quad lights
-  T_GHFLY = { t="G16", f="T_GHFLY" },
-  T_GHFLB = { t="G16", f="T_GHFLB" },
-  T_GHFLG = { t="G16", f="T_GHFLG" },
-  T_GHFLP = { t="G16", f="T_GHFLP" },
+  T_GHFLY = { t="T_GHFLY", f="T_GHFLY" },
+  T_GHFLB = { t="T_GHFLB", f="T_GHFLB" },
+  T_GHFLG = { t="T_GHFLG", f="T_GHFLG" },
+  T_GHFLP = { t="T_GHFLP", f="T_GHFLP" },
 
   -------------
   -- DUKETEX --
@@ -1580,6 +1581,104 @@ OBS_RESOURCE_PACK_MATERIALS = {
   NAHIDA = { t="NAHIDA", f="FLAT23"},
   BATHWTR1 = { t="BATHWTR1", f="FLAT23"},
   BATHWTR2 = { t="BATHWTR2", f="FLAT23"},
+
+  -- techy grey walls
+  G_OM_WL1 = { t="G_OM_WL1", f="G_OM_FT1"},
+  G_OM_WL2 = { t="G_OM_WL2", f="G_OM_FT2"},
+  G_OM_WL3 = { t="G_OM_WL3", f="G_OM_FT3"},
+  G_OM_WL4 = { t="G_OM_WL4", f="G_OM_FT4"},
+  G_OM_WL5 = { t="G_OM_WL5", f="G_OM_FT5"},
+  G_OM_WL6 = { t="G_OM_WL6", f="G_OM_FT6"},
+  G_OM_WL7 = { t="G_OM_WL7", f="G_OM_FT7"},
+  G_OM_WL8 = { t="G_OM_WL8", f="G_OM_FT8"},
+  G_OM_WL9 = { t="G_OM_WL9", f="G_OM_FT9"},
+  G_OM_WLA = { t="G_OM_WLA", f="G_OM_FTA"},
+  G_OM_WLB = { t="G_OM_WLB", f="G_OM_FT1"},
+  G_OM_WLC = { t="G_OM_WLC", f="G_OM_FT2"},
+  G_OM_WLD = { t="G_OM_WLD", f="G_OM_FT3"},
+  G_OM_WLE = { t="G_OM_WLE", f="G_OM_FT4"},
+
+  -- techy green walls
+  G_OM_WG1 = { t="G_OM_WG1", f="G_OM_FG1"},
+  G_OM_WG2 = { t="G_OM_WG2", f="G_OM_FG2"},
+  G_OM_WG3 = { t="G_OM_WG3", f="G_OM_FT1"},
+  G_OM_WG4 = { t="G_OM_WG4", f="G_OM_FT2"},
+  G_OM_WG5 = { t="G_OM_WG5", f="G_OM_FT3"},
+  G_OM_WG6 = { t="G_OM_WG6", f="G_OM_FT4"},
+  G_OM_WG7 = { t="G_OM_WG7", f="G_OM_FG1"},
+  G_OM_WG8 = { t="G_OM_WG8", f="G_OM_FG2"},
+
+  -- bumblebee tech
+  G_OTBBW1 = { t="G_OTBBW1", f="G_OTBBF1"},
+  G_OTBBW2 = { t="G_OTBBW2", f="G_OTBBF2"},
+  G_OTBBW3 = { t="G_OTBBW3", f="G_OTBBF3"},
+  G_OTBBW4 = { t="G_OTBBW4", f="G_OTBBF4"},
+  G_OTBBW5 = { t="G_OTBBW5", f="G_OTBBF5"},
+  G_OTBBW6 = { t="G_OTBBW6", f="G_OTBBF6"},
+  G_OTBBW7 = { t="G_OTBBW7", f="G_OTBBF7"},
+  G_OTBBW8 = { t="G_OTBBW8", f="G_OTBBF8"},
+  G_OTBBW9 = { t="G_OTBBW9", f="G_OTBBF9"},
+  G_OTBBWA = { t="G_OTBBWA", f="G_OTBBFA"},
+  G_OTBBWB = { t="G_OTBBWB", f="G_OTBBFB"},
+  G_OTBBWC = { t="G_OTBBWC", f="G_OTBBFC"},
+  -- floors
+  G_OTBBF1 = { t="G_OTBBW1", f="G_OTBBF1"},
+  G_OTBBF2 = { t="G_OTBBW2", f="G_OTBBF2"},
+  G_OTBBF3 = { t="G_OTBBW3", f="G_OTBBF3"},
+  G_OTBBF4 = { t="G_OTBBW4", f="G_OTBBF4"},
+  G_OTBBF5 = { t="G_OTBBW5", f="G_OTBBF5"},
+  G_OTBBF6 = { t="G_OTBBW6", f="G_OTBBF6"},
+  G_OTBBF7 = { t="G_OTBBW7", f="G_OTBBF7"},
+  G_OTBBF8 = { t="G_OTBBW8", f="G_OTBBF8"},
+  G_OTBBF9 = { t="G_OTBBW9", f="G_OTBBF9"},
+  G_OTBBFA = { t="G_OTBBWA", f="G_OTBBFA"},
+  G_OTBBFB = { t="G_OTBBWB", f="G_OTBBFB"},
+  G_OTBBFC = { t="G_OTBBWC", f="G_OTBBFC"},
+  G_OTBBFD = { t="G_OTBBW6", f="G_OTBBFD"},
+
+  -- copper rust
+  G_OCURW1 = { t="G_OCURW1", f="G_OCURF1"},
+  G_OCURW2 = { t="G_OCURW2", f="G_OCURF2"},
+  G_OCURW3 = { t="G_OCURW3", f="G_OCURF3"},
+  G_OCURW4 = { t="G_OCURW4", f="G_OCURF4"},
+  G_OCURW5 = { t="G_OCURW5", f="G_OCURF5"},
+  G_OCURW6 = { t="G_OCURW6", f="G_OCURF6"},
+  G_OCURW7 = { t="G_OCURW7", f="G_OCURF7"},
+  G_OCURW8 = { t="G_OCURW8", f="G_OCURF8"},
+  G_OCURW9 = { t="G_OCURW9", f="G_OCURF3"},
+  G_OCURWA = { t="G_OCURWA", f="G_OCURF6"},
+  -- flats
+  G_OCURF1 = { t="G_OCURW1", f="G_OCURF1"},
+  G_OCURF2 = { t="G_OCURW2", f="G_OCURF2"},
+  G_OCURF3 = { t="G_OCURW3", f="G_OCURF3"},
+  G_OCURF4 = { t="G_OCURW4", f="G_OCURF4"},
+  G_OCURF5 = { t="G_OCURW5", f="G_OCURF5"},
+  G_OCURF6 = { t="G_OCURW6", f="G_OCURF6"},
+  G_OCURF7 = { t="G_OCURW7", f="G_OCURF7"},
+  G_OCURF8 = { t="G_OCURW8", f="G_OCURF8"},
+
+  -- iStuff theme
+  -- walls
+  G_IPHWL1 = {t="G_IPHWL1", f="G_IPHFT1"},
+  G_IPHWL2 = {t="G_IPHWL2", f="G_IPHFT2"},
+  G_IPHWL3 = {t="G_IPHWL3", f="G_IPHFT3"},
+  G_IPHWL4 = {t="G_IPHWL4", f="G_IPHFT4"},
+  G_IPHWL5 = {t="G_IPHWL5", f="G_IPHFT5"},
+  G_IPHWL6 = {t="G_IPHWL6", f="G_IPHFT6"},
+  G_IPHWL7 = {t="G_IPHWL7", f="G_IPHFT7"},
+  G_IPHWL8 = {t="G_IPHWL8", f="G_IPHFT8"},
+  G_IPHWL9 = {t="G_IPHWL9", f="G_IPHFT3"},
+  G_IPHWLA = {t="G_IPHWLA", f="G_IPHFT5"},
+  G_IPHWLB = {t="G_IPHWLB", f="G_IPHFT8"},
+  -- flats
+  G_IPHFT1 = {t="G_IPHWL1", f="G_IPHFT1"},
+  G_IPHFT2 = {t="G_IPHWL2", f="G_IPHFT2"},
+  G_IPHFT3 = {t="G_IPHWL3", f="G_IPHFT3"},
+  G_IPHFT4 = {t="G_IPHWL5", f="G_IPHFT4"},
+  G_IPHFT5 = {t="G_IPHWL6", f="G_IPHFT5"},
+  G_IPHFT6 = {t="G_IPHWL8", f="G_IPHFT6"},
+  G_IPHFT7 = {t="G_IPHWL9", f="G_IPHFT7"},
+  G_IPHFT8 = {t="G_IPHWLB", f="G_IPHFT8"},
 
   ----------------------
   -- Special Textures --
@@ -2611,12 +2710,12 @@ brightmap texture GRNSTONE
 }
 
 // SD stuff
-brightmap texture SDOM_WL2
+brightmap texture G_OM_WL2
 {
   map SDMWL2BR
 }
 
-brightmap texture SDOM_WL5
+brightmap texture G_OM_WL5
 {
   map SDMWL5BR
 }
@@ -2866,22 +2965,6 @@ brightmap texture SDHCCBWC
   map SDHCCBRC
 }
 
-// iStuff wall brightmaps
-brightmap texture SDIPHWL2
-{
-  map SDIPHBR2
-}
-
-brightmap texture SDIPHWL5
-{
-  map SDIPHBR5
-}
-
-brightmap texture SDIPHWL9
-{
-  map SDIPHBR9
-}
-
 brightmap texture SDSLDWL1
 {
   map SDSLDBR1
@@ -2956,8 +3039,8 @@ OBS_RESOURCE_PACK_TEXTURE_SET_ALIASES =
   {
     materials =
     {
-      "SDOM_WL1", "SDOM_WL2", "SDOM_WL3", 
-      "SDOM_WL4", "SDOM_WL5", "SDOM_WL6"
+      "G_OM_WL1", "G_OM_WL2", "G_OM_WL3", 
+      "G_OM_WL4", "G_OM_WL5", "G_OM_WL6"
     }
   },
 
@@ -2965,7 +3048,7 @@ OBS_RESOURCE_PACK_TEXTURE_SET_ALIASES =
   {
     materials =
     {
-      "SDOM_FT1", "SDOM_FT2", "SDOM_FT3", "SDOM_FT4"
+      "G_OM_FT1", "G_OM_FT2", "G_OM_FT3", "G_OM_FT4"
     }
   }
 }
